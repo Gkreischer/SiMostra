@@ -19,6 +19,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 import { ServicosComponent } from './servicos/servicos.component';
 import { ContatoComponent } from './contato/contato.component';
+import { RodapeComponent } from './rodape/rodape.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ContatoComponent } from './contato/contato.component';
     CarouselComponent,
     InfoempresaComponent,
     ServicosComponent,
-    ContatoComponent
+    ContatoComponent,
+    RodapeComponent
   ],
   providers: [],
   bootstrap: [ AppComponent ]
