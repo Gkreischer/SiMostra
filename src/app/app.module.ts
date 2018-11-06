@@ -13,10 +13,10 @@ import { AppComponent }         from './app.component';
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarouselComponent } from './carousel/carousel.component';
-
+import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { CarouselComponent } from './carousel/carousel.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    CarouselComponent
+    CarouselComponent,
+    InfoempresaComponent
   ],
   providers: [],
   bootstrap: [ AppComponent ]
