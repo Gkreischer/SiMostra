@@ -17,6 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
+import { ServicosComponent } from './servicos/servicos.component';
+import { ContatoComponent } from './contato/contato.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { InfoempresaComponent } from './infoempresa/infoempresa.component';
     AppComponent,
     NavbarComponent,
     CarouselComponent,
-    InfoempresaComponent
+    InfoempresaComponent,
+    ServicosComponent,
+    ContatoComponent
   ],
   providers: [],
   bootstrap: [ AppComponent ]
