@@ -3,8 +3,10 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
  */
-
- body {
+html {
+  width: 100%;
+}
+body {
   padding-top: 54px;
 }
 
@@ -14,6 +16,7 @@
   }
 }
 
+
 .carousel-item {
   height: 65vh;
   min-height: 300px;
@@ -22,6 +25,13 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+@media screen and (max-width: 787px){
+  .carousel-item {
+    height: 0;
+    min-height: 0;
+  }
 }
 
 .portfolio-item {

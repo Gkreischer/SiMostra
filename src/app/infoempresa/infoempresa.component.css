@@ -1,0 +1,13 @@
+@media screen and (max-width: 787px) {
+    img {
+        display: none;
+    }
+
+    h1 {
+        font-size: 36px!important;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        font-weight: bolder;
+    }
+}

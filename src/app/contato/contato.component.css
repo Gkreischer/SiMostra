@@ -17,4 +17,23 @@
 
 .container{
     animation: fadeIn 3s 0s linear;
+
+    /* Formato do elemento */
+    -webkit-border-radius: 200px 200px 0 0;/*Safari, Chrome*/
+    -moz-border-radius: 200px 200px 0 0;/*Firefox*/
+    border-radius: 200px 200px 0 0;
+
+    /* Gradiente */
+    background: -moz-linear-gradient(180deg, #1301FE 0, #42B4F6 100%);/* FF3.6+ */
+    background: -webkit-gradient(linear, 180deg, color-stop(0, 1301FE), color-stop(100%, 42B4F6));/* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(180deg, #1301FE 0, #42B4F6 100%);/* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(180deg, #1301FE 0, #42B4F6 100%);/* Opera 11.10+ */
+    background: -ms-linear-gradient(180deg, #1301FE 0, #42B4F6 100%);/* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1301FE', endColorstr='#F4F60C', GradientType='1'); /* for IE */
+    background: linear-gradient(180deg, #1301FE 0, #42B4F6 100%);/* W3C */
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: bolder;
 }

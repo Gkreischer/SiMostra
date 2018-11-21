@@ -1,3 +1,14 @@
 .img_carousel {
     width: 100% !important;
 }
+
+@media screen and (max-width: 787px) {
+    h3, p {
+        display: none;
+    }
+
+    .carousel-item {
+        height: 1vh!important;
+        min-height: 1vh!important;
+    }
+}

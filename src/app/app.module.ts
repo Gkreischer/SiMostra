@@ -20,6 +20,7 @@ import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 import { ServicosComponent } from './servicos/servicos.component';
 import { ContatoComponent } from './contato/contato.component';
 import { RodapeComponent } from './rodape/rodape.component';
+import { ParceirosComponent } from './parceiros/parceiros.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { RodapeComponent } from './rodape/rodape.component';
     InfoempresaComponent,
     ServicosComponent,
     ContatoComponent,
-    RodapeComponent
+    RodapeComponent,
+    ParceirosComponent
   ],
   providers: [],
   bootstrap: [ AppComponent ]
