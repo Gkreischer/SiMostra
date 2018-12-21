@@ -21,6 +21,7 @@ import { ServicosComponent } from './servicos/servicos.component';
 import { ContatoComponent } from './contato/contato.component';
 import { RodapeComponent } from './rodape/rodape.component';
 import { ParceirosComponent } from './parceiros/parceiros.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ParceirosComponent } from './parceiros/parceiros.component';
     ServicosComponent,
     ContatoComponent,
     RodapeComponent,
-    ParceirosComponent
+    ParceirosComponent,
+    NotFoundComponent
   ],
   providers: [],
   bootstrap: [ AppComponent ]
