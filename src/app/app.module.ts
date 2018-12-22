@@ -24,6 +24,7 @@ import { ParceirosComponent } from './parceiros/parceiros.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CatalogoComponent } from './loja/visitante/catalogo/catalogo.component';
 import { NavCatalogoComponent } from './loja/visitante/nav-catalogo/nav-catalogo.component';
+import { ProdutosComponent } from './loja/visitante/produtos/produtos.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { NavCatalogoComponent } from './loja/visitante/nav-catalogo/nav-catalogo
     ParceirosComponent,
     NotFoundComponent,
     CatalogoComponent,
-    NavCatalogoComponent
+    NavCatalogoComponent,
+    ProdutosComponent
   ],
   providers: [],
   bootstrap: [ AppComponent ]
