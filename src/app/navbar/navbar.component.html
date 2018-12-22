@@ -8,9 +8,19 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/produtos"><button class="btn btn-primary">NOSSOS PRODUTOS</button></a>
+            <a class="nav-link" (click)="redirecionaParaLoja()" routerLink="/catalogo"><button class="btn btn-primary">{{tituloBotaoRedirecionamento}}</button></a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  <div *ngIf="exibeHome">
+      <app-carousel></app-carousel>
+      <app-infoempresa></app-infoempresa>
+      <app-servicos></app-servicos>
+      <app-contato></app-contato>
+      <app-rodape></app-rodape>
+  </div>
+<div *ngIf="!exibeHome">
+  <router-outlet></router-outlet>
+</div>
