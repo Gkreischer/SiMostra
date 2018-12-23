@@ -1,7 +1,10 @@
-import { NgModule }       from '@angular/core';
+import { NgModule, LOCALE_ID }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
@@ -26,6 +29,7 @@ import { CatalogoComponent } from './loja/visitante/catalogo/catalogo.component'
 import { NavCatalogoComponent } from './loja/visitante/nav-catalogo/nav-catalogo.component';
 import { ProdutosComponent } from './loja/visitante/produtos/produtos.component';
 
+registerLocaleData(localePt);
 
 @NgModule({
   imports: [
@@ -33,9 +37,6 @@ import { ProdutosComponent } from './loja/visitante/produtos/produtos.component'
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
     NgbModule
   ],
   declarations: [
@@ -52,7 +53,9 @@ import { ProdutosComponent } from './loja/visitante/produtos/produtos.component'
     NavCatalogoComponent,
     ProdutosComponent
   ],
-  providers: [],
+  providers: [
+    {provide: LOCALE_ID, useValue: 'pt'}
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

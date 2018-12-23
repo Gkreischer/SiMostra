@@ -1,12 +1,14 @@
 <div class="container">
   <div class="row">
-      <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
+    <div class="col-12">
+      <div *ngFor="let peca of pecas" class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{peca.imagem}}" alt="Card image cap">
+        <div class="card-body pb-0">
+          <h5 class="card-title">{{peca.nome}}</h5>
+          <p class="card-text"><strong>Detalhes: </strong>{{peca.detalhes}}</p>
+          <p class="text-muted">{{peca.updatedAt | date}}</p>
         </div>
+      </div>
+    </div>
   </div>
 </div>

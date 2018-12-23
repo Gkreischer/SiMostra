@@ -5,6 +5,9 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "nome": {
       "type": "string",
@@ -18,8 +21,12 @@
       "type": "string",
       "required": true
     },
-    "preco": {
+    "categoria": {
       "type": "string",
+      "required": "true"
+    },
+    "preco": {
+      "type": "number",
       "required": true
     },
     "detalhes": {
