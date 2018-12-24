@@ -1,10 +1,16 @@
 <div class="container">
-  <div class="row">
+  <div *ngIf="msg" class="row text-center text-white align-self-center">
+    <div class="col-12">
+      <h4>{{msg}}</h4>
+    </div>
+  </div>
+  <div *ngIf="pecas" class="row">
     <div class="col-12 d-flex justify-content-center">
-      <div *ngFor="let peca of pecas" class="card" style="width: 18rem;">
+      <div *ngFor="let peca of pecas" class="card  mx-3" style="width: 18rem;">
         <img class="card-img-top" src="{{peca.imagem}}" alt="Card image cap">
         <div class="card-body pb-0">
           <h5 class="card-title">{{peca.nome}}</h5>
+          <p><strong>Preço: {{peca.preco}}</strong></p>
           <p class="card-text"><strong>Detalhes: </strong>{{peca.detalhes}}</p>
           <p class="text-muted">{{peca.updatedAt | date}}</p>
         </div>

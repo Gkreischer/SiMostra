@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Login } from './../../compartilhados/login';
 
@@ -11,7 +12,8 @@ import { Login } from './../../compartilhados/login';
 })
 export class NavCatalogoComponent implements OnInit {
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder) { }
+  constructor(private modalService: NgbModal, private fb: FormBuilder,
+              private router: Router) { }
 
   ngOnInit() {
     this.montaForm();
@@ -29,7 +31,9 @@ export class NavCatalogoComponent implements OnInit {
 
   enviaForm(usuario: string, senha: string){
   this.login = this.formLogin.value;
-  console.log(this.login);
+  if(this.login.email === 'admin' && this.login.senha === 'password'){
+    this.router.navigate(['/cadastropeca']);
+  }
   }
 
   abreModalPainelAdm(conteudo){

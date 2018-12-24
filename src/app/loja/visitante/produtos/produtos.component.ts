@@ -16,11 +16,17 @@ export class ProdutosComponent implements OnInit {
 
   pecas: Peca[] = null;
   erro;
+  msg: string;
 
-  lePecas(){
+  lePecas() {
     this.crud.leRegistro('/produtos').subscribe((data) => {
-      this.pecas = data;
-      console.table(this.pecas);
+      console.log(data);
+      if (data.length == 0) {
+        this.msg = 'Você não tem peças cadastradas';
+      } else {
+        this.pecas = data;
+        console.table(this.pecas);
+      }
     }, error => {
       this.erro = error;
     });
