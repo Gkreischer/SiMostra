@@ -30,7 +30,33 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">Admin</button>
+      <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit" (click)="abreModalPainelAdm(conteudo)">Admin</button>
     </form>
   </div>
 </nav>
+
+<ng-template #conteudo let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Login</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formLogin" (ngSubmit)="enviaForm()">
+      <div class="form-group">
+        <label id="email">Email</label>
+        <input class="form-control" type="text" id="email" placeholder="Seu email" formControlName="email">
+        <small id="emailHelp" class="form-text text-muted">Nós nunca compartilharemos seu email</small>
+      </div>
+      <div class="form-group">
+        <label id="senha">Senha</label>
+        <input class="form-control" type="password" id="senha" placeholder="Sua senha" formControlName="senha">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="enviaForm()">Login</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+  </div>
+</ng-template>
