@@ -1,5 +1,4 @@
 <div class="container">
-
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -12,7 +11,7 @@
               <div class="col-4">
                 <div class="form-group">
                   <label for="nome">Nome da Peça</label>
-                  <input class="form-control" id="nome" type="text" formControlName="processador">
+                  <input class="form-control" id="nome" type="text" formControlName="nome">
                 </div>
               </div>
               <div class="col-4">
@@ -32,7 +31,7 @@
                       <option value="3">Three</option>
                     </select>
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button">Adicionar</button>
+                      <button class="btn btn-outline-secondary" (click)="exibeModalCadastroCategoria(cadastroCategoriaModal)" type="button">Adicionar</button>
                     </div>
                   </div>
                 </div>
@@ -73,4 +72,25 @@
     </div>
   </div>
 </div>
+<ng-template #cadastroCategoriaModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Cadastrar categoria</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formCategoria" (ngSubmit)="cadastraCategoria()">
+      <div class="form-group">
+        <label id="categoria">Categoria</label>
+        <input class="form-control" type="text" id="categoria" formControlName="categoria">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+  </div>
+</ng-template>
 <app-nav-catalogo></app-nav-catalogo>
+

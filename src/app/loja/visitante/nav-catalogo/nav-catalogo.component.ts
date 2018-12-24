@@ -13,7 +13,7 @@ import { Login } from './../../compartilhados/login';
 export class NavCatalogoComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private fb: FormBuilder,
-              private router: Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.montaForm();
@@ -22,24 +22,24 @@ export class NavCatalogoComponent implements OnInit {
   formLogin: FormGroup;
   login: Login;
 
-  montaForm(){
+  montaForm() {
     this.formLogin = this.fb.group({
       email: ['', Validators.required],
       senha: ['', Validators.required]
     });
   }
 
-  enviaForm(usuario: string, senha: string){
-  this.login = this.formLogin.value;
-  if(this.login.email === 'admin' && this.login.senha === 'password'){
-    this.router.navigate(['/cadastropeca']);
-  }
+  enviaForm(usuario: string, senha: string) {
+    this.login = this.formLogin.value;
+    if (this.login.email === 'admin' && this.login.senha === 'password') {
+      this.router.navigate(['/cadastropeca']);
+    }
   }
 
-  abreModalPainelAdm(conteudo){
+  abreModalPainelAdm(conteudo) {
     this.modalService.open(conteudo, { centered: true });
   }
 
-  
+
 
 }
