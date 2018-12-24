@@ -16,20 +16,19 @@ export class CdpecaComponent implements OnInit {
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private crud: CrudService) {
     document.body.style.background = 'linear-gradient(to bottom, #aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%)';
-
-    this.leCategorias();
   }
 
   formCadastroPeca: FormGroup = null;
   dadosPeca: PecaParaCadastro;
 
   formCategoria: FormGroup = null;
-  categorias: Observable<Categoria[]>;
+  categorias = [];
 
   erro;
+  msg: string;
   ngOnInit() {
     this.montaForm();
-    
+    this.leCategorias();
   }
 
   montaForm() {
@@ -43,36 +42,39 @@ export class CdpecaComponent implements OnInit {
     });
 
     this.formCategoria = this.fb.group({
-      categorias: ''
+      categoria: ['',Validators.required]
     });
 
   }
 
   enviaForm() {
     this.dadosPeca = this.formCadastroPeca.value;
-    console.log(this.dadosPeca);
+    console.table(this.dadosPeca);
+    
+    this.crud.criaRegistro('/produtos', this.dadosPeca).subscribe((data) => {
+      this.msg = 'Peca criada com sucesso';
+      console.log('Peca criada com sucesso');
+    }, error => {
+      this.erro = error;
+    });
   }
 
-  leCategorias(){
-    this.crud.leRegistro('/categoria').subscribe((data) => {
-      this.categorias = data;
+  leCategorias() {
+    this.crud.leRegistro('/categoria').subscribe((categorias) => {
+      this.categorias = categorias;
     }, error => {
       this.erro = error;
     });
   }
 
   cadastraCategoria() {
-    this.categorias = this.formCategoria.value;
-    console.log(`Enviando a categoria ${this.categorias} para o servidor`);
-
-    this.crud.criaRegistro('/categoria', this.categorias).subscribe((data) => {
-      console.log('Categoria criada com sucesso');
-      this.categorias = data;
-      console.log(this.categorias);
+    this.crud.criaRegistro('/categoria', this.formCategoria.value).subscribe((data) => {
+      console.log('Categoria adicionada globalmente');
+      this.categorias.push(this.formCategoria.value);
+      this.modalService.dismissAll();
     }, error => {
       this.erro = error;
     });
-    console.log(this.categorias);
   }
 
   exibeModalCadastroCategoria(cadastroCategoriaModal) {

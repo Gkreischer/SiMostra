@@ -24,9 +24,9 @@
                 <div class="form-group">
                   <label>Categoria</label>
                   <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect04">
-                      <option selected>Choose...</option>
-                      <option *ngFor="let categoria of categorias" [value]="categoria.categoria">{{categoria.categoria}}</option>
+                    <select *ngIf="categorias" class="form-control" formControlName="categoria" id="inputGroupSelect04">
+                      <option value="" selected>-- Selecione --</option>
+                      <option [value]="categoria.categoria" *ngFor="let categoria of categorias">{{categoria.categoria}}</option>
                     </select>
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" (click)="exibeModalCadastroCategoria(cadastroCategoriaModal)" type="button">Adicionar</button>
@@ -38,8 +38,8 @@
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
-                  <label for="linkImagem">Link da foto</label>
-                  <input class="form-control" type="text" id="linkImagem" formControlName="linkImagem">
+                  <label for="imagem">Link da foto</label>
+                  <input class="form-control" type="text" id="imagem" formControlName="linkImagem">
                 </div>
               </div>
             </div>
@@ -80,8 +80,8 @@
   <div class="modal-body">
     <form [formGroup]="formCategoria" (ngSubmit)="cadastraCategoria()">
       <div class="form-group">
-        <label id="categoria">Categoria</label>
-        <input class="form-control" type="text" id="categoria" formControlName="categorias">
+        <label id="categoriaModal">Categoria</label>
+        <input class="form-control" type="text" id="categoriaModal" formControlName="categoria">
       </div>
     </form>
   </div>

@@ -13,7 +13,7 @@
       "type": "string",
       "required": true
     },
-    "imagem": {
+    "linkImagem": {
       "type": "string",
       "required": true
     },

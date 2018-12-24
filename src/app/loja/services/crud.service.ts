@@ -22,7 +22,7 @@ export class CrudService {
 
   criaRegistro(rota:string, form):Observable<any>{
     return this.http.put(this.URL_DEFAULT + rota, form).pipe(
-      tap(data => { return data}),
+      tap(data => { return data || []}),
       catchError(this.handleError)
     );
   }

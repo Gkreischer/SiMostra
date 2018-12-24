@@ -32,7 +32,10 @@ export class NavCatalogoComponent implements OnInit {
   enviaForm(usuario: string, senha: string) {
     this.login = this.formLogin.value;
     if (this.login.email === 'admin' && this.login.senha === 'password') {
-      this.router.navigate(['/cadastropeca']);
+      this.router.navigate(['/cadastropeca']).then(() => {
+        this.modalService.dismissAll();
+      });
+
     }
   }
 
