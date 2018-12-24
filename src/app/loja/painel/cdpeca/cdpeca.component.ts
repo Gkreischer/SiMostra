@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PecaParaCadastro } from './../../compartilhados/cadastroPeca';
+import { CrudService } from './../../services/crud.service';
 
 @Component({
   selector: 'app-cdpeca',
@@ -10,7 +11,8 @@ import { PecaParaCadastro } from './../../compartilhados/cadastroPeca';
 })
 export class CdpecaComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private modalService: NgbModal) {
+  constructor(private fb: FormBuilder, private modalService: NgbModal,
+              private crud: CrudService) {
     document.body.style.background = 'linear-gradient(to bottom, #aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%)';
 
     this.montaForm();
@@ -21,6 +23,8 @@ export class CdpecaComponent implements OnInit {
 
    formCategoria: FormGroup = null;
    categoria;
+
+   erro;
   ngOnInit() {
   }
 
@@ -45,8 +49,22 @@ export class CdpecaComponent implements OnInit {
     console.log(this.dadosPeca);
   }
 
+  cadastraCategoria() {
+    this.categoria = this.formCategoria.value;
+
+    this.crud.criaRegistro('/categoria', this.categoria).subscribe((data) => {
+      console.log('Categoria criada com sucesso');
+      this.categoria = data;
+    }, error => {
+      this.erro = error;
+    });
+    console.log(this.categoria);
+  }
+
   exibeModalCadastroCategoria(cadastroCategoriaModal){
     this.modalService.open(cadastroCategoriaModal, { centered: true });
   }
+
+
 
 }

@@ -14,8 +14,14 @@ export class CrudService {
   URL_DEFAULT:string = 'http://localhost:3000/api';
 
   leRegistro(rota: string):Observable<any>{
-    console.log(this.URL_DEFAULT + rota);
     return this.http.get(this.URL_DEFAULT + rota).pipe(
+      tap(data => { return data}),
+      catchError(this.handleError)
+    );
+  }
+
+  criaRegistro(rota:string, form):Observable<any>{
+    return this.http.put(this.URL_DEFAULT + rota, form).pipe(
       tap(data => { return data}),
       catchError(this.handleError)
     );

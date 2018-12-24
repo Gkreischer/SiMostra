@@ -17,5 +17,9 @@
   "produto": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "categoria": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }
