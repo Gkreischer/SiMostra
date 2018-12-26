@@ -42,7 +42,7 @@ registerLocaleData(localePt);
     HttpClientModule,
     NgProgressModule.forRoot(),
     NgProgressHttpClientModule,
-    NgbModule,
+    NgbModule.forRoot(),
     ReactiveFormsModule
   ],
   declarations: [
