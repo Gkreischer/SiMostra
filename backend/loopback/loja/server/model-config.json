@@ -9,16 +9,37 @@
     "mixins": [
       "loopback/common/mixins",
       "loopback/server/mixins",
-      "../node_modules/loopback-ds-timestamp-mixin",
       "../common/mixins",
       "./mixins"
     ]
   },
-  "produto": {
+  "User": {
+    "dataSource": "mongodb"
+  },
+  "AccessToken": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "mongodb",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "categoria": {
     "dataSource": "mongodb",
     "public": true
   },
-  "categoria": {
+  "produto": {
     "dataSource": "mongodb",
     "public": true
   }
