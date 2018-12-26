@@ -42,5 +42,9 @@
   "produto": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "Customer": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }
