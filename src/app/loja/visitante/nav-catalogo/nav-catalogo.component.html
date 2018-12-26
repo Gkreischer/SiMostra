@@ -41,17 +41,17 @@
     <form [formGroup]="formLogin" (ngSubmit)="enviaForm()">
       <div class="form-group">
         <label id="email">Email</label>
-        <input class="form-control" type="text" id="email" placeholder="Seu email" formControlName="email">
+        <input class="form-control" type="text" id="email" placeholder="Seu email" formControlName="username">
         <small id="emailHelp" class="form-text text-muted">Nós nunca compartilharemos seu email</small>
       </div>
       <div class="form-group">
         <label id="senha">Senha</label>
-        <input class="form-control" type="password" id="senha" placeholder="Sua senha" formControlName="senha">
+        <input class="form-control" type="password" id="senha" placeholder="Sua senha" formControlName="password">
       </div>
     </form>
   </div>
-  <div *ngIf="msg" class="alert alert-danger text-center" role="alert">
-    {{msg}}
+  <div *ngIf="erro" class="alert alert-danger text-center" role="alert">
+    {{erro}}
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="enviaForm()">Login</button>
