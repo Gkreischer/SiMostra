@@ -3,6 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
+
+import { Login } from './../compartilhados/login';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +13,48 @@ import { Observable } from 'rxjs';
 export class LoginService {
 
   URL_DEFAULT:string = 'http://localhost:3000/api/Customers';
+  token = null;
 
   constructor(private http: HttpClient) { }
 
   login(form){
     console.log(form);  
-    return this.http.post(this.URL_DEFAULT + '/login', form).pipe(
-      catchError(this.handleError)
+    return this.http.post<Login>(this.URL_DEFAULT + '/login', form).pipe(
+      tap(
+        (data) => {return this.setaSessao(data.id, data.ttl)},
+        catchError(this.handleError)
+      )
     );
+  }
+
+  private setaSessao(token, expiracao){
+    const expira = expiracao;
+
+    console.log(token);
+    console.log(expira);
+
+
+    localStorage.setItem('id_token', token);
+    localStorage.setItem("expira_em", JSON.stringify(expira.valueOf()));
+  }
+
+  logout(){
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expira_em");
+  }
+
+  public estaLogado() {
+    return moment().isBefore(this.leExpiracao());
+  }
+
+  naoEstaLogado() {
+    return !this.estaLogado();
+  }
+
+  leExpiracao(){
+    const expiracao = localStorage.getItem("expira_em");
+    const expiraEm = JSON.parse(expiracao);
+    return moment(expiraEm);
   }
 
   // Tratamento de erro
