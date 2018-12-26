@@ -1,3 +1,4 @@
+<ng-progress></ng-progress>
 <div class="container">
   <div *ngIf="msg" class="row text-center text-white align-self-center">
     <div class="col-12">
@@ -6,13 +7,15 @@
   </div>
   <div *ngIf="pecas" class="row">
     <div class="col-12 d-flex justify-content-center">
-      <div *ngFor="let peca of pecas" class="card  mx-3" style="width: 18rem;">
-        <img class="card-img-top" src="{{peca.linkImagem}}" alt="Card image cap">
+      <div *ngFor="let peca of pecas" class="card mx-3" style="width: 11rem;">
+        <div class="card-header text-center lead">{{peca.categoria}}</div>
+        <img class="card-img-top" src="{{peca.linkImagem}}" alt="{{peca.detalhes}}">
         <div class="card-body pb-0">
           <h5 class="card-title">{{peca.nome}}</h5>
+          <p><strong>Marca: </strong>{{peca.marca}}</p>
           <p><strong>Preço: {{peca.preco}}</strong></p>
           <p class="card-text"><strong>Detalhes: </strong>{{peca.detalhes}}</p>
-          <p class="text-muted">{{peca.updatedAt | date}}</p>
+          <p class="text-muted"><small>{{peca.updatedAt | date}}</small></p>
         </div>
       </div>
     </div>

@@ -10,6 +10,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
 import { AppRoutingModule }     from './app-routing.module';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
 
 import { AppComponent }         from './app.component';
 
@@ -38,6 +40,8 @@ registerLocaleData(localePt);
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgProgressModule.forRoot(),
+    NgProgressHttpClientModule,
     NgbModule,
     ReactiveFormsModule
   ],

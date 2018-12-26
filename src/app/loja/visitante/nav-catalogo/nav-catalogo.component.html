@@ -8,23 +8,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <button class="btn btn-primary" routerLink="/catalogo" routerLinkActive="active">Catálogo</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Faça seu orçamento</a>
+        <button class="btn btn-primary">Monte seu Orçamento</button>
       </li>
-      <li class="nav-item dropup">
-        <div class="dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+      <li class="nav-item">
+        <div ngbDropdown>
+          <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle>Peças</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+            <button class="dropdown-item" routerLink="/cadastropeca" routerLinkActive="active">Cadastrar</button>
+            <button class="dropdown-item">Editar</button>
+            <button class="dropdown-item">Excluir</button>
+          </div>
         </div>
       </li>
     </ul>
@@ -53,6 +49,9 @@
         <input class="form-control" type="password" id="senha" placeholder="Sua senha" formControlName="senha">
       </div>
     </form>
+  </div>
+  <div *ngIf="msg" class="alert alert-danger text-center" role="alert">
+    {{msg}}
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="enviaForm()">Login</button>

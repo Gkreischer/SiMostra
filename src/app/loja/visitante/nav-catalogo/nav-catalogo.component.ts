@@ -5,15 +5,20 @@ import { Router } from '@angular/router';
 
 import { Login } from './../../compartilhados/login';
 
+import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-nav-catalogo',
   templateUrl: './nav-catalogo.component.html',
-  styleUrls: ['./nav-catalogo.component.css']
+  styleUrls: ['./nav-catalogo.component.css'],
+  providers: [NgbDropdownConfig]
 })
 export class NavCatalogoComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private fb: FormBuilder,
-    private router: Router) { }
+    private router: Router, config: NgbDropdownConfig) {
+      config.placement = 'top-left';
+     }
 
   ngOnInit() {
     this.montaForm();
@@ -21,6 +26,8 @@ export class NavCatalogoComponent implements OnInit {
 
   formLogin: FormGroup;
   login: Login;
+
+  msg: string = null;
 
   montaForm() {
     this.formLogin = this.fb.group({
@@ -35,7 +42,8 @@ export class NavCatalogoComponent implements OnInit {
       this.router.navigate(['/cadastropeca']).then(() => {
         this.modalService.dismissAll();
       });
-
+    } else {
+      this.msg = 'Dados incorretos para login. Verifique sua senha.';
     }
   }
 
