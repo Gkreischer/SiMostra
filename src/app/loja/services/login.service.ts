@@ -41,10 +41,11 @@ export class LoginService {
   logout(){
     localStorage.removeItem("id_token");
     localStorage.removeItem("expira_em");
+    return console.log('Usuario deslogado');
   }
 
   public estaLogado() {
-    return moment().isBefore(this.leExpiracao());
+    return localStorage.getItem('id_token');
   }
 
   naoEstaLogado() {

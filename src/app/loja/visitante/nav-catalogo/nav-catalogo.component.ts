@@ -18,6 +18,14 @@ export class NavCatalogoComponent implements OnInit {
   constructor(private modalService: NgbModal, private fb: FormBuilder,
     private router: Router, config: NgbDropdownConfig, private loginService: LoginService) {
       config.placement = 'top-left';
+      let token = this.loginService.estaLogado();
+
+      if(token){
+        console.log('Token armazenado localmente');
+        this.eAdministrador = true;
+      }else {
+        console.log('Usuario nao logado.')
+      }
      }
 
   ngOnInit() {
@@ -26,6 +34,7 @@ export class NavCatalogoComponent implements OnInit {
 
   formLogin: FormGroup;
   dadosUsuario: Login;
+  eAdministrador: boolean = false;
 
   msg: string = null;
   erro = null;
@@ -43,14 +52,21 @@ export class NavCatalogoComponent implements OnInit {
     this.loginService.login(this.dadosUsuario).subscribe((data) => {
       console.log(`Usuario autenticado ${JSON.stringify(data)}`);
       this.modalService.dismissAll();
+      this.eAdministrador = true;
     }, error => {
       this.erro = error;
       console.log(`Erro na autenticação ${this.erro}`);
+      this.eAdministrador = false;
     });
   }
 
   abreModalPainelAdm(conteudo) {
     this.modalService.open(conteudo, { centered: true });
+  }
+
+  deslogar(){
+    this.loginService.logout();
+    this.eAdministrador = false;
   }
 
 
