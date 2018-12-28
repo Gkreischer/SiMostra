@@ -30,7 +30,8 @@
                       <option [value]="categoria.categoria" *ngFor="let categoria of categorias">{{categoria.categoria}}</option>
                     </select>
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" (click)="exibeModalCadastroCategoria(cadastroCategoriaModal)" type="button">Adicionar</button>
+                      <button class="btn btn-outline-secondary" (click)="exibeModalCadastroCategoria(cadastroCategoriaModal)"
+                        type="button">Adicionar</button>
                     </div>
                   </div>
                 </div>
@@ -65,6 +66,20 @@
                 </div>
               </div>
             </div>
+            <div *ngIf="sucesso" class="row">
+              <div class="col-12">
+                <div class="alert alert-success" role="alert">
+                  {{msg}}
+                </div>
+              </div>
+            </div>
+            <div *ngIf="erro" class="row">
+              <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                  Não foi possivel cadastrar a peça. Algo errado aconteceu. {{erro}}
+                </div>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -92,4 +107,3 @@
   </div>
 </ng-template>
 <app-nav-catalogo></app-nav-catalogo>
-
