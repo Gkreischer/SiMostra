@@ -55,7 +55,7 @@ export class NavCatalogoComponent implements OnInit {
       this.eAdministrador = true;
     }, error => {
       this.erro = error;
-      console.log(`Erro na autenticação ${this.erro}`);
+      console.log(error);
       this.eAdministrador = false;
     });
   }

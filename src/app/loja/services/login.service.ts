@@ -22,8 +22,8 @@ export class LoginService {
     return this.http.post<Login>(this.URL_DEFAULT + '/login', form).pipe(
       tap(
         (data) => {return this.setaSessao(data.id, data.ttl)},
-        catchError(this.handleError)
-      )
+      ),
+      catchError(this.handleError)
     );
   }
 
@@ -58,7 +58,7 @@ export class LoginService {
     return moment(expiraEm);
   }
 
-  // Tratamento de erro
+    // Tratamento de erro
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

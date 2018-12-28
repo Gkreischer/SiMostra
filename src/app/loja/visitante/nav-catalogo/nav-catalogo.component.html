@@ -13,7 +13,7 @@
       <li class="nav-item">
         <button class="btn btn-primary">Monte seu Orçamento</button>
       </li>
-      <li class="nav-item">
+      <li *ngIf="eAdministrador" class="nav-item">
         <div ngbDropdown>
           <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle>Peças</button>
           <div ngbDropdownMenu aria-labelledby="dropdownConfig">
@@ -55,7 +55,7 @@
     {{erro}}
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="enviaForm()">Login</button>
+    <button type="button" class="btn btn-primary" [disabled]="!formLogin.valid" (click)="enviaForm()">Login</button>
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
   </div>
 </ng-template>
