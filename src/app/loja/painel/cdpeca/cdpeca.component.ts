@@ -24,8 +24,9 @@ export class CdpecaComponent implements OnInit {
   formCategoria: FormGroup = null;
   categorias = [];
 
+  sucesso: boolean = false;
   erro;
-  msg: string;
+  msg: string = null;
   ngOnInit() {
     this.montaForm();
     this.leCategorias();
@@ -53,9 +54,11 @@ export class CdpecaComponent implements OnInit {
     
     this.crud.criaRegistro('/produtos', this.dadosPeca).subscribe((data) => {
       this.msg = 'Peca criada com sucesso';
+      this.sucesso = true;
       console.log('Peca criada com sucesso');
     }, error => {
       this.erro = error;
+      console.log('Erro ao criar a peça');
     });
   }
 

@@ -3,9 +3,11 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import localePt from '@angular/common/locales/pt';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AuthInterceptor } from './interceptors/auth.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
@@ -61,7 +63,12 @@ registerLocaleData(localePt);
     CdpecaComponent
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt'}
+    {provide: LOCALE_ID, useValue: 'pt'},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+     }
   ],
   bootstrap: [ AppComponent ]
 })

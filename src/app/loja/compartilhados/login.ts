@@ -1,4 +1,7 @@
 export interface Login {
     email: string;
-    senha: string;
+    username: string;
+    password: string;
+    id: string;
+    ttl: number;
 }

@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
 
   exibeHome: boolean = true;
   tituloBotaoRedirecionamento: string = 'Produtos';
-
+  isCollapsed = false;
 
   ngOnInit() {
     
