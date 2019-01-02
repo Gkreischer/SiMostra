@@ -14,6 +14,7 @@ import { InMemoryDataService }  from './in-memory-data.service';
 import { AppRoutingModule }     from './app-routing.module';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppComponent }         from './app.component';
 
@@ -45,7 +46,8 @@ registerLocaleData(localePt);
     NgProgressModule.forRoot(),
     NgProgressHttpClientModule,
     NgbModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   declarations: [
     AppComponent,

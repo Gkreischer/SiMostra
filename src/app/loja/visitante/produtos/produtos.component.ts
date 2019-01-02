@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CrudService } from './../../services/crud.service';
 import { Peca } from './../../compartilhados/peca';
 @Component({
@@ -18,6 +18,12 @@ export class ProdutosComponent implements OnInit {
   erro;
   msg: string;
 
+  p: number = 1;
+  itensPorPagina: number = 4;
+
+  alturaTela: number = null;
+  larguraTela: number = null;
+
   lePecas() {
     this.crud.leRegistro('/produtos').subscribe((data) => {
       console.log(data);
@@ -31,5 +37,6 @@ export class ProdutosComponent implements OnInit {
       this.erro = error;
     });
   }
+
 
 }

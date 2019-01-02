@@ -1,8 +1,8 @@
 {
-  "name": "angular-io-example",
+  "name": "simostra",
   "version": "1.0.0",
   "private": true,
-  "description": "Example project from an angular.io guide.",
+  "description": "Sistema de Mostruário",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -38,6 +38,7 @@
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "moment": "^2.23.0",
+    "ngx-pagination": "^3.2.1",
     "npm": "^6.5.0",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",

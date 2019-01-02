@@ -30,8 +30,7 @@
       "required": true
     },
     "detalhes": {
-      "type": "string",
-      "required": true
+      "type": "string"
     }
   },
   "validations": [],
