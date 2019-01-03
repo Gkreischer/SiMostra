@@ -9,19 +9,19 @@
         <div class="card-body">
           <form [formGroup]="formCadastroPeca" (ngSubmit)="enviaForm()">
             <div class="row">
-              <div class="col-4">
+              <div class="col-12 col-md-4">
                 <div class="form-group">
                   <label for="nome">Nome da Peça</label>
                   <input class="form-control" id="nome" type="text" formControlName="nome">
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-12 col-md-4">
                 <div class="form-group">
                   <label for="marca">Marca</label>
                   <input class="form-control" id="marca" type="text" formControlName="marca">
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-12 col-md-4">
                 <div class="form-group">
                   <label>Categoria</label>
                   <div class="input-group">
@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
+              <div class="col-12 col-md-12">
                 <div class="form-group">
                   <label for="imagem">Link da foto</label>
                   <input class="form-control" type="text" id="imagem" formControlName="linkImagem">
@@ -46,13 +46,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-3">
+              <div class="col-12 col-md-3">
                 <div class="form-group">
                   <label for="preco">Preço de Venda</label>
                   <input class="form-control" type="text" id="preco" formControlName="preco">
                 </div>
               </div>
-              <div class="col-9">
+              <div class="col-12 col-md-9">
                 <div class="form-group">
                   <label for="detalhes">Detalhes</label>
                   <textarea rows="5" class="form-control" id="detalhes" formControlName="detalhes"></textarea>
@@ -73,7 +73,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="erro" class="row">
+            <div *ngIf="erro" [hidden]="sucesso" class="row">
               <div class="col-12">
                 <div class="alert alert-danger" role="alert">
                   Não foi possivel cadastrar a peça. Algo errado aconteceu. {{erro}}
