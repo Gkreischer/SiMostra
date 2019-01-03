@@ -33,7 +33,7 @@
   </div>
   <div *ngIf="pecas" class="row">
     <div class="col-12 d-flex justify-content-center">
-      <pagination-controls (pageChange)="p = $event" previousLabel="Voltar" nextLabel="Avançar"></pagination-controls>
+      <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar" nextLabel="Avançar"></pagination-controls>
     </div>
   </div>
 </div>
