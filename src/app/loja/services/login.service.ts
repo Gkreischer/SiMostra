@@ -34,18 +34,18 @@ export class LoginService {
     console.log(expira);
 
 
-    localStorage.setItem('id_token', token);
-    localStorage.setItem("expira_em", JSON.stringify(expira.valueOf()));
+    sessionStorage.setItem('id_token', token);
+    sessionStorage.setItem("expira_em", JSON.stringify(expira.valueOf()));
   }
 
   logout(){
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("expira_em");
+    sessionStorage.removeItem("id_token");
+    sessionStorage.removeItem("expira_em");
     return console.log('Usuario deslogado');
   }
 
   public estaLogado() {
-    return localStorage.getItem('id_token');
+    return sessionStorage.getItem('id_token');
   }
 
   naoEstaLogado() {
@@ -53,7 +53,7 @@ export class LoginService {
   }
 
   leExpiracao(){
-    const expiracao = localStorage.getItem("expira_em");
+    const expiracao = sessionStorage.getItem("expira_em");
     const expiraEm = JSON.parse(expiracao);
     return moment(expiraEm);
   }
