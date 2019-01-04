@@ -34,6 +34,7 @@ import { CatalogoComponent } from './loja/visitante/catalogo/catalogo.component'
 import { NavCatalogoComponent } from './loja/visitante/nav-catalogo/nav-catalogo.component';
 import { ProdutosComponent } from './loja/visitante/produtos/produtos.component';
 import { CdpecaComponent } from './loja/painel/cdpeca/cdpeca.component';
+import { ListagemdepecasComponent } from './loja/painel/listagemdepecas/listagemdepecas.component';
 
 registerLocaleData(localePt);
 
@@ -62,7 +63,8 @@ registerLocaleData(localePt);
     CatalogoComponent,
     NavCatalogoComponent,
     ProdutosComponent,
-    CdpecaComponent
+    CdpecaComponent,
+    ListagemdepecasComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

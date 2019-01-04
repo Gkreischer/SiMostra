@@ -6,11 +6,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CatalogoComponent } from './loja/visitante/catalogo/catalogo.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CdpecaComponent } from './loja/painel/cdpeca/cdpeca.component';
+import { ListagemdepecasComponent } from './loja/painel/listagemdepecas/listagemdepecas.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'catalogo', component: CatalogoComponent},
   { path: 'cadastropeca', component: CdpecaComponent},
   { path: 'cadastropeca/:id', component: CdpecaComponent},
+  { path: 'listagemdepecas', component: ListagemdepecasComponent },
   { path: 'home', component: NavbarComponent },
   { path: '**', component: NotFoundComponent}
 ];
