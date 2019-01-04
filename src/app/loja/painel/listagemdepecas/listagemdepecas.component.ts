@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Peca } from './../../compartilhados/peca';
 import { CrudService } from './../../services/crud.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-listagemdepecas',
   templateUrl: './listagemdepecas.component.html',
@@ -8,7 +10,7 @@ import { CrudService } from './../../services/crud.service';
 })
 export class ListagemdepecasComponent implements OnInit {
 
-  constructor(private crud: CrudService) {
+  constructor(private crud: CrudService, private route: Router) {
     this.lePecas();
    }
 
@@ -34,6 +36,16 @@ export class ListagemdepecasComponent implements OnInit {
     }, error => {
       this.erro = error;
     });
+  }
+
+  editaPeca(event){
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(`Id da peca: ${id}`);
+
+    this.route.navigate([`/cadastropeca/${id}`]);
+
   }
 
 

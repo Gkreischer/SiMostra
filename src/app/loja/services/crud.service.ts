@@ -20,6 +20,13 @@ export class CrudService {
     );
   }
 
+  leRegistroEspecifico(rota: string, id: string): Observable<any>{
+    return this.http.get(this.URL_DEFAULT + rota + '/' + id).pipe(
+      tap(data => {return data}),
+      catchError(this.handleError)
+    );
+  }
+
   criaRegistro(rota:string, form):Observable<any>{
     return this.http.put(this.URL_DEFAULT + rota, form).pipe(
       tap(data => { return data || []}),

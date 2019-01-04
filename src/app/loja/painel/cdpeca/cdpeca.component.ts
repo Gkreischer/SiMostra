@@ -5,7 +5,7 @@ import { PecaParaCadastro } from './../../compartilhados/cadastroPeca';
 import { CrudService } from './../../services/crud.service';
 import { Observable } from 'rxjs';
 import { Categoria } from './../../compartilhados/categoria';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-cdpeca',
   templateUrl: './cdpeca.component.html',
@@ -14,7 +14,7 @@ import { Categoria } from './../../compartilhados/categoria';
 export class CdpecaComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
-    private crud: CrudService) {
+    private crud: CrudService, private router: ActivatedRoute) {
     document.body.style.background = 'linear-gradient(to bottom, #aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%)';
   }
 
@@ -27,9 +27,11 @@ export class CdpecaComponent implements OnInit {
   sucesso: boolean = false;
   erro;
   msg: string = null;
+  id: string = null;
   ngOnInit() {
     this.montaForm();
     this.leCategorias();
+    this.pegaIdEAtualizaForm();
   }
 
   montaForm() {
@@ -46,6 +48,24 @@ export class CdpecaComponent implements OnInit {
       categoria: ['',Validators.required]
     });
 
+  }
+
+  pegaIdEAtualizaForm(){
+    this.router.params.subscribe((params) => {
+      this.id = params.id;
+      if(this.id){
+        console.log(`Id recebido ${this.id}`);
+        this.crud.leRegistroEspecifico('/produtos', this.id).subscribe((data) => {
+          console.table(`Peca da id recebida ${data}`);
+          this.formCadastroPeca.patchValue(data);
+        }, error => {
+          this.erro = error;
+          console.log(this.erro);
+        });
+      } else {
+        console.log(`Nenhum id na rota`);
+      }
+    });
   }
 
   enviaForm() {
