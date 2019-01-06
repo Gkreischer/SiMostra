@@ -72,14 +72,25 @@ export class CdpecaComponent implements OnInit {
     this.dadosPeca = this.formCadastroPeca.value;
     console.table(this.dadosPeca);
     
-    this.crud.criaRegistro('/produtos', this.dadosPeca).subscribe((data) => {
-      this.msg = 'Peca criada com sucesso';
-      this.sucesso = true;
-      console.log('Peca criada com sucesso');
-    }, error => {
-      this.erro = error;
-      console.log('Erro ao criar a peça');
-    });
+    if(this.id){
+      this.crud.atualizaRegistro('/produtos', this.id, this.dadosPeca).subscribe((data) => {
+        this.msg = 'Peca atualizada com sucesso';
+        this.sucesso = true;
+        console.log('Peca atualizada');
+      }, error => {
+        this.erro = error;
+        console.log(`Erro ao atualizar a peca : ${this.erro}`);
+      })
+    } else {
+      this.crud.criaRegistro('/produtos', this.dadosPeca).subscribe((data) => {
+        this.msg = 'Peca criada com sucesso';
+        this.sucesso = true;
+        console.log('Peca criada com sucesso');
+      }, error => {
+        this.erro = error;
+        console.log('Erro ao criar a peça');
+      });
+    }
   }
 
   leCategorias() {

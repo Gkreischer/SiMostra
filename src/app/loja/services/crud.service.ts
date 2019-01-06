@@ -33,6 +33,20 @@ export class CrudService {
       catchError(this.handleError)
     );
   }
+
+  atualizaRegistro(rota: string, id: string, form): Observable<any> {
+    return this.http.patch(this.URL_DEFAULT + rota + '/' + id, form).pipe(
+      tap(data => { return data}),
+      catchError(this.handleError)
+    );
+  }
+
+  deletaRegistro(rota: string, id: string):Observable<any>{
+    return this.http.delete(this.URL_DEFAULT + rota + '/' + id).pipe(
+      tap(data => { return data}),
+      catchError(this.handleError)
+    );
+  }
   
   // Tratamento de erro
   handleError(error: HttpErrorResponse) {

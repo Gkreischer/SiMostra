@@ -12,7 +12,7 @@ export class ListagemdepecasComponent implements OnInit {
 
   constructor(private crud: CrudService, private route: Router) {
     this.lePecas();
-   }
+  }
 
   pecas: Peca[] = null;
 
@@ -38,7 +38,7 @@ export class ListagemdepecasComponent implements OnInit {
     });
   }
 
-  editaPeca(event){
+  editaPeca(event) {
     let target = event.target || event.srcElement || event.currentTarget;
     let id = target.attributes.id.value;
 
@@ -48,7 +48,29 @@ export class ListagemdepecasComponent implements OnInit {
 
   }
 
+  deletaPeca(event) {
+    let confirma = window.confirm('Você realmente deseja deletar o produto?');
 
-  
+    if (confirma) {
+      let target = event.target || event.srcElement || event.currentTarget;
+      let id = target.attributes.id.value;
+
+      this.crud.deletaRegistro('/produtos', id).subscribe((data) => {
+        for (let i = 0; i < this.pecas.length; i++) {
+          if (id === this.pecas[i].id) {
+            this.pecas.splice(i, 1);
+            console.table(this.pecas);
+          }
+        }
+      }, error => {
+        this.erro = error;
+        console.log(this.erro);
+      });
+    } else {
+      console.log('Operação deletar cancelada');
+    }
+  }
+
+
 
 }
