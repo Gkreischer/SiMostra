@@ -15,7 +15,7 @@
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "mongodb": "mongod --dbpath=./backend/mongodb",
     "loopback": "npm start --prefix ./backend/loopback",
-    "angular": "ng serve"
+    "angular": "ng serve --watch"
   },
   "keywords": [],
   "author": "",
