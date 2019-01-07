@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Peca } from './../../compartilhados/peca';
 import { CrudService } from './../../services/crud.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-listagemdepecas',
@@ -10,23 +11,31 @@ import { Router } from '@angular/router';
 })
 export class ListagemdepecasComponent implements OnInit {
 
-  constructor(private crud: CrudService, private route: Router) {
+  constructor(private crud: CrudService, private route: Router, public fb: FormBuilder) {
     this.lePecas();
   }
 
   pecas: Peca[] = null;
-
+  formVisibilidade: FormGroup = null;
+  visibilidade: boolean = null;
+  situacaoVisibilidadePecas = [];
   msg;
   erro;
 
   ngOnInit() {
     document.body.style.backgroundColor = '#007FC1';
+    this.montaForm();
+  }
+
+  montaForm() {
+    this.formVisibilidade = this.fb.group({
+      visivel: '', 
+    });
   }
 
 
   lePecas() {
     this.crud.leRegistro('/produtos').subscribe((data) => {
-      console.log(data);
       if (data.length == 0) {
         this.msg = 'Você não tem peças cadastradas';
       } else {
@@ -36,7 +45,14 @@ export class ListagemdepecasComponent implements OnInit {
     }, error => {
       this.erro = error;
     });
+    
   }
+
+  atualizaVisibilidade() {
+    console.log('Peça clicada');
+  }
+
+ 
 
   editaPeca(event) {
     let target = event.target || event.srcElement || event.currentTarget;

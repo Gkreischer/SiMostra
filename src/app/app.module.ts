@@ -8,9 +8,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './interceptors/auth.module';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
-
 import { AppRoutingModule }     from './app-routing.module';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
