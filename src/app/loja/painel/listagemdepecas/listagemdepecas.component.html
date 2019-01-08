@@ -28,7 +28,7 @@
                       <td>
                         <div class="form-group form-check">
                           <form [formGroup]="formVisibilidade" (ngSubmit)="enviaForm()">
-                            <input (change)="atualizaVisibilidade()" value="{{peca.visivel}}" type="checkbox" class="form-check-input"
+                            <input id="{{peca.id}}" (click)="atualizaVisibilidade($event)" value="{{peca.visivel}}" type="checkbox" class="form-check-input"
                               [checked]="peca.visivel" formControlName="visivel">
                           </form>
                         </div>

@@ -29,7 +29,7 @@ export class ListagemdepecasComponent implements OnInit {
 
   montaForm() {
     this.formVisibilidade = this.fb.group({
-      visivel: '', 
+      visivel: '',
     });
   }
 
@@ -45,14 +45,30 @@ export class ListagemdepecasComponent implements OnInit {
     }, error => {
       this.erro = error;
     });
-    
+
   }
 
-  atualizaVisibilidade() {
-    console.log('Peça clicada');
+  atualizaVisibilidade(event) {
+
+    let confirma = window.confirm('Deseja esconder esse produto do catálogo para os seus clientes?');
+
+    if (confirma) {
+      let target = event.target || event.srcElement || event.currentTarget;
+      let id = target.attributes.id.value;
+      let valor = target.attributes.value.value;
+
+      console.log(`Id da peca: ${id}`);
+      console.log(`Valor antes do click em visibilidade: ${valor}`);
+
+
+    } else {
+      console.log('Operação de visibilidade cancelada');
+      return false;
+    }
+
   }
 
- 
+
 
   editaPeca(event) {
     let target = event.target || event.srcElement || event.currentTarget;
