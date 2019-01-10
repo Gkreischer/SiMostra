@@ -4,27 +4,41 @@
   </div>
   <div class="row justify-content-center">
     <div class=" col-10 col-md-5">
-      <form>
+      <form [formGroup]=formContato (ngSubmit)="enviaMensagem()">
         <div class="form-group">
           <label>Nome</label>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" formControlName="nome" required>
         </div>
         <div class="form-group">
           <label>Telefone</label>
-          <input class="form-control" type="tel">
+          <input class="form-control" type="tel" formControlName="telefone" required>
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" formControlName="email" required>
         </div>
         <div class="form-group">
           <label>Mensagem</label>
-          <textarea class="form-control" rows="5"></textarea>
+          <textarea class="form-control" rows="5" formControlName="mensagem" required></textarea>
         </div>
         <div class="form-group text-center">
-          <button class="btn">Enviar</button>
+          <button [disabled]="!formContato.valid" class="btn">Enviar</button>
         </div>
       </form>
+    </div>
+  </div>
+  <div *ngIf="msg" [hidden]="erro" class="row text-center">
+    <div class="col-12">
+      <div class="alert alert-success" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="erro" [hidden]="msg" class="row text-center">
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert">
+        <p>Desculpe, algo errado aconteceu. Tente novamente mais tarde.</p>
+      </div>
     </div>
   </div>
 </div>

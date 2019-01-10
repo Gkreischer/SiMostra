@@ -19,6 +19,7 @@ export class ListagemdepecasComponent implements OnInit {
   formVisibilidade: FormGroup = null;
   visibilidade: boolean = null;
   situacaoVisibilidadePecas = [];
+  pecaConsultada:Peca = null;
   msg;
   erro;
 
@@ -48,7 +49,7 @@ export class ListagemdepecasComponent implements OnInit {
 
   }
 
-  atualizaVisibilidade(event) {
+  alteraVisibilidade(event) {
 
     let confirma = window.confirm('Deseja esconder esse produto do catálogo para os seus clientes?');
 
@@ -60,12 +61,32 @@ export class ListagemdepecasComponent implements OnInit {
       console.log(`Id da peca: ${id}`);
       console.log(`Valor antes do click em visibilidade: ${valor}`);
 
+      this.crud.leRegistroEspecifico('/produtos', id).subscribe((data) => {
+        this.pecaConsultada = data;
+
+        if(this.pecaConsultada.visivel){
+          this.pecaConsultada.visivel = false;
+        } else {
+          this.pecaConsultada.visivel = true;
+        }
+
+        console.log(`A peca consultada agora possui valor : ${this.pecaConsultada.visivel}`);
+
+        this.executaAtualizacaoVisibilidade(id, this.pecaConsultada);
+      });
+
 
     } else {
       console.log('Operação de visibilidade cancelada');
       return false;
     }
 
+  }
+
+  executaAtualizacaoVisibilidade(id, form){
+    this.crud.atualizaRegistro('/produtos', id, form).subscribe((data) => {
+      return console.log(data);
+    })
   }
 
 

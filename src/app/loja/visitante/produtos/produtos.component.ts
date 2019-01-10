@@ -21,7 +21,7 @@ export class ProdutosComponent implements OnInit {
   p: number = 1;
 
   lePecas() {
-    this.crud.leRegistro('/produtos').subscribe((data) => {
+    this.crud.leRegistroComFiltro('/produtos','visivel',true).subscribe((data) => {
       console.log(data);
       if (data.length == 0) {
         this.msg = 'Você não tem peças cadastradas';

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { dadosContato } from './../loja/compartilhados/dadosContato';
+import { CrudService } from '../loja/services/crud.service';
 
 @Component({
   selector: 'app-contato',
@@ -7,9 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContatoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private crud: CrudService) {
+    this.montaForm();
+   }
 
   ngOnInit() {
   }
+
+  formContato: FormGroup = null;
+  dadosDoContato: dadosContato;
+
+  erro: any;
+  msg: string;
+
+  montaForm(){
+    this.formContato = this.fb.group({
+      nome: ['', Validators.required],
+      telefone: ['', Validators.required],
+      email: ['', Validators.required],
+      mensagem: ['', Validators.required]
+    });
+  }
+
+  enviaMensagem(){
+    this.dadosDoContato = this.formContato.value;
+    this.crud.criaRegistro('/contatos', this.dadosDoContato).subscribe((data) => {
+      this.msg = 'Entraremos em contato o mais rápido possível. Obrigado!';
+    }, error => {
+      this.erro = error;
+    });
+  }
+
 
 }

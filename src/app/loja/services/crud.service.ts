@@ -20,6 +20,13 @@ export class CrudService {
     );
   }
 
+  leRegistroComFiltro(rota: string, propriedade: string, valor):Observable<any>{
+    return this.http.get(this.URL_DEFAULT + rota + `?filter[where][${propriedade}]=${valor}`).pipe(
+      tap((data) => {return data}),
+      catchError(this.handleError)
+    );
+  }
+
   leRegistroEspecifico(rota: string, id: string): Observable<any>{
     return this.http.get(this.URL_DEFAULT + rota + '/' + id).pipe(
       tap(data => {return data}),
