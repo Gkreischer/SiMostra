@@ -1,0 +1,42 @@
+<ng-progress></ng-progress>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card my-3">
+        <div class="card-header">
+          Lista de mensagens dos clientes
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover table-sm">
+              <thead class="thead-dark">
+                <th scope=col>Data</th>
+                <th scope=col>Nome</th>
+                <th scope=col>Telefone</th>
+                <th scope=col>Email</th>
+                <th scope=col>Mensagem</th>
+                <th scope=col>Ações</th>
+                <th scope=col>Situação</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mensagem of mensagens">
+                  <td scope="row">{{mensagem.createdAt | date:'short'}}</td>
+                  <td><b>{{mensagem.nome}}</b></td>
+                  <td>{{mensagem.telefone}}</td>
+                  <td>{{mensagem.email}}</td>
+                  <td>{{mensagem.mensagem}}</td>
+                  <td class="text-center align-middle">
+                    <button type="button" class="btn btn-warning btn-sm mb-1">Responder</button>
+                    <button type="button" class="btn btn-danger btn-sm">Deletar</button>
+                  </td>
+                  <td class="align-middle">{{mensagem.situacao}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-nav-catalogo></app-nav-catalogo>

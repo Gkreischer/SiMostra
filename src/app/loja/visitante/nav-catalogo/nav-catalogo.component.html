@@ -22,6 +22,9 @@
           </div>
         </div>
       </li>
+      <li *ngIf="eAdministrador" class="nav-item">
+        <button class="btn btn-primary" routerLink="/listamensagens">Mensagens</button>
+      </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
       <button *ngIf="!eAdministrador" class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit" (click)="abreModalPainelAdm(conteudo)">Admin</button>

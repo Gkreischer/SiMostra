@@ -24,6 +24,11 @@
     "mensagem": {
       "type": "string",
       "required": true
+    },
+    "situacao": {
+      "type": "string",
+      "required": true,
+      "default": "aguardando resposta"
     }
   },
   "validations": [],

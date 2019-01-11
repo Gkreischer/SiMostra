@@ -7,6 +7,7 @@ import { CatalogoComponent } from './loja/visitante/catalogo/catalogo.component'
 import { NavbarComponent } from './navbar/navbar.component';
 import { CdpecaComponent } from './loja/painel/cdpeca/cdpeca.component';
 import { ListagemdepecasComponent } from './loja/painel/listagemdepecas/listagemdepecas.component';
+import { ListamensagensComponent } from './loja/painel/listamensagens/listamensagens.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'cadastropeca', component: CdpecaComponent},
   { path: 'cadastropeca/:id', component: CdpecaComponent},
   { path: 'listagemdepecas', component: ListagemdepecasComponent },
+  { path: 'listamensagens', component: ListamensagensComponent},
   { path: 'home', component: NavbarComponent },
   { path: '**', component: NotFoundComponent}
 ];
