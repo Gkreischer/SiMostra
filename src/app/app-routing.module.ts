@@ -8,15 +8,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CdpecaComponent } from './loja/painel/cdpeca/cdpeca.component';
 import { ListagemdepecasComponent } from './loja/painel/listagemdepecas/listagemdepecas.component';
 import { ListamensagensComponent } from './loja/painel/listamensagens/listamensagens.component';
+import { PagInicialComponent } from './pag-inicial/pag-inicial.component';
+import { PagInicialLojaComponent } from './loja/pag-inicial-loja/pag-inicial-loja.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'catalogo', component: CatalogoComponent},
+  { path: 'catalogo', component: PagInicialLojaComponent},
   { path: 'cadastropeca', component: CdpecaComponent},
   { path: 'cadastropeca/:id', component: CdpecaComponent},
   { path: 'listagemdepecas', component: ListagemdepecasComponent },
   { path: 'listamensagens', component: ListamensagensComponent},
-  { path: 'home', component: NavbarComponent },
+  { path: 'home', component: PagInicialComponent },
   { path: '**', component: NotFoundComponent}
 ];
 
