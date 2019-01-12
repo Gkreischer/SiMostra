@@ -35,7 +35,7 @@
     "visivel": {
       "type": "boolean",
       "required": "false",
-      "default": "true"
+      "default": true
     }
   },
   "validations": [],

@@ -15,7 +15,6 @@ export class CdpecaComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private crud: CrudService, private router: ActivatedRoute) {
-    document.body.style.background = 'linear-gradient(to bottom, #aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%)';
   }
 
   formCadastroPeca: FormGroup = null;

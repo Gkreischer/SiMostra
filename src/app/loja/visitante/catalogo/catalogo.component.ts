@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class CatalogoComponent implements OnInit {
 
   constructor() {
-    document.body.style.background = 'linear-gradient(to bottom, #1e5799 0%,#207cca 81%,#2989d8 90%,#2989d8 90%,#7db9e8 100%)';
    }
 
   ngOnInit() {

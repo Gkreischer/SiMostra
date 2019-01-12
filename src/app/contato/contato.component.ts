@@ -29,7 +29,7 @@ export class ContatoComponent implements OnInit {
       telefone: ['', Validators.required],
       email: ['', Validators.required],
       mensagem: ['', Validators.required],
-      situacao: ['aguardando resposta', Validators.required]
+      situacao: ['', Validators.required]
     });
   }
 

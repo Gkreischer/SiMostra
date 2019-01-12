@@ -7,8 +7,4 @@
         display: none;
     }
 
-    .carousel-item {
-        height: 1vh!important;
-        min-height: 1vh!important;
-    }
 }
