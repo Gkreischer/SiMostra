@@ -4,4 +4,5 @@ export interface dadosContato {
     email: string;
     mensagem: string;
     situacao: string;
+    id: string;
 }

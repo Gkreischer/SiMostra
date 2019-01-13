@@ -7,7 +7,7 @@
           Lista de mensagens dos clientes
         </div>
         <div class="card-body">
-          <div class="table-responsive">
+          <div *ngIf="mensagens" class="table-responsive">
             <table class="table table-bordered table-striped table-hover table-sm">
               <thead class="thead-dark">
                 <th scope=col>Data</th>
@@ -26,13 +26,16 @@
                   <td>{{mensagem.email}}</td>
                   <td>{{mensagem.mensagem}}</td>
                   <td class="text-center align-middle">
-                    <button type="button" id={{mensagem.id}} (click)="abreModalRespostaEmail($event, conteudo)" class="btn btn-warning btn-sm mb-1">{{mensagemBotaoResposta}}</button>
-                    <button type="button" id={{mensagem.id}} class="btn btn-danger btn-sm">Deletar</button>
+                    <button type="button" id={{mensagem.id}} (click)="abreModalRespostaEmail($event, conteudo)" class="btn btn-warning btn-sm button_resposta">{{mensagemBotaoResposta}}</button>
+                    <button type="button" id={{mensagem.id}} (click)="deletaMensagem($event)" class="btn btn-danger btn-sm">Deletar</button>
                   </td>
                   <td class="align-middle">{{mensagem.situacao}}</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div *ngIf="!mensagens" class="alert alert-warning text-center" role="alert">
+            {{msg}}
           </div>
         </div>
       </div>

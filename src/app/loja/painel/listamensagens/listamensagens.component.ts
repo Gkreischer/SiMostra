@@ -18,6 +18,7 @@ export class ListamensagensComponent implements OnInit {
   id: string = null;
   mensagemBotaoResposta: string = 'Responder';
   erro;
+  msg: string = null;
   p: number = 1;
 
   ngOnInit() {
@@ -27,8 +28,12 @@ export class ListamensagensComponent implements OnInit {
 
   leMensagens() {
     this.crud.leRegistro('/contatos').subscribe((data) => {
-      this.mensagens = data;
-      console.table(this.mensagens);
+      if (data.length === 0) {
+        this.msg = 'Você não tem mensagens de contato.';
+      } else {
+        this.mensagens = data;
+        console.table(this.mensagens);
+      }
     }, error => {
       this.erro = error;
     });
@@ -44,12 +49,28 @@ export class ListamensagensComponent implements OnInit {
     this.crud.leRegistroEspecifico('/contatos', id).subscribe((data) => {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
-      this.modalService.open(conteudo, {centered: true});
+      this.modalService.open(conteudo, { centered: true });
     }, error => {
       this.erro = error;
     });
-    
-    
+
+  }
+
+  deletaMensagem(event) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(id);
+    this.crud.deletaRegistro('/contatos', id).subscribe((data) => {
+      console.log('Cliente deletado com sucesso.');
+      for (let i = 0; i < this.mensagens.length; i++) {
+        if (this.mensagens[i].id === id) {
+          this.mensagens.splice(i, 1);
+        }
+      }
+    }, error => {
+      console.log('ERRO: Não foi possível deletar a mensagem');
+    });
   }
 
 

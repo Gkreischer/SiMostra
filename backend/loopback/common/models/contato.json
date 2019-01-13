@@ -27,7 +27,6 @@
     },
     "situacao": {
       "type": "string",
-      "required": true,
       "default": "aguardando resposta"
     }
   },

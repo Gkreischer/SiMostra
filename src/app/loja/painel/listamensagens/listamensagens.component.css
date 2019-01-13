@@ -2,6 +2,16 @@
     .card {
         margin-bottom: 5em!important;
     }
+
+    .button_resposta {
+        margin-bottom: 3px;
+    }
+}
+
+@media screen and (min-width: 991px){
+    .button_resposta {
+        margin-right: 3px;
+    }
 }
 
 #mensagem_cliente_modal{
