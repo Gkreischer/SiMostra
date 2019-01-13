@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dadosContato } from './../../compartilhados/dadosContato';
 import { CrudService } from './../../services/crud.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-listamensagens',
@@ -9,10 +10,13 @@ import { CrudService } from './../../services/crud.service';
 })
 export class ListamensagensComponent implements OnInit {
 
-  constructor(private crud: CrudService) {
-   }
+  constructor(private crud: CrudService, private modalService: NgbModal) {
+  }
 
   mensagens: dadosContato[] = null;
+  infoClienteModal: dadosContato = null;
+  id: string = null;
+  mensagemBotaoResposta: string = 'Responder';
   erro;
   p: number = 1;
 
@@ -21,7 +25,7 @@ export class ListamensagensComponent implements OnInit {
     this.leMensagens();
   }
 
-  leMensagens(){
+  leMensagens() {
     this.crud.leRegistro('/contatos').subscribe((data) => {
       this.mensagens = data;
       console.table(this.mensagens);
@@ -29,5 +33,24 @@ export class ListamensagensComponent implements OnInit {
       this.erro = error;
     });
   }
+
+  abreModalRespostaEmail(event, conteudo) {
+
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(id);
+
+    this.crud.leRegistroEspecifico('/contatos', id).subscribe((data) => {
+      this.infoClienteModal = data;
+      console.table(this.infoClienteModal);
+      this.modalService.open(conteudo, {centered: true});
+    }, error => {
+      this.erro = error;
+    });
+    
+    
+  }
+
 
 }

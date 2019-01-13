@@ -26,8 +26,8 @@
                   <td>{{mensagem.email}}</td>
                   <td>{{mensagem.mensagem}}</td>
                   <td class="text-center align-middle">
-                    <button type="button" class="btn btn-warning btn-sm mb-1">Responder</button>
-                    <button type="button" class="btn btn-danger btn-sm">Deletar</button>
+                    <button type="button" id={{mensagem.id}} (click)="abreModalRespostaEmail($event, conteudo)" class="btn btn-warning btn-sm mb-1">{{mensagemBotaoResposta}}</button>
+                    <button type="button" id={{mensagem.id}} class="btn btn-danger btn-sm">Deletar</button>
                   </td>
                   <td class="align-middle">{{mensagem.situacao}}</td>
                 </tr>
@@ -45,3 +45,62 @@
   </div>
 </div>
 <app-nav-catalogo></app-nav-catalogo>
+
+<!-- Modal -->
+<ng-template #conteudo let-modal class="my-5">
+  <div class="modal-header">
+    <h4 class="modal-title">Resposta</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid px-0 mb-3">
+      <div class="row">
+        <div class="col-12">
+          <strong>Dados do cliente:</strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          {{infoClienteModal.nome}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          {{infoClienteModal.email}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <strong>Mensagem: </strong><span class="mensagem_cliente_modal">{{infoClienteModal.mensagem}}</span>
+        </div>
+      </div>
+    </div>
+    <form>
+      <div class="form-group">
+        <textarea rows="5" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="button">Responder</button>
+      </div>
+    </form>
+    <div class="container-fluid px-0">
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            Email enviado para o cliente.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-danger" role="alert">
+            Desculpe-nos, algo errado aconteceu...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
