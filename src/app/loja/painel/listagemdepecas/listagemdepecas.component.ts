@@ -24,6 +24,7 @@ export class ListagemdepecasComponent implements OnInit {
   erro;
 
   ngOnInit() {
+    window.document.body.style.backgroundColor = '#97CC04';
     this.montaForm();
   }
 

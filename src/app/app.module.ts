@@ -11,7 +11,7 @@ import { AuthInterceptor } from './interceptors/auth.module';
 import { AppRoutingModule }     from './app-routing.module';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent }         from './app.component';
 

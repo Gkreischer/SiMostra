@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-12">
-      <div class="card my-3">
+      <div class="card my-3 ">
         <div class="card-header">
           Lista de mensagens dos clientes
         </div>
@@ -19,7 +19,7 @@
                 <th scope=col>Situação</th>
               </thead>
               <tbody>
-                <tr *ngFor="let mensagem of mensagens">
+                <tr *ngFor="let mensagem of mensagens | paginate: { itemsPerPage: 5, currentPage: p } ">
                   <td scope="row">{{mensagem.createdAt | date:'short'}}</td>
                   <td><b>{{mensagem.nome}}</b></td>
                   <td>{{mensagem.telefone}}</td>
@@ -36,6 +36,11 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="mensagens" class="row">
+    <div class="col-12 d-flex justify-content-center" style="padding-left: 0px!important;">
+      <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar" nextLabel="Avançar"></pagination-controls>
     </div>
   </div>
 </div>

@@ -13,10 +13,11 @@ export class ListamensagensComponent implements OnInit {
    }
 
   mensagens: dadosContato[] = null;
-   erro;
-  
+  erro;
+  p: number = 1;
 
   ngOnInit() {
+    window.document.body.style.backgroundColor = '#474647';
     this.leMensagens();
   }
 

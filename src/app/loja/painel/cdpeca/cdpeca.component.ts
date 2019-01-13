@@ -15,6 +15,7 @@ export class CdpecaComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private crud: CrudService, private router: ActivatedRoute) {
+      window.document.body.style.backgroundColor = '#97CC04';
   }
 
   formCadastroPeca: FormGroup = null;
