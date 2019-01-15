@@ -12,6 +12,6 @@
     "name": "mongodb",
     "user": "",
     "connector": "mongodb",
-    "useNewUrlParser":"true"
+    "useNewUrlParser": "true"
   }
 }
