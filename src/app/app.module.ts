@@ -35,6 +35,7 @@ import { ListagemdepecasComponent } from './loja/painel/listagemdepecas/listagem
 import { ListamensagensComponent } from './loja/painel/listamensagens/listamensagens.component';
 import { PagInicialComponent } from './pag-inicial/pag-inicial.component';
 import { PagInicialLojaComponent } from './loja/pag-inicial-loja/pag-inicial-loja.component';
+import { ConfiguracoesComponent } from './loja/painel/configuracoes/configuracoes.component';
 
 registerLocaleData(localePt);
 
@@ -67,7 +68,8 @@ registerLocaleData(localePt);
     ListagemdepecasComponent,
     ListamensagensComponent,
     PagInicialComponent,
-    PagInicialLojaComponent
+    PagInicialLojaComponent,
+    ConfiguracoesComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

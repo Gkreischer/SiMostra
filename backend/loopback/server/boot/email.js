@@ -6,7 +6,6 @@ module.exports = function (enviaEmail) {
 
   enviaEmail.post('/enviaEmail', (req, res) => {
     var from = req.body.from;
-    var to = req.body.to;
     var msg = req.body.msg;
 
     // async..await is not allowed in global scope, must use a wrapper
@@ -29,11 +28,11 @@ module.exports = function (enviaEmail) {
 
       // setup email data with unicode symbols
       let mailOptions = {
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        from: `${from}`, // sender address
         to: "tewuqtajcawbq67b@ethereal.email", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: `<p>Essa é a mensagem: ${msg}</p>` // html body
+        subject: "Contato Sigatec Informática ✔", // Subject line
+        text: "Resposta", // plain text body
+        html: `<p>${msg}</p>` // html body
       };
 
       // send mail with defined transport object

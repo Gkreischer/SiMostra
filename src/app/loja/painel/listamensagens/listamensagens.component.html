@@ -76,27 +76,32 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <strong>Mensagem: </strong><span class="mensagem_cliente_modal">{{infoClienteModal.mensagem}}</span>
+          <strong>Mensagem do Cliente: </strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <span class="mensagem_cliente_modal">{{infoClienteModal.mensagem}}</span>
         </div>
       </div>
     </div>
-    <form>
+    <form [formGroup]="formRespostaEmail" (ngSubmit)="enviaFormRespostaEmail()">
       <div class="form-group">
-        <textarea rows="5" class="form-control"></textarea>
+        <textarea rows="5" class="form-control" formControlName="msg"></textarea>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" type="button">Responder</button>
+        <button class="btn btn-primary" type="submit">Responder</button>
       </div>
     </form>
     <div class="container-fluid px-0">
-      <div class="row">
+      <div *ngIf="msg" [hidden]="erro" class="row">
         <div class="col-12">
           <div class="alert alert-success" role="alert">
-            Email enviado para o cliente.
+            {{msg}}
           </div>
         </div>
       </div>
-      <div class="row">
+      <div *ngIf="erro" [hidden]="msg" class="row">
         <div class="col-12">
           <div class="alert alert-danger" role="alert">
             Desculpe-nos, algo errado aconteceu...

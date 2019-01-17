@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { dadosContato } from './../../compartilhados/dadosContato';
 import { CrudService } from './../../services/crud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-listamensagens',
@@ -10,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ListamensagensComponent implements OnInit {
 
-  constructor(private crud: CrudService, private modalService: NgbModal) {
+  constructor(private crud: CrudService, private modalService: NgbModal, private fb: FormBuilder) {
   }
 
   mensagens: dadosContato[] = null;
@@ -21,9 +23,13 @@ export class ListamensagensComponent implements OnInit {
   msg: string = null;
   p: number = 1;
 
+  formRespostaEmail: FormGroup = null;
+  resposta: string = null;
+
   ngOnInit() {
     window.document.body.style.backgroundColor = '#474647';
     this.leMensagens();
+    this.montaFormRespostaEmail();
   }
 
   leMensagens() {
@@ -36,6 +42,27 @@ export class ListamensagensComponent implements OnInit {
       }
     }, error => {
       this.erro = error;
+    });
+  }
+
+  montaFormRespostaEmail(){
+    this.formRespostaEmail = this.fb.group({
+      from: ['sigatec@gmail.com', Validators.required],
+      msg: ['']
+    });
+  }
+
+  enviaFormRespostaEmail(){
+    this.resposta = this.formRespostaEmail.value;
+
+    console.table(this.resposta);
+
+    this.crud.enviaEmail('/enviaEmail', this.resposta).subscribe((data) => {
+      console.log(data);
+      this.msg = 'Email enviado com sucesso. Acompanhe sua caixa de entrada no provedor do seu email.'
+    }, error => {
+      this.erro = error;
+      console.log('Não foi possível enviar o email');
     });
   }
 

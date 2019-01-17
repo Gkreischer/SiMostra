@@ -54,6 +54,16 @@ export class CrudService {
       catchError(this.handleError)
     );
   }
+
+  enviaEmail(rota: string, form):Observable<any>{
+    // Necessario o response type pois o retorno não é em JSON
+    return this.http.post(`http://localhost:3000/enviaEmail`,form, {responseType: 'text'}).pipe(
+      tap(data => { return data}),
+      catchError(this.handleError)
+    );
+  }
+
+  
   
   // Tratamento de erro
   handleError(error: HttpErrorResponse) {
