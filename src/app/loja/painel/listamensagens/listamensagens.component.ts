@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
+
 @Component({
   selector: 'app-listamensagens',
   templateUrl: './listamensagens.component.html',
@@ -25,6 +26,8 @@ export class ListamensagensComponent implements OnInit {
 
   formRespostaEmail: FormGroup = null;
   resposta: string = null;
+
+  
 
   ngOnInit() {
     window.document.body.style.backgroundColor = '#474647';
@@ -50,6 +53,7 @@ export class ListamensagensComponent implements OnInit {
       from: ['sigatec@gmail.com', Validators.required],
       msg: ['']
     });
+
   }
 
   enviaFormRespostaEmail(){

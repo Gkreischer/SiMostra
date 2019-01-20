@@ -1,18 +1,19 @@
+<ng-progress></ng-progress>
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-6">
+    <div id="configDadosLoja" class="col-12 col-md-6">
       <div class="card">
         <div class="card-header">
           Configurações
         </div>
         <div class="card-body">
-          <div class="container-fluid mx-0">
-            <form>
+          <form [formGroup]="formConfiguracaoDadosLoja" (ngSubmit)="enviaFormConfig()">
+            <div class="container-fluid mx-0">
               <div class="row justify-content-center">
                 <div class="col-md-10 col-12">
                   <div class="form-group">
                     <label for="nome">Nome Fantasia</label>
-                    <input type="text" class="form-control" id="nome">
+                    <input type="text" class="form-control" id="nome" formControlName="nomeFantasia">
                   </div>
                 </div>
               </div>
@@ -20,7 +21,7 @@
                 <div class="col-md-10 col-12">
                   <div class="form-group">
                     <label for="cnpj">CNPJ</label>
-                    <input type="number" class="form-control" id="cnpj">
+                    <input type="number" class="form-control" id="cnpj" formControlName="cnpj">
                   </div>
                 </div>
               </div>
@@ -28,33 +29,122 @@
                 <div class="col-md-10 col-12">
                   <div class="form-group">
                     <label for="site">Site</label>
-                    <input type="text" class="form-control" id="site">
+                    <input type="text" class="form-control" id="site" formControlName="site">
                   </div>
                 </div>
               </div>
               <div class="row justify-content-center">
                 <div class="col-md-10 col-12">
                   <div class="form-group">
-                    <label for="site">Telefone</label>
-                    <input type="tel" class="form-control" id="site">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" class="form-control" id="telefone" formControlName="telefone">
                   </div>
                 </div>
               </div>
               <div class="row justify-content-center">
                 <div class="col-md-10 col-12">
                   <div class="form-group">
-                    <label for="endereco">Endereço Completo</label>
-                    <input type="text" class="form-control" id="endereco">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" formControlName="endereco">
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-md-5 col-12">
+                  <div class="form-group">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" class="form-control" id="bairro" formControlName="bairro">
+                  </div>
+                </div>
+                <div class="col-md-5 col-12">
+                  <div class="form-group">
+                    <label for="cep">CEP</label>
+                    <input type="text" class="form-control" id="cep" formControlName="cep">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12 text-center">
-                  <button class="btn btn-primary">Salvar</button>
+                  <button class="btn btn-primary mb-3" type="submit" [disabled]="!formConfiguracaoDadosLoja.valid">Salvar</button>
                 </div>
               </div>
-            </form>
-          </div>
+              <div *ngIf="msg" [hidden]="erro" class="row">
+                <div class="col-12 col-md-12 text-center">
+                  <div class="alert alert-success">
+                    {{msg}}
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="erro" [hidden]="msg" class="row">
+                <div class="col-12 col-md-12 text-center">
+                  <div class="alert alert-danger">
+                    Desculpe-nos, algo errado aconteceu.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="configEmail" class="col-12 col-md-6">
+      <div class="card">
+        <div class="card-header">Configuração de Email</div>
+        <div class="card-body">
+          <form [formGroup]="formConfigEmail" (ngSubmit)="enviaConfigEmail()">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-md-9">
+                  <div class="form-group">
+                    <label for="servidorEmail">Servidor Email</label>
+                    <input type="text" class="form-control" id="servidorEmail" formControlName="servidor">
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div class="form-group">
+                    <label for="portaEmail">Porta</label>
+                    <input type="text" class="form-control" id="portaEmail" formControlName="porta">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-12">
+                  <div class="form-group">
+                    <label for="contaEmail">Conta</label>
+                    <input type="text" class="form-control" id="contaEmail" formControlName="conta">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-12">
+                  <div class="form-group">
+                    <label for="senhaEmail">Senha</label>
+                    <input type="password" class="form-control" id="senhaEmail" formControlName="senha">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-12">
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="tls">
+                    <label class="form-check-label" for="tls"><b>TLS?</b></label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 ">
+                  <div class="form-group">
+                    <button class="btn btn-primary float-right mb-3" type="submit">Salvar</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 text-center">
+                  <p class="text-muted">Nós nunca compartilharemos, nem requisitaremos seus dados.</p>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

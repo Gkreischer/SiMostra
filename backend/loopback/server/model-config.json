@@ -51,5 +51,9 @@
   "contato": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "configuracao": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }
