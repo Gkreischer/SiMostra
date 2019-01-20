@@ -8,14 +8,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="!isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <button class="btn btn-primary" routerLink="/catalogo" routerLinkActive="active">Catálogo</button>
+        <button class="btn btn-primary" routerLink="/catalogo" routerLinkActive="active"><i class="fas fa-book-open"></i> Catálogo</button>
       </li>
       <li class="nav-item">
-        <button class="btn btn-primary">Monte seu Orçamento</button>
+        <button class="btn btn-primary"><i class="fas fa-tools"></i> Monte seu Orçamento</button>
       </li>
       <li *ngIf="eAdministrador" class="nav-item">
         <div ngbDropdown>
-          <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle>Peças</button>
+          <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle> <i class="fas fa-th-large mr-1"></i>Peças</button>
           <div ngbDropdownMenu aria-labelledby="dropdownConfig">
             <button class="dropdown-item" routerLink="/cadastropeca" routerLinkActive="active">Cadastrar</button>
             <button class="dropdown-item" routerLink="/listagemdepecas">Lista</button>
@@ -23,13 +23,13 @@
         </div>
       </li>
       <li *ngIf="eAdministrador" class="nav-item">
-        <button class="btn btn-primary" routerLink="/listamensagens">Mensagens</button>
+        <button class="btn btn-primary" routerLink="/listamensagens"><i class="fas fa-envelope"></i> Mensagens</button>
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
-      <button *ngIf="!eAdministrador" class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit" (click)="abreModalPainelAdm(conteudo)">Admin</button>
-      <button *ngIf="eAdministrador" class="btn btn-outline-warning btn-sm my-2 mr-md-2 my-sm-0" type="button" routerLink="/configuracoes">Configurações</button>
-      <button *ngIf="eAdministrador" class="btn btn-outline-danger btn-sm my-2 my-sm-0" type="button" (click)="deslogar()">Sair</button>
+      <button *ngIf="!eAdministrador" class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit" (click)="abreModalPainelAdm(conteudo)">Login</button>
+      <button *ngIf="eAdministrador" class="btn btn-outline-warning btn-sm my-2 mr-md-2 my-sm-0" type="button" routerLink="/configuracoes"><i class="fas fa-cogs"></i> Configurações</button>
+      <button *ngIf="eAdministrador" class="btn btn-outline-danger btn-sm my-2 my-sm-0" type="button" (click)="deslogar()"><i class="fas fa-sign-out-alt"></i> Sair</button>
     </div>
   </div>
 </nav>
