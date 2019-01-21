@@ -1,0 +1,34 @@
+{
+  "name": "configEmail",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "servidor": {
+      "type": "string",
+      "required": true
+    },
+    "porta": {
+      "type": "number",
+      "required": true
+    },
+    "conta": {
+      "type": "string",
+      "required": true
+    },
+    "senha": {
+      "type": "string",
+      "required": true
+    },
+    "tls": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

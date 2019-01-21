@@ -55,5 +55,9 @@
   "configuracao": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "configEmail": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

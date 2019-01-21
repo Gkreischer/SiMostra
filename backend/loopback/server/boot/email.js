@@ -6,7 +6,13 @@ module.exports = function (enviaEmail) {
 
   enviaEmail.post('/enviaEmail', (req, res) => {
     var from = req.body.from;
+    var to = req.body.to;
+    var password = req.body.senha;
     var msg = req.body.msg;
+    var server = req.body.server;
+    var port = req.body.porta;
+    var tls = req.body.tls;
+
 
     // async..await is not allowed in global scope, must use a wrapper
     async function main() {
@@ -17,19 +23,19 @@ module.exports = function (enviaEmail) {
 
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
+        host: server,
+        port: port,
+        secure: tls, // true for 465, false for other ports
         auth: {
-          user: 'tewuqtajcawbq67b@ethereal.email',
-          pass: 'QhH53yMNzzHUefqeNc'
+          user: from,
+          pass: password
         }
       });
 
       // setup email data with unicode symbols
       let mailOptions = {
         from: `${from}`, // sender address
-        to: "tewuqtajcawbq67b@ethereal.email", // list of receivers
+        to: `${to}`, // list of receivers
         subject: "Contato Sigatec Informática ✔", // Subject line
         text: "Resposta", // plain text body
         html: `<p>${msg}</p>` // html body

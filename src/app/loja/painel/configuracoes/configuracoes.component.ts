@@ -20,14 +20,17 @@ export class ConfiguracoesComponent implements OnInit {
   formConfiguracaoDadosLoja: FormGroup = null;
   configuracaoDadosLoja: Configuracao = null;
   erro: string;
-  id: string = null;
-  msg: string = null;
+  idDadosLoja: string = null;
+  msgConfigDadosLoja: string = null;
 
   formConfigEmail: FormGroup = null;
   configEmail: ConfigEmail = null;
+  idDadosEmail: string = null;
+  msgConfigEmail: string = null;
   ngOnInit() {
     this.montaFormConfig();
     this.verificaInfoDadosLoja();
+    this.verificaInfoDadosEmail();
   }
 
 
@@ -55,8 +58,8 @@ export class ConfiguracoesComponent implements OnInit {
     this.crud.leRegistro('/configuracaos').subscribe((data) => {
       if (data.length != 0) {
         console.log('Dados da loja já configurados', data.length);
-        this.msg = `Dados da loja já configurados`;
-        this.id = data[0].id;
+        this.msgConfigDadosLoja = `Dados da loja já configurados`;
+        this.idDadosLoja = data[0].id;
         console.log(data);
         this.formConfiguracaoDadosLoja.patchValue(data[0]);
       } else {
@@ -65,19 +68,20 @@ export class ConfiguracoesComponent implements OnInit {
       }
     }, error => {
       this.erro = error;
+      console.log(this.erro);
     })
   }
 
-  enviaFormConfig() {
+  enviaFormConfigDadosLoja() {
     this.configuracaoDadosLoja = this.formConfiguracaoDadosLoja.value;
 
     console.table(this.configuracaoDadosLoja);
 
-    if (this.id != undefined) {
+    if (this.idDadosLoja != undefined) {
       console.log('Atualizando dados loja', this.formConfiguracaoDadosLoja.value);
-      this.crud.atualizaRegistro('/configuracaos', this.id, this.configuracaoDadosLoja).subscribe((data) => {
+      this.crud.atualizaRegistro('/configuracaos', this.idDadosLoja, this.configuracaoDadosLoja).subscribe((data) => {
         console.log('Foram atualizadas');
-        this.msg = `Dados da loja atualizados`;
+        this.msgConfigDadosLoja = `Dados da loja atualizados`;
         this.formConfiguracaoDadosLoja.patchValue(this.configuracaoDadosLoja);
         localStorage.setItem('nomeDaLoja', this.configuracaoDadosLoja.nomeFantasia);
       }, error => {
@@ -88,12 +92,58 @@ export class ConfiguracoesComponent implements OnInit {
       console.log('Registrando loja pela primeira vez');
       this.crud.criaRegistro('/configuracaos', this.configuracaoDadosLoja).subscribe((data) => {
         console.log('Configuração criada com sucesso');
-        this.msg = `Dados da loja configurados com sucesso.`
+        this.msgConfigDadosLoja = `Dados da loja configurados com sucesso.`
         this.formConfiguracaoDadosLoja.patchValue(this.configuracaoDadosLoja);
         localStorage.setItem('nomeDaLoja', this.configuracaoDadosLoja.nomeFantasia);
       }, error => {
         this.erro = error;
-        console.log('Não foi posssivel gravar as informações', error.messsage)
+        console.log('Não foi posssivel gravar as informações', error.messsage);
+      });
+    }
+  }
+
+  verificaInfoDadosEmail() {
+    this.crud.leRegistro('/configEmails').subscribe((data) => {
+      if (data.length != 0) {
+        console.log('Email da loja já configurado', data.length);
+        this.msgConfigEmail = `Email da loja já configurado`;
+        this.idDadosEmail = data[0].id;
+        console.log(data);
+        this.formConfigEmail.patchValue(data[0]);
+      } else {
+        console.log('Sem dados de email cadastrados na loja');
+        alert('Por favor, cadastre suas informações primeiramente');
+      }
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    })
+  }
+
+  enviaFormConfigDadosEmail() {
+    this.configEmail = this.formConfigEmail.value;
+
+    console.table(this.configEmail);
+
+    if (this.idDadosEmail != undefined) {
+      console.log('Atualizando email loja', this.formConfigEmail.value);
+      this.crud.atualizaRegistro('/configEmails', this.idDadosEmail, this.configEmail).subscribe((data) => {
+        console.log('Email atualizado');
+        this.msgConfigEmail = `Email da loja atualizado`;
+        this.formConfigEmail.patchValue(this.configEmail);
+      }, error => {
+        console.log('Não foi possível atualizar o email da loja');
+        this.erro = error;
+      });
+    } else {
+      console.log('Registrando email pela primeira vez');
+      this.crud.criaRegistro('/configEmails', this.configEmail).subscribe((data) => {
+        console.log('Email configurado com sucesso.');
+        this.msgConfigEmail = `Email da loja configurado com sucesso.`
+        this.formConfigEmail.patchValue(this.configEmail);
+      }, error => {
+        this.erro = error;
+        console.log('Não foi posssivel criar as informações de email', error.messsage);
       });
     }
   }

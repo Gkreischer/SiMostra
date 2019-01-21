@@ -3,7 +3,7 @@ import { dadosContato } from './../../compartilhados/dadosContato';
 import { CrudService } from './../../services/crud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { ConfigEmail } from './../../compartilhados/configEmail';
 
 
 @Component({
@@ -26,13 +26,16 @@ export class ListamensagensComponent implements OnInit {
 
   formRespostaEmail: FormGroup = null;
   resposta: string = null;
+  to: string = null;
+
+  configEmail: ConfigEmail = null;
 
   
 
   ngOnInit() {
     window.document.body.style.backgroundColor = '#474647';
     this.leMensagens();
-    this.montaFormRespostaEmail();
+    this.leConfigServidorEmail();
   }
 
   leMensagens() {
@@ -50,13 +53,41 @@ export class ListamensagensComponent implements OnInit {
 
   montaFormRespostaEmail(){
     this.formRespostaEmail = this.fb.group({
-      from: ['sigatec@gmail.com', Validators.required],
-      msg: ['']
+      msg: ['', Validators.required],
+      from: [this.configEmail.conta, Validators.required],
+      senha: [this.configEmail.senha, Validators.required],
+      to: ['', Validators.required],
+      server: [this.configEmail.servidor, Validators.required],
+      port: [this.configEmail.porta, Validators.required],
+      tls: [this.configEmail.tls, Validators.required]
     });
 
   }
 
+  leConfigServidorEmail() {
+    this.crud.leRegistro('/configEmails').subscribe((data) => {
+      this.configEmail = data[0];
+      console.table(this.configEmail);
+      this.montaFormRespostaEmail();
+    }, error => {
+      console.log('Erro ao ler configuracoes de email');
+      this.erro = error;
+    });
+  }
+  
+
   enviaFormRespostaEmail(){
+
+    /*
+      Dados que precisam ser enviados:
+      conta,
+      senha,
+      msg,
+      server,
+      port,
+      tls
+    */
+
     this.resposta = this.formRespostaEmail.value;
 
     console.table(this.resposta);
@@ -81,6 +112,7 @@ export class ListamensagensComponent implements OnInit {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
       this.modalService.open(conteudo, { centered: true });
+      this.formRespostaEmail.controls['to'].setValue(this.infoClienteModal.email);
     }, error => {
       this.erro = error;
     });
@@ -103,6 +135,8 @@ export class ListamensagensComponent implements OnInit {
       console.log('ERRO: Não foi possível deletar a mensagem');
     });
   }
+
+ 
 
 
 }

@@ -7,7 +7,7 @@
           Configurações
         </div>
         <div class="card-body">
-          <form [formGroup]="formConfiguracaoDadosLoja" (ngSubmit)="enviaFormConfig()">
+          <form [formGroup]="formConfiguracaoDadosLoja" (ngSubmit)="enviaFormConfigDadosLoja()">
             <div class="container-fluid mx-0">
               <div class="row justify-content-center">
                 <div class="col-md-10 col-12">
@@ -68,14 +68,14 @@
                   <button class="btn btn-primary mb-3" type="submit" [disabled]="!formConfiguracaoDadosLoja.valid">Salvar</button>
                 </div>
               </div>
-              <div *ngIf="msg" [hidden]="erro" class="row">
+              <div *ngIf="msgConfigDadosLoja" [hidden]="erro" class="row">
                 <div class="col-12 col-md-12 text-center">
                   <div class="alert alert-success">
-                    {{msg}}
+                    {{msgConfigDadosLoja}}
                   </div>
                 </div>
               </div>
-              <div *ngIf="erro" [hidden]="msg" class="row">
+              <div *ngIf="erro" [hidden]="msgConfigDadosLoja" class="row">
                 <div class="col-12 col-md-12 text-center">
                   <div class="alert alert-danger">
                     Desculpe-nos, algo errado aconteceu.
@@ -91,7 +91,7 @@
       <div class="card">
         <div class="card-header">Configuração de Email</div>
         <div class="card-body">
-          <form [formGroup]="formConfigEmail" (ngSubmit)="enviaConfigEmail()">
+          <form [formGroup]="formConfigEmail" (ngSubmit)="enviaFormConfigDadosEmail()">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12 col-md-9">
@@ -126,7 +126,7 @@
               <div class="row">
                 <div class="col-12 col-md-12">
                   <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="tls">
+                    <input type="checkbox" class="form-check-input" id="tls" formControlName="tls">
                     <label class="form-check-label" for="tls"><b>TLS?</b></label>
                   </div>
                 </div>
@@ -134,7 +134,21 @@
               <div class="row">
                 <div class="col-12 ">
                   <div class="form-group">
-                    <button class="btn btn-primary float-right mb-3" type="submit">Salvar</button>
+                    <button class="btn btn-primary text-center mb-3" [disabled]="!formConfigEmail.valid" type="submit">Salvar</button>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="msgConfigEmail" [hidden]="erro" class="row">
+                <div class="col-12 col-md-12 text-center">
+                  <div class="alert alert-success">
+                    {{msgConfigEmail}}
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="erro" [hidden]="msgConfigEmail" class="row">
+                <div class="col-12 col-md-12 text-center">
+                  <div class="alert alert-danger">
+                    Desculpe-nos, algo errado aconteceu.
                   </div>
                 </div>
               </div>
