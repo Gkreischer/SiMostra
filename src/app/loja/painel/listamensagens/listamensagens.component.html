@@ -16,7 +16,6 @@
                 <th scope=col>Email</th>
                 <th scope=col>Mensagem</th>
                 <th scope=col>Ações</th>
-                <th scope=col>Situação</th>
               </thead>
               <tbody>
                 <tr *ngFor="let mensagem of mensagens | paginate: { itemsPerPage: 5, currentPage: p } ">
@@ -26,10 +25,9 @@
                   <td>{{mensagem.email}}</td>
                   <td>{{mensagem.mensagem}}</td>
                   <td class="text-center align-middle">
-                    <button type="button" id={{mensagem.id}} (click)="abreModalRespostaEmail($event, conteudo)" class="btn btn-warning btn-sm button_resposta">{{mensagemBotaoResposta}}</button>
+                    <button type="button" id={{mensagem.id}} (click)="abreModalRespostaEmail($event, conteudo)" class="btn btn-warning btn-sm button_resposta" [disabled]="mensagem.situacao">{{mensagemBotaoResposta}}</button>
                     <button type="button" id={{mensagem.id}} (click)="deletaMensagem($event)" class="btn btn-danger btn-sm">Deletar</button>
                   </td>
-                  <td class="align-middle">{{mensagem.situacao}}</td>
                 </tr>
               </tbody>
             </table>

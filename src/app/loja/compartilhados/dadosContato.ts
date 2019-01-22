@@ -3,6 +3,6 @@ export interface dadosContato {
     telefone: string;
     email: string;
     mensagem: string;
-    situacao: string;
+    situacao: boolean;
     id: string;
 }

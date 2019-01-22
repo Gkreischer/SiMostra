@@ -18,7 +18,7 @@ export class ListamensagensComponent implements OnInit {
 
   mensagens: dadosContato[] = null;
   infoClienteModal: dadosContato = null;
-  id: string = null;
+  idClienteModal: string = null;
   mensagemBotaoResposta: string = 'Responder';
   erro;
   msg: string = null;
@@ -87,24 +87,40 @@ export class ListamensagensComponent implements OnInit {
       port,
       tls
     */
-
+    ;
     this.resposta = this.formRespostaEmail.value;
 
     console.table(this.resposta);
 
     this.crud.enviaEmail('/enviaEmail', this.resposta).subscribe((data) => {
       console.log(data);
-      this.msg = 'Email enviado com sucesso. Acompanhe sua caixa de entrada no provedor do seu email.'
+      this.msg = 'Email enviado com sucesso. Acompanhe sua caixa de entrada no provedor do seu email.';
+      this.atualizaSituacaoEmail();
     }, error => {
       this.erro = error;
       console.log('Não foi possível enviar o email');
     });
   }
 
+  atualizaSituacaoEmail() {
+    this.infoClienteModal.situacao = true;
+    this.crud.atualizaRegistro('/contatos', this.idClienteModal , this.infoClienteModal).subscribe((data) => {
+      console.log('Situacao da resposta atualizada com sucesso');
+      console.table(data);
+    }, error => {
+      this.erro = error;
+      console.log('Não foi possivel atualizar situacao do email')
+    });
+  }
+
+
   abreModalRespostaEmail(event, conteudo) {
 
     let target = event.target || event.srcElement || event.currentTarget;
     let id = target.attributes.id.value;
+
+    // Passa a id do botao para uma variavel global
+    this.idClienteModal = id;
 
     console.log(id);
 
@@ -112,6 +128,7 @@ export class ListamensagensComponent implements OnInit {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
       this.modalService.open(conteudo, { centered: true });
+      //Seta o form montado quando clicam na modal para receber o email do cliente, realizado na consulta acima - infoClienteModal
       this.formRespostaEmail.controls['to'].setValue(this.infoClienteModal.email);
     }, error => {
       this.erro = error;
@@ -135,8 +152,6 @@ export class ListamensagensComponent implements OnInit {
       console.log('ERRO: Não foi possível deletar a mensagem');
     });
   }
-
- 
 
 
 }
