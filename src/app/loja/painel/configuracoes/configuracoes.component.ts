@@ -64,7 +64,7 @@ export class ConfiguracoesComponent implements OnInit {
         this.formConfiguracaoDadosLoja.patchValue(data[0]);
       } else {
         console.log('Sem dados cadastrados ainda na loja');
-        alert('Por favor, cadastre suas informações primeiramente');
+        alert('Por favor, cadastre suas informações da Loja');
       }
     }, error => {
       this.erro = error;
@@ -83,7 +83,7 @@ export class ConfiguracoesComponent implements OnInit {
         console.log('Foram atualizadas');
         this.msgConfigDadosLoja = `Dados da loja atualizados`;
         this.formConfiguracaoDadosLoja.patchValue(this.configuracaoDadosLoja);
-        localStorage.setItem('nomeDaLoja', this.configuracaoDadosLoja.nomeFantasia);
+        localStorage.setItem('nomeLoja', this.configuracaoDadosLoja.nomeFantasia);
       }, error => {
         console.log('Não foi possível atualizar as configurações da loja');
         this.erro = error;
@@ -94,7 +94,7 @@ export class ConfiguracoesComponent implements OnInit {
         console.log('Configuração criada com sucesso');
         this.msgConfigDadosLoja = `Dados da loja configurados com sucesso.`
         this.formConfiguracaoDadosLoja.patchValue(this.configuracaoDadosLoja);
-        localStorage.setItem('nomeDaLoja', this.configuracaoDadosLoja.nomeFantasia);
+        localStorage.setItem('nomeLoja', this.configuracaoDadosLoja.nomeFantasia);
       }, error => {
         this.erro = error;
         console.log('Não foi posssivel gravar as informações', error.messsage);
@@ -112,7 +112,7 @@ export class ConfiguracoesComponent implements OnInit {
         this.formConfigEmail.patchValue(data[0]);
       } else {
         console.log('Sem dados de email cadastrados na loja');
-        alert('Por favor, cadastre suas informações primeiramente');
+        alert('Por favor, cadastre suas informações de Email');
       }
     }, error => {
       this.erro = error;

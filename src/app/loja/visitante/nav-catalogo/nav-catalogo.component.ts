@@ -32,7 +32,7 @@ export class NavCatalogoComponent implements OnInit {
 
   ngOnInit() {
     this.montaForm();
-    this.pegaDadosLoja();
+    this.exibeDadosLoja();
   }
 
   formLogin: FormGroup;
@@ -57,6 +57,9 @@ export class NavCatalogoComponent implements OnInit {
       console.log(`Usuario autenticado ${JSON.stringify(data)}`);
       this.modalService.dismissAll();
       this.eAdministrador = true;
+
+      this.pegaDadosLoja();
+
     }, error => {
       this.erro = error;
       console.log(error);
@@ -74,23 +77,32 @@ export class NavCatalogoComponent implements OnInit {
   }
 
   pegaDadosLoja() {
-    let nomeLoja = localStorage.getItem('nomeDaLoja');
 
-    if(!nomeLoja){
+    this.tituloLoja = localStorage.getItem('nomeLoja');
+
+    if (this.tituloLoja === null) {
       this.crud.leRegistro('/configuracaos').subscribe((data) => {
-        this.dadosDaLoja = data[0];
-        console.table(this.dadosDaLoja);
-        nomeLoja = this.dadosDaLoja.nomeFantasia;
-        this.tituloLoja = JSON.stringify(localStorage.setItem('nomeDaLoja', nomeLoja));
+        if (data.length != 0) {
+
+          localStorage.setItem('nomeLoja', data[0].nomeFantasia);
+          this.tituloLoja = localStorage.getItem('nomeLoja');
+
+        } else {
+          alert('Primeiro configure sua loja');
+          this.router.navigate(['/configuracoes']);
+        }
       }, error => {
         this.erro = error;
-        console.log('Nao foi possivel ler as configuraçoes da loja');
-      })
+        console.log(this.erro);
+      });
     } else {
-      this.tituloLoja = localStorage.getItem('nomeDaLoja');
-
+      this.tituloLoja = localStorage.getItem('nomeLoja');
     }
   }
 
+  exibeDadosLoja() {
+    
+    this.tituloLoja = localStorage.getItem('nomeLoja');
+  }
 
 }

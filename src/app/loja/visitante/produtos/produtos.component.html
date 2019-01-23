@@ -5,15 +5,6 @@
       <h4>{{msg}}</h4>
     </div>
   </div>
-  <div [hidden]="pecas" class="row">
-    <div class="col-12">
-      <div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Carregando...</span>
-        </div>
-      </div>
-    </div>
-  </div>
   <div *ngIf="pecas" class="row">
     <div id="linhaCatalogo" class="col-12 col-md-12 d-flex justify-content-center">
       <div class="card-deck">
