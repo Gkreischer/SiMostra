@@ -3,6 +3,8 @@ import { Peca } from './../../compartilhados/peca';
 import { CrudService } from './../../services/crud.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReplaySubject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'app-listagemdepecas',
@@ -23,6 +25,9 @@ export class ListagemdepecasComponent implements OnInit {
   msg;
   erro;
 
+  destruido: ReplaySubject<boolean> = new ReplaySubject(1);
+
+
   ngOnInit() {
     window.document.body.style.backgroundColor = '#97CC04';
     this.montaForm();
@@ -36,7 +41,7 @@ export class ListagemdepecasComponent implements OnInit {
 
 
   lePecas() {
-    this.crud.leRegistro('/produtos').subscribe((data) => {
+    this.crud.leRegistro('/produtos').takeUntil(this.destruido).subscribe((data) => {
       if (data.length == 0) {
         this.msg = 'Você não tem peças cadastradas';
       } else {
@@ -61,7 +66,7 @@ export class ListagemdepecasComponent implements OnInit {
       console.log(`Id da peca: ${id}`);
       console.log(`Valor antes do click em visibilidade: ${valor}`);
 
-      this.crud.leRegistroEspecifico('/produtos', id).subscribe((data) => {
+      this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
         this.pecaConsultada = data;
 
         if(this.pecaConsultada.visivel){
@@ -84,7 +89,7 @@ export class ListagemdepecasComponent implements OnInit {
   }
 
   executaAtualizacaoVisibilidade(id, form){
-    this.crud.atualizaRegistro('/produtos', id, form).subscribe((data) => {
+    this.crud.atualizaRegistro('/produtos', id, form).takeUntil(this.destruido).subscribe((data) => {
       return console.log(data);
     })
   }
@@ -108,7 +113,7 @@ export class ListagemdepecasComponent implements OnInit {
       let target = event.target || event.srcElement || event.currentTarget;
       let id = target.attributes.id.value;
 
-      this.crud.deletaRegistro('/produtos', id).subscribe((data) => {
+      this.crud.deletaRegistro('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
         for (let i = 0; i < this.pecas.length; i++) {
           if (id === this.pecas[i].id) {
             this.pecas.splice(i, 1);
@@ -123,7 +128,10 @@ export class ListagemdepecasComponent implements OnInit {
       console.log('Operação deletar cancelada');
     }
   }
-
-
+  
+  ngOnDestory(){
+    this.destruido.next(true);
+    this.destruido.complete();
+  }
 
 }

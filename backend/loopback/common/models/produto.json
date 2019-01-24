@@ -30,7 +30,8 @@
       "required": true
     },
     "detalhes": {
-      "type": "string"
+      "type": "string",
+      "default": "sem detalhes"
     },
     "visivel": {
       "type": "boolean",

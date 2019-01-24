@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from './../../services/crud.service';
 import { Peca } from './../../compartilhados/peca';
+import { Observable, ReplaySubject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
@@ -14,14 +16,16 @@ export class ProdutosComponent implements OnInit {
     this.lePecas();
   }
 
-  pecas: Peca[] = null;
+  pecas: Observable<Peca[]> = null;
   erro;
   msg: string;
 
   p: number = 1;
 
+  destruido: ReplaySubject<boolean> = new ReplaySubject(1);
+
   lePecas() {
-    this.crud.leRegistroComFiltro('/produtos','visivel',true).subscribe((data) => {
+    this.crud.leRegistroComFiltro('/produtos','visivel',true).takeUntil(this.destruido).subscribe((data) => {
       console.log(data);
       if (data.length == 0) {
         this.msg = 'Você não tem peças cadastradas';
@@ -34,5 +38,9 @@ export class ProdutosComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(){
+    this.destruido.next(true);
+    this.destruido.complete();
+  }
 
 }

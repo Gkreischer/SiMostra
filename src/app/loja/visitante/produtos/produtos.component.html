@@ -1,21 +1,47 @@
 <ng-progress></ng-progress>
-<div class="container my-5">
+<div class="container-fluid my-5">
   <div *ngIf="msg" class="row text-center text-white align-self-center">
     <div class="col-12">
       <h4>{{msg}}</h4>
     </div>
   </div>
   <div *ngIf="pecas" class="row">
-    <div id="linhaCatalogo" class="col-12 col-md-12 d-flex justify-content-center">
+    <div class="col-12 col-md-2">
+      <ul class="list-group mb-3" >
+        <li class="list-group-item list-group-item-info">Categorias</li>
+        <li class="list-group-item" *ngFor="let peca of pecas">{{peca.categoria}}</li>
+      </ul>
+    </div>
+    <div id="linhaCatalogo" class="col-12 col-md-10 d-flex">
       <div class="card-deck">
-        <div class="card mx-3" *ngFor="let peca of pecas | paginate: { itemsPerPage: 5, currentPage: p }" style="width: 11rem;">
+        <div class="card mx-3" *ngFor="let peca of pecas | paginate: { itemsPerPage: 7, currentPage: p }" style="width: 11rem;">
           <div class="card-header text-center lead">{{peca.categoria}}</div>
           <img class="card-img-top mt-2" src="{{peca.linkImagem}}" alt="{{peca.detalhes}}">
           <div class="card-body pb-0">
-            <h6 class="card-title"><b>{{peca.nome}}</b></h6>
-            <p>Marca: {{peca.marca}}</p>
-            <p><strong>Preço: </strong>{{peca.preco}}</p>
-            <p *ngIf="peca.detalhes" class="card-text"><strong>Detalhes: </strong>{{peca.detalhes}}</p>
+            <div class="container-fluid mx-0 px-0">
+              <div class="row">
+                <div class="col-12">
+                  <h6 class="card-title"><b>{{peca.nome}}</b></h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <p>Marca: {{peca.marca}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <p><strong>Preço: </strong>{{peca.preco}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <p *ngIf="peca.detalhes" class="card-text"><strong>Detalhes: </strong>{{peca.detalhes}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center pl-2 pb-0 pt-2">
             <p class="text-muted"><small>{{peca.updatedAt | date}}</small></p>
           </div>
         </div>

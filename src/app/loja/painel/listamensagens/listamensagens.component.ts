@@ -4,7 +4,8 @@ import { CrudService } from './../../services/crud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigEmail } from './../../compartilhados/configEmail';
-
+import { ReplaySubject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'app-listamensagens',
@@ -30,6 +31,7 @@ export class ListamensagensComponent implements OnInit {
 
   configEmail: ConfigEmail = null;
 
+  destruido: ReplaySubject<boolean> = new ReplaySubject(1);
   
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class ListamensagensComponent implements OnInit {
   }
 
   leMensagens() {
-    this.crud.leRegistro('/contatos').subscribe((data) => {
+    this.crud.leRegistro('/contatos').takeUntil(this.destruido).subscribe((data) => {
       if (data.length === 0) {
         this.msg = 'Você não tem mensagens de contato.';
       } else {
@@ -65,7 +67,7 @@ export class ListamensagensComponent implements OnInit {
   }
 
   leConfigServidorEmail() {
-    this.crud.leRegistro('/configEmails').subscribe((data) => {
+    this.crud.leRegistro('/configEmails').takeUntil(this.destruido).subscribe((data) => {
       this.configEmail = data[0];
       console.table(this.configEmail);
       this.montaFormRespostaEmail();
@@ -92,7 +94,7 @@ export class ListamensagensComponent implements OnInit {
 
     console.table(this.resposta);
 
-    this.crud.enviaEmail('/enviaEmail', this.resposta).subscribe((data) => {
+    this.crud.enviaEmail('/enviaEmail', this.resposta).takeUntil(this.destruido).subscribe((data) => {
       console.log(data);
       this.msg = 'Email enviado com sucesso. Acompanhe sua caixa de entrada no provedor do seu email.';
       this.atualizaSituacaoEmail();
@@ -104,7 +106,7 @@ export class ListamensagensComponent implements OnInit {
 
   atualizaSituacaoEmail() {
     this.infoClienteModal.situacao = true;
-    this.crud.atualizaRegistro('/contatos', this.idClienteModal , this.infoClienteModal).subscribe((data) => {
+    this.crud.atualizaRegistro('/contatos', this.idClienteModal , this.infoClienteModal).takeUntil(this.destruido).subscribe((data) => {
       console.log('Situacao da resposta atualizada com sucesso');
       console.table(data);
     }, error => {
@@ -124,7 +126,7 @@ export class ListamensagensComponent implements OnInit {
 
     console.log(id);
 
-    this.crud.leRegistroEspecifico('/contatos', id).subscribe((data) => {
+    this.crud.leRegistroEspecifico('/contatos', id).takeUntil(this.destruido).subscribe((data) => {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
       this.modalService.open(conteudo, { centered: true });
@@ -141,7 +143,7 @@ export class ListamensagensComponent implements OnInit {
     let id = target.attributes.id.value;
 
     console.log(id);
-    this.crud.deletaRegistro('/contatos', id).subscribe((data) => {
+    this.crud.deletaRegistro('/contatos', id).takeUntil(this.destruido).subscribe((data) => {
       console.log('Cliente deletado com sucesso.');
       for (let i = 0; i < this.mensagens.length; i++) {
         if (this.mensagens[i].id === id) {
@@ -153,5 +155,8 @@ export class ListamensagensComponent implements OnInit {
     });
   }
 
-
+  ngOnDestory(){
+    this.destruido.next(true);
+    this.destruido.complete();
+  }
 }

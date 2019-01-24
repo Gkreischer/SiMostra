@@ -28,6 +28,7 @@ export class CdpecaComponent implements OnInit {
   erro;
   msg: string = null;
   id: string = null;
+  
   ngOnInit() {
     this.montaForm();
     this.leCategorias();

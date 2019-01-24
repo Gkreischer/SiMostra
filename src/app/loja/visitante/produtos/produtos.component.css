@@ -3,11 +3,17 @@ img.card-img-top {
 }
 
 #linhaCatalogo{
-    margin-bottom: 10%!important;
+    margin-bottom: 4%!important;
 }
 
 @media screen and (max-width: 991px){
     ul.ngx-pagination{
         padding-left: 0px!important;
     }
+
+    #linhaCatalogo {
+        justify-content: center;
+    }
+
+
 }
