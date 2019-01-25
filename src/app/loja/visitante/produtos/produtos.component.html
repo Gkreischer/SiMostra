@@ -7,10 +7,11 @@
   </div>
   <div *ngIf="pecas" class="row">
     <div class="col-12 col-md-1">
-      <ul class="list-group mb-3" >
-        <li class="list-group-item list-group-item-info">Categorias</li>
-        <li class="list-group-item" *ngFor="let categoria of categorias">{{categoria.categoria}}</li>
-      </ul>
+      <div class="list-group mb-3" >
+        <button class="list-group-item list-group-item-info" type="button">Categorias</button>
+        <button type="button" class="list-group-item" *ngFor="let categoria of categorias" id={{categoria.categoria}} (click)="alteraProdutosPelaCategoria($event)">{{categoria.categoria}}</button>
+        <button type="button" class="list-group-item" (click)="resetaPesquisa()">Todos os produtos</button>
+      </div>
     </div>
     <div id="linhaCatalogo" class="col-12 col-md-10 d-flex justify-content-center">
       <div class="card-deck">

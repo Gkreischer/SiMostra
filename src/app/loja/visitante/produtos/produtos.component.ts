@@ -26,7 +26,7 @@ export class ProdutosComponent implements OnInit {
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
 
   lePecas() {
-    this.crud.leRegistroComFiltro('/produtos','visivel',true).takeUntil(this.destruido).subscribe((data) => {
+    this.crud.leRegistroComFiltro('/produtos', 'visivel', true).takeUntil(this.destruido).subscribe((data) => {
       console.log(data);
       if (data.length == 0) {
         this.msg = 'Você não tem peças cadastradas';
@@ -43,13 +43,35 @@ export class ProdutosComponent implements OnInit {
 
   removeDuplicatas(myArr, prop) {
     return myArr.filter((obj, pos, arr) => {
-        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
     });
-}
+  }
 
-  ngOnDestroy(){
+  alteraProdutosPelaCategoria(event) {
+
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(id);
+
+    this.crud.leRegistroComFiltro('/produtos', 'categoria', id).takeUntil(this.destruido).subscribe((data) => {
+      this.pecas = data;
+      console.log(this.pecas);
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  ngOnDestroy() {
     this.destruido.next(true);
     this.destruido.complete();
+  }
+
+  resetaPesquisa() {
+    this.pecas = null;
+    this.lePecas();
+    console.log('Limpado categorias');
   }
 
 }
