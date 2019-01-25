@@ -19,6 +19,7 @@ export class ProdutosComponent implements OnInit {
   pecas: Observable<Peca[]> = null;
   erro;
   msg: string;
+  categorias: any = [];
 
   p: number = 1;
 
@@ -32,11 +33,19 @@ export class ProdutosComponent implements OnInit {
       } else {
         this.pecas = data;
         console.table(this.pecas);
+
+        this.categorias = this.removeDuplicatas(data, 'categoria');
       }
     }, error => {
       this.erro = error;
     });
   }
+
+  removeDuplicatas(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+}
 
   ngOnDestroy(){
     this.destruido.next(true);

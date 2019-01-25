@@ -68,7 +68,7 @@ export class NavCatalogoComponent implements OnInit {
   }
 
   abreModalPainelAdm(conteudo) {
-    this.modalService.open(conteudo, { centered: true });
+    this.modalService.open(conteudo, { centered: true});
   }
 
   deslogar() {
