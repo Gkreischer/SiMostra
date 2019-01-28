@@ -11,19 +11,19 @@
         <button class="btn btn-primary" routerLink="/catalogo" routerLinkActive="active"><i class="fas fa-book-open"></i> Catálogo</button>
       </li>
       <li class="nav-item">
-        <button class="btn btn-primary"><i class="fas fa-tools"></i> Monte seu Orçamento</button>
+        <button class="btn btn-primary" routerLink="/montagemdeorcamento" routerLinkActive="active"><i class="fas fa-tools"></i> Monte seu Orçamento</button>
       </li>
       <li *ngIf="eAdministrador" class="nav-item">
         <div ngbDropdown>
           <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle> <i class="fas fa-th-large mr-1"></i>Peças</button>
           <div ngbDropdownMenu aria-labelledby="dropdownConfig">
             <button class="dropdown-item" routerLink="/cadastropeca" routerLinkActive="active">Cadastrar</button>
-            <button class="dropdown-item" routerLink="/listagemdepecas">Lista</button>
+            <button class="dropdown-item" routerLink="/listagemdepecas" routerLinkActive="active">Lista</button>
           </div>
         </div>
       </li>
       <li *ngIf="eAdministrador" class="nav-item">
-        <button class="btn btn-primary" routerLink="/listamensagens"><i class="fas fa-envelope"></i> Mensagens</button>
+        <button class="btn btn-primary" routerLink="/listamensagens" routerLinkActive="active"><i class="fas fa-envelope"></i> Mensagens</button>
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">

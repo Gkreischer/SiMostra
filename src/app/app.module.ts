@@ -36,6 +36,7 @@ import { ListamensagensComponent } from './loja/painel/listamensagens/listamensa
 import { PagInicialComponent } from './pag-inicial/pag-inicial.component';
 import { PagInicialLojaComponent } from './loja/pag-inicial-loja/pag-inicial-loja.component';
 import { ConfiguracoesComponent } from './loja/painel/configuracoes/configuracoes.component';
+import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamento/montagemdeorcamento.component';
 
 registerLocaleData(localePt);
 
@@ -69,7 +70,8 @@ registerLocaleData(localePt);
     ListamensagensComponent,
     PagInicialComponent,
     PagInicialLojaComponent,
-    ConfiguracoesComponent
+    ConfiguracoesComponent,
+    MontagemdeorcamentoComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

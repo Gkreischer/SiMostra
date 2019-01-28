@@ -91,6 +91,9 @@ export class ListagemdepecasComponent implements OnInit {
   executaAtualizacaoVisibilidade(id, form){
     this.crud.atualizaRegistro('/produtos', id, form).takeUntil(this.destruido).subscribe((data) => {
       return console.log(data);
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
     })
   }
 

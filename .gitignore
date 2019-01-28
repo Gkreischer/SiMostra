@@ -62,3 +62,4 @@ typings/
 
 backend/mongodb
 dist
+node_modules/bootstrap/dist/css/
