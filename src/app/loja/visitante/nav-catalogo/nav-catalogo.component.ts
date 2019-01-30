@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { LoginService } from './../../services/login.service';
 import { Login } from './../../compartilhados/login';
-import { Configuracao } from './../../compartilhados/configuracao';
+import { DadosEmpresa } from '../../compartilhados/dadosEmpresa';
 
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CrudService } from '../../services/crud.service';
@@ -38,7 +38,7 @@ export class NavCatalogoComponent implements OnInit {
   formLogin: FormGroup;
   dadosUsuario: Login;
   eAdministrador: boolean = false;
-  dadosDaLoja: Configuracao = null;
+  dadosDaLoja: DadosEmpresa = null;
   msg: string = null;
   erro = null;
   tituloLoja: string = null;

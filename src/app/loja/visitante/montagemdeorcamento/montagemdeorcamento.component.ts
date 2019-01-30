@@ -27,6 +27,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
   pecasDoForm = [];
   exibeOrcamento: boolean = false;
 
+
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
   ngOnInit() {
     this.montaForm();
@@ -81,6 +82,53 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     console.log(`Ids recebido: ${id}`);
 
+    let contador: number = 0;
+
+    if (this.pecasDoForm.length != 0) {
+      for (let i = 0; i < this.pecasDoForm.length; i++) {
+
+        if (id === this.pecasDoForm[i].id) {
+          contador++;
+
+          if (contador > 1) {
+            return false;
+          }
+          console.log('Peca ja existe no orcamento');
+
+          let op = confirm('Peça já existe no orçamento. Deseja adicionair mais?');
+
+          if (op) {
+            this.executaAdicionarPeca(id);
+          }
+          else {
+            console.log('Operação de adicionar peca duplicada no orcamento cancelada');
+            return false;
+          }
+        } else {
+          if(i > 0){
+            return false;
+          }
+          this.executaAdicionarPeca(id);
+          
+        }
+      }
+    } else {
+      this.executaAdicionarPeca(id);
+      console.log('Piroca 2');
+    }
+
+
+
+
+    if (this.pecasDoForm.length === 0) {
+      this.exibeOrcamento = false;
+    }
+
+    console.table(this.pecasDoForm);
+
+  }
+
+  executaAdicionarPeca(id: string) {
     this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
       this.exibeOrcamento = true;
       this.pecasDoForm.push(data);
@@ -89,13 +137,6 @@ export class MontagemdeorcamentoComponent implements OnInit {
       this.erro = error;
       console.log(`Não foi possivel inserir a peca no orcamento. Motivo: ${this.erro}`);
     });
-
-    console.table(this.pecasDoForm);
-    this.exibeOrcamento = true;
-
-    if(this.pecasDoForm.length === 0){
-      this.exibeOrcamento = false;
-    }
 
   }
 
@@ -108,10 +149,10 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     let op = confirm('Você tem certeza que deseja remover a peça da lista?');
 
-    if(op){
+    if (op) {
 
-      for(let i = 0 ; i < this.pecasDoForm.length ; i++){
-        if(this.pecasDoForm[i].id === id){
+      for (let i = 0; i < this.pecasDoForm.length; i++) {
+        if (this.pecasDoForm[i].id === id) {
           this.pecasDoForm.splice(i, 1);
           alert('Peça deletada com sucesso');
         }

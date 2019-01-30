@@ -1,4 +1,4 @@
-export interface Configuracao {
+export interface DadosEmpresa {
     nomeFantasia: string;
     cnpj: string;
     site: string;

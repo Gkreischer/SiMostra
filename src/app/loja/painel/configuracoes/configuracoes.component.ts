@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from './../../services/crud.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Configuracao } from './../../compartilhados/configuracao';
+import { DadosEmpresa } from '../../compartilhados/dadosEmpresa';
 import { ConfigEmail } from './../../compartilhados/configEmail';
 
 @Component({
@@ -18,7 +18,7 @@ export class ConfiguracoesComponent implements OnInit {
   }
 
   formConfiguracaoDadosLoja: FormGroup = null;
-  configuracaoDadosLoja: Configuracao = null;
+  configuracaoDadosLoja: DadosEmpresa = null;
   erro: string;
   idDadosLoja: string = null;
   msgConfigDadosLoja: string = null;
