@@ -50,11 +50,11 @@ export class ProdutosComponent implements OnInit {
   alteraProdutosPelaCategoria(event) {
 
     let target = event.target || event.srcElement || event.currentTarget;
-    let id = target.attributes.id.value;
+    let categoriaSelecionada = target.attributes.id.value;
 
-    console.log(id);
+    console.log(categoriaSelecionada);
 
-    this.crud.leRegistroComFiltro('/produtos', 'categoria', id).takeUntil(this.destruido).subscribe((data) => {
+    this.crud.leRegistroComFiltroAND('/produtos', 'categoria', categoriaSelecionada, 'visivel', true).takeUntil(this.destruido).subscribe((data) => {
       this.pecas = data;
       console.log(this.pecas);
     }, error => {

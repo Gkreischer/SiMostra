@@ -16,7 +16,7 @@ export class ImpressaoService {
   pdfMake: any;
 
   API_URL: string = 'http://localhost:3000/api';
-  dadoEmpresa;
+  dadoEmpresa: DadosEmpresa;
 
   constructor(private http: HttpClient, private router: Router) {
     this.atribuiInfoEmpresaDocPDF();
@@ -47,7 +47,7 @@ export class ImpressaoService {
 
       pageSize: 'A4',
       content: [
-        { text: this.dadoEmpresa.nome, style: 'nomedaEmpresa' },
+        { text: this.dadoEmpresa.nomeFantasia, style: 'nomedaEmpresa' },
         { text: this.dadoEmpresa.telefone, style: 'informacoesEmpresa' },
         { text: this.dadoEmpresa.endereco, style: 'informacoesEmpresa' },
         { text: this.dadoEmpresa.site, style: 'informacoesEmpresa', margin: [0, 0, 0, 50] },
