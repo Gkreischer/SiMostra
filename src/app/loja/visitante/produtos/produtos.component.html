@@ -6,17 +6,17 @@
     </div>
   </div>
   <div *ngIf="pecas" class="row">
-    <div class="col-12 col-md-1">
+    <div class="col-12 col-lg-2 col-md-12">
       <div class="list-group mb-3">
         <button class="list-group-item list-group-item-info" type="button">Categorias</button>
-        <button type="button" class="list-group-item" *ngFor="let categoria of categorias" id={{categoria.categoria}}
+        <button type="button" class="list-group-item remove_margin--left" *ngFor="let categoria of categorias" id={{categoria.categoria}}
           (click)="alteraProdutosPelaCategoria($event)">{{categoria.categoria}}</button>
         <button type="button" class="list-group-item" (click)="resetaPesquisa()">Todos os produtos</button>
       </div>
     </div>
-    <div id="linhaCatalogo" class="col-12 col-md-10 d-flex justify-content-center">
+    <div id="linhaCatalogo" class="col-12 col-md-12 col-lg-10 d-flex ">
       <div class="card-deck">
-        <div class="card mx-3" *ngFor="let peca of pecas | paginate: { itemsPerPage: 7, currentPage: p }" style="width: 11rem;">
+        <div class="card mx-3" *ngFor="let peca of pecas | paginate: { itemsPerPage: 5, currentPage: p }" style="width: 11rem;">
           <div class="card-header text-center lead">{{peca.categoria}}</div>
           <img class="card-img-top mt-2" src="{{peca.linkImagem}}" alt="{{peca.detalhes}}">
           <div class="card-body pb-0">

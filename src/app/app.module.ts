@@ -18,6 +18,10 @@ import { AppComponent }         from './app.component';
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
+import { CrudService } from './loja/services/crud.service';
+import { ImpressaoService } from './loja/services/impressao.service';
+import { LoginService } from './loja/services/login.service';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -79,7 +83,10 @@ registerLocaleData(localePt);
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-     }
+     },
+     CrudService,
+     LoginService,
+     ImpressaoService
   ],
   bootstrap: [ AppComponent ]
 })

@@ -5,6 +5,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { Categoria } from './../../compartilhados/categoria';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ImpressaoService } from './../../services/impressao.service';
 
 @Component({
   selector: 'app-montagemdeorcamento',
@@ -13,7 +14,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@ang
 })
 export class MontagemdeorcamentoComponent implements OnInit {
 
-  constructor(private crud: CrudService, private fb: FormBuilder) {
+  constructor(private crud: CrudService, private fb: FormBuilder, public impressao: ImpressaoService) {
     window.document.body.style.backgroundColor = "#F45D01";
     this.leCategorias();
   }
@@ -30,14 +31,14 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
   ngOnInit() {
-    this.montaForm();
+    return this.montaForm();
   }
 
   leCategorias() {
     this.crud.leRegistro('/categoria').takeUntil(this.destruido).subscribe((data) => {
-      this.categorias = data;
+      return this.categorias = data;
     }, error => {
-      this.erro = error;
+      return this.erro = error;
     });
   }
 
@@ -57,15 +58,15 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     this.crud.leRegistroComFiltroAND('/produtos', 'categoria', categoriaSelecionada, 'visivel', true).takeUntil(this.destruido).subscribe((data) => {
       this.pecas = data;
-      console.log(this.pecas);
+      return console.log(this.pecas);
     }, error => {
       this.erro = error;
-      console.log(this.erro);
+      return console.log(this.erro);
     });
   }
 
   resetaConsulta() {
-    this.pecas = null;
+    return this.pecas = null;
   }
 
   pegaIdPecaCheckbox(event) {
@@ -74,7 +75,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     console.log(`${id}`);
 
-    this.adicionaPecaListaOrcamento(id);
+    return this.adicionaPecaListaOrcamento(id);
 
   }
 
@@ -114,17 +115,11 @@ export class MontagemdeorcamentoComponent implements OnInit {
       }
     } else {
       this.executaAdicionarPeca(id);
-      console.log('Piroca 2');
     }
-
-
-
 
     if (this.pecasDoForm.length === 0) {
       this.exibeOrcamento = false;
     }
-
-    console.table(this.pecasDoForm);
 
   }
 
@@ -132,10 +127,10 @@ export class MontagemdeorcamentoComponent implements OnInit {
     this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
       this.exibeOrcamento = true;
       this.pecasDoForm.push(data);
-      console.table(this.pecasDoForm);
+      return console.table(this.pecasDoForm);
     }, error => {
       this.erro = error;
-      console.log(`Não foi possivel inserir a peca no orcamento. Motivo: ${this.erro}`);
+      return console.log(`Não foi possivel inserir a peca no orcamento. Motivo: ${this.erro}`);
     });
 
   }
@@ -154,13 +149,22 @@ export class MontagemdeorcamentoComponent implements OnInit {
       for (let i = 0; i < this.pecasDoForm.length; i++) {
         if (this.pecasDoForm[i].id === id) {
           this.pecasDoForm.splice(i, 1);
-          alert('Peça deletada com sucesso');
+          return alert('Peça deletada com sucesso');
         }
       }
     } else {
       console.log('Cancelado a exclusao da peça');
       return false;
     }
+  }
+
+  geraImpressaoOrcamentoERegistra(){
+    return 
+  }
+
+  geraPDF(){
+    console.table(this.pecasDoForm);
+    this.impressao.criaTabelaDocPDF(this.pecasDoForm);
   }
 
 }

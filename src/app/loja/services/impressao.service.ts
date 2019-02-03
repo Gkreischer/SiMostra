@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as pdfmake from './../../../../node_modules/jspdf';
-import * as pdfFonts from './../../../../node_modules/jspdf';
+import * as pdfmake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -52,7 +52,7 @@ export class ImpressaoService {
         { text: this.dadoEmpresa.endereco, style: 'informacoesEmpresa' },
         { text: this.dadoEmpresa.site, style: 'informacoesEmpresa', margin: [0, 0, 0, 50] },
         // A categoria deve ter exatamente o mesmo nome das propriedades do objeto. Elas serão as colunas
-        { table: this.table(infoTabela, ['nome', 'categoria', 'fornecedor', 'quantidade', 'valor']) }
+        { table: this.table(infoTabela, ['nome', 'marca', 'categoria', 'preco']), style: '' }
 
       ],
       styles: {
@@ -65,7 +65,7 @@ export class ImpressaoService {
         }
       },
       footer: {
-        columns: [
+        body: [
           { text: '_______________________________________________', alignment: 'center' },
         ]
       },
@@ -76,6 +76,15 @@ export class ImpressaoService {
     return pdfmake.createPdf(dadosDocumento).open();
   }
 
+
+  table(data, columns) {
+    return {
+      headerRows: 1,
+      // Para cada coluna, um tamanho
+      widths: ['*', '*', '*', '*', '*'],
+      body: this.buildTableBody(data, columns)
+    };
+  }
 
   buildTableBody(data, columns) {
     var body = [];
@@ -93,15 +102,6 @@ export class ImpressaoService {
     });
 
     return body;
-  }
-
-  table(data, columns) {
-    return {
-      headerRows: 1,
-      // Para cada coluna, um tamanho
-      widths: ['*', '*', '*', '*', '*'],
-      body: this.buildTableBody(data, columns)
-    };
   }
 
 
