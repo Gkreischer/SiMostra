@@ -6,6 +6,7 @@ import 'rxjs/add/operator/takeUntil';
 import { Categoria } from './../../compartilhados/categoria';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ImpressaoService } from './../../services/impressao.service';
+import { Orcamento } from './../../compartilhados/orcamento';
 
 @Component({
   selector: 'app-montagemdeorcamento',
@@ -27,27 +28,77 @@ export class MontagemdeorcamentoComponent implements OnInit {
   formPecasOrcamento: FormGroup = null;
   pecasDoForm = [];
   exibeOrcamento: boolean = false;
-
+  pecaSelecionada: Peca = null;
 
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
   ngOnInit() {
-    return this.montaForm();
+    this.montaForm();
   }
 
   leCategorias() {
     this.crud.leRegistro('/categoria').takeUntil(this.destruido).subscribe((data) => {
-      return this.categorias = data;
+      this.categorias = data;
     }, error => {
-      return this.erro = error;
+      this.erro = error;
     });
   }
 
   montaForm() {
     this.formPecasOrcamento = this.fb.group({
-      pecas: ['', Validators.required]
+      pecasForm: this.fb.array([])
     });
   }
 
+  get pegaPecasOrcamento() {
+    return this.formPecasOrcamento.get('pecasForm') as FormArray;
+  }
+
+  pegaIdPecaCheckboxEAdicionaPecaNaLista(event) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(`${id}`);
+
+    this.adicionaPecaListaOrcamento(id);
+
+  }
+
+  adicionaPecaListaOrcamento(id: string) {
+
+    console.log(`Ids recebido: ${id}`);
+
+    this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
+      
+      const peca = this.fb.group({
+        dadosDaPeca: [data],
+        quantidade: []
+      });
+
+      console.table(peca.value);
+  
+      this.exibeOrcamento = true;
+  
+      this.pegaPecasOrcamento.push(peca);
+
+      for(let i = 0 ; i < this.pegaPecasOrcamento.length ; i++){
+        
+        console.log(this.pegaPecasOrcamento.controls[i].value.dadosDaPeca);
+        
+      }
+
+    
+
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  deletePeca(i){
+    this.pegaPecasOrcamento.removeAt(i);
+  }
+
+  
 
   consultaPorCategoria(event) {
 
@@ -58,79 +109,28 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     this.crud.leRegistroComFiltroAND('/produtos', 'categoria', categoriaSelecionada, 'visivel', true).takeUntil(this.destruido).subscribe((data) => {
       this.pecas = data;
-      return console.log(this.pecas);
+      console.log(this.pecas);
     }, error => {
       this.erro = error;
-      return console.log(this.erro);
+      console.log(this.erro);
     });
   }
 
   resetaConsulta() {
-    return this.pecas = null;
+    this.pecas = null;
+    this.pecasDoForm = null;
   }
 
-  pegaIdPecaCheckbox(event) {
-    let target = event.target || event.srcElement || event.currentTarget;
-    let id = target.attributes.id.value;
 
-    console.log(`${id}`);
-
-    return this.adicionaPecaListaOrcamento(id);
-
-  }
-
-  adicionaPecaListaOrcamento(id: string) {
-
-    console.log(`Ids recebido: ${id}`);
-
-    let contador: number = 0;
-
-    if (this.pecasDoForm.length != 0) {
-      for (let i = 0; i < this.pecasDoForm.length; i++) {
-
-        if (id === this.pecasDoForm[i].id) {
-          contador++;
-
-          if (contador > 1) {
-            return false;
-          }
-          console.log('Peca ja existe no orcamento');
-
-          let op = confirm('Peça já existe no orçamento. Deseja adicionair mais?');
-
-          if (op) {
-            this.executaAdicionarPeca(id);
-          }
-          else {
-            console.log('Operação de adicionar peca duplicada no orcamento cancelada');
-            return false;
-          }
-        } else {
-          if(i > 0){
-            return false;
-          }
-          this.executaAdicionarPeca(id);
-          
-        }
-      }
-    } else {
-      this.executaAdicionarPeca(id);
-    }
-
-    if (this.pecasDoForm.length === 0) {
-      this.exibeOrcamento = false;
-    }
-
-  }
 
   executaAdicionarPeca(id: string) {
     this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
       this.exibeOrcamento = true;
       this.pecasDoForm.push(data);
-      return console.table(this.pecasDoForm);
+      console.table(this.pecasDoForm);
     }, error => {
       this.erro = error;
-      return console.log(`Não foi possivel inserir a peca no orcamento. Motivo: ${this.erro}`);
+      console.log(`Não foi possivel inserir a peca no orcamento. Motivo: ${this.erro}`);
     });
 
   }
@@ -145,11 +145,17 @@ export class MontagemdeorcamentoComponent implements OnInit {
     let op = confirm('Você tem certeza que deseja remover a peça da lista?');
 
     if (op) {
-
+      let contador: number = 0;
       for (let i = 0; i < this.pecasDoForm.length; i++) {
         if (this.pecasDoForm[i].id === id) {
-          this.pecasDoForm.splice(i, 1);
-          return alert('Peça deletada com sucesso');
+          contador++;
+
+          if (contador < 2) {
+            this.pecasDoForm.splice(i, 1);
+            alert('Peça deletada com sucesso');
+          } else {
+            console.log('+ de 1 peca achada no orcamento');
+          }
         }
       }
     } else {
@@ -158,11 +164,11 @@ export class MontagemdeorcamentoComponent implements OnInit {
     }
   }
 
-  geraImpressaoOrcamentoERegistra(){
-    return 
+  geraImpressaoOrcamentoERegistra() {
+    return
   }
 
-  geraPDF(){
+  geraPDF() {
     console.table(this.pecasDoForm);
     this.impressao.criaTabelaDocPDF(this.pecasDoForm);
   }

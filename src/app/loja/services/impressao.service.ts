@@ -63,12 +63,7 @@ export class ImpressaoService {
         informacoesEmpresa: {
           fontSize: 14,
         }
-      },
-      footer: {
-        body: [
-          { text: '_______________________________________________', alignment: 'center' },
-        ]
-      },
+      }
     };
 
     pdfmake.vfs = pdfFonts.pdfMake.vfs;
@@ -81,7 +76,7 @@ export class ImpressaoService {
     return {
       headerRows: 1,
       // Para cada coluna, um tamanho
-      widths: ['*', '*', '*', '*', '*'],
+      widths: ['*', '*', '*', '*'],
       body: this.buildTableBody(data, columns)
     };
   }

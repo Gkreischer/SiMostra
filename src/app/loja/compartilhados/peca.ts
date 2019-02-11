@@ -1,5 +1,5 @@
 export interface Peca {
-    name: string;
+    nome: string;
     imagem: string;
     marca: string;
     preco: number;
