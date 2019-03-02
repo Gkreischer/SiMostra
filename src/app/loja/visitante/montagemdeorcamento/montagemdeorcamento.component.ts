@@ -29,6 +29,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
   pecasDoForm = [];
   exibeOrcamento: boolean = false;
   pecaSelecionada: Peca = null;
+  P: number = 1;
 
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
   ngOnInit() {
@@ -59,7 +60,14 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     console.log(`${id}`);
 
-    this.adicionaPecaListaOrcamento(id);
+    let existePeca = this.pegaPecasOrcamento.controls.findIndex(i => i.value.dadosDaPeca.id == id);
+
+    if (existePeca == -1) {
+      this.adicionaPecaListaOrcamento(id);
+    } else {
+      alert('Essa peca já existe no orcamento');
+      return false;
+    }
 
   }
 
@@ -68,37 +76,28 @@ export class MontagemdeorcamentoComponent implements OnInit {
     console.log(`Ids recebido: ${id}`);
 
     this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
-      
+
       const peca = this.fb.group({
         dadosDaPeca: [data],
-        quantidade: []
+        quantidade: ['']
       });
 
       console.table(peca.value);
-  
+
       this.exibeOrcamento = true;
-  
+
       this.pegaPecasOrcamento.push(peca);
 
-      for(let i = 0 ; i < this.pegaPecasOrcamento.length ; i++){
-        
-        console.log(this.pegaPecasOrcamento.controls[i].value.dadosDaPeca);
-        
+      for (let i = 0; i < this.pegaPecasOrcamento.length; i++) {
+
+        console.table(this.pegaPecasOrcamento.controls[i].value.dadosDaPeca);
+
       }
-
-    
-
     }, error => {
       this.erro = error;
       console.log(this.erro);
     });
   }
-
-  deletePeca(i){
-    this.pegaPecasOrcamento.removeAt(i);
-  }
-
-  
 
   consultaPorCategoria(event) {
 
@@ -135,7 +134,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
   }
 
-  deletaPecaListaOrcamento(event) {
+  deletaPecaListaOrcamento(event, i) {
 
     let target = event.target || event.srcElement || event.currentTarget;
     let id = target.attributes.id.value;
@@ -145,30 +144,22 @@ export class MontagemdeorcamentoComponent implements OnInit {
     let op = confirm('Você tem certeza que deseja remover a peça da lista?');
 
     if (op) {
-      let contador: number = 0;
-      for (let i = 0; i < this.pecasDoForm.length; i++) {
-        if (this.pecasDoForm[i].id === id) {
-          contador++;
+      this.pegaPecasOrcamento.removeAt(i);
+      let existePeca = this.pegaPecasOrcamento.controls.findIndex(i => i.value.dadosDaPeca.id == id);
 
-          if (contador < 2) {
-            this.pecasDoForm.splice(i, 1);
-            alert('Peça deletada com sucesso');
-          } else {
-            console.log('+ de 1 peca achada no orcamento');
-          }
-        }
-      }
+      if (existePeca != -1) {
+        this.pegaPecasOrcamento.removeAt(i);
+        console.log(this.pegaPecasOrcamento);
+      } 
     } else {
       console.log('Cancelado a exclusao da peça');
       return false;
     }
   }
 
-  geraImpressaoOrcamentoERegistra() {
-    return
-  }
-
   geraPDF() {
+
+    this.pecasDoForm = this.formPecasOrcamento.value;
     console.table(this.pecasDoForm);
     this.impressao.criaTabelaDocPDF(this.pecasDoForm);
   }

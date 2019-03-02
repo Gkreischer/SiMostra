@@ -89,10 +89,10 @@ export class CrudService {
       // The response body may contain clues as to what went wrong,
       console.error(
         `Backend retornou a msg ${error.status}, ` +
-        `body era: ${JSON.stringify(error)}`);
+        `body era: ${JSON.stringify(error.error.error.message)}`);
     }
     // return an observable with a user-facing error message
-    return ErrorObservable.create(`${JSON.stringify(error.message)}`);
+    return ErrorObservable.create(`${JSON.stringify(error.error.error.message)}`);
   };
 
 }

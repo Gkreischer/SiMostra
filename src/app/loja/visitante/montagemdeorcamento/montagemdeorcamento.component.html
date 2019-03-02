@@ -11,10 +11,10 @@
     </div>
     <div *ngIf="pecas" class="col-12 col-md-9 col-lg-5">
       <div class="card my-3">
-        <div class="card-header">Pecas pesquisadas</div>
+        <div class="card-header text-white bg-info">Pecas pesquisadas</div>
         <div class="card-body">
           <div class="card-deck">
-            <div *ngFor="let peca of pecas" class="card bg-light mb-3" style="max-width: 18rem;">
+            <div *ngFor="let peca of pecas | paginate: { itemsPerPage: 3, currentPage: p }" class="card bg-light mb-3" style="max-width: 18rem;">
               <div class="card-header">{{peca.categoria}}
                 <span class="float-right">
                   <button class="btn btn-info btn-sm" type="button" id={{peca.id}}
@@ -28,6 +28,11 @@
               </div>
             </div>
           </div>
+          <div *ngIf="pegaPecasOrcamento" class="row">
+            <div class="col-12 d-flex justify-content-center" style="padding-left: 0px!important;">
+              <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar" nextLabel="Avançar"></pagination-controls>
+            </div>
+          </div>
           <div class="row">
             <div class="col-12 text-center">
               <p class="small">Quantidades e valores serão confirmados na loja</p>
@@ -38,7 +43,7 @@
     </div>
     <div *ngIf="exibeOrcamento" class="col-12 col-md-12 col-lg-5">
       <div class="card my-3">
-        <div class="card-header">
+        <div class="card-header text-white bg-info">
           Pecas adicionadas
         </div>
         <div class="card-body">
@@ -48,15 +53,15 @@
                 <div class="container-fluid mx-0">
                   <div class="row">
                     <div class="col-2">
-                      <button class="btn btn-danger" (click)="deletePeca(i)">X</button>
+                      <button class="btn btn-danger" id={{pegaPecasOrcamento.controls[i].value.dadosDaPeca.id}} (click)="deletaPecaListaOrcamento($event, i)">X</button>
                     </div>
                     <div class="col-7">
-                      <p><b>Nome: </b>{{pegaPecasOrcamento.controls[i].value.dadosDaPeca.nome}}</p>
+                      <p><b>Nome: </b>{{pegaPecasOrcamento.controls[i].value.dadosDaPeca.nome}} - <b>R${{pegaPecasOrcamento.controls[i].value.dadosDaPeca.preco}}</b></p>
                     </div>
                     <div class="col-3">
                       <div class="form-group row">
-                        <label class="col-4 mt-1">Qtd</label>
-                        <div class="col-8">
+                        <label class="col-md-6 col-12 mt-1">Qtd</label>
+                        <div class="col-md-12">
                           <input class="form-control" formControlName="quantidade" type="number">
                         </div>
                       </div>

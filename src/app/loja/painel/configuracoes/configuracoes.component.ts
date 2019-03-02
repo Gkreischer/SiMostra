@@ -42,7 +42,8 @@ export class ConfiguracoesComponent implements OnInit {
       telefone: ['', Validators.required],
       endereco: ['', Validators.required],
       bairro: ['', Validators.required],
-      cep: ['', Validators.required]
+      cep: ['', Validators.required],
+      cidade: ['', Validators.required]
     });
 
     this.formConfigEmail = this.fb.group({

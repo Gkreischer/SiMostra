@@ -17,3 +17,11 @@
 #mensagem_cliente_modal{
     font-size: 13px;
 }
+
+.btn-light {
+    background-color: null;
+}
+
+.btn-danger {
+    background-color: red;
+}

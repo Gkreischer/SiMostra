@@ -46,6 +46,9 @@ export class ListamensagensComponent implements OnInit {
         this.msg = 'Você não tem mensagens de contato.';
       } else {
         this.mensagens = data;
+        return this.mensagens.sort((a,b) => {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
         console.table(this.mensagens);
       }
     }, error => {
@@ -104,11 +107,12 @@ export class ListamensagensComponent implements OnInit {
     });
   }
 
-  atualizaSituacaoEmail() {
+   atualizaSituacaoEmail() {
     this.infoClienteModal.situacao = true;
     this.crud.atualizaRegistro('/contatos', this.idClienteModal , this.infoClienteModal).takeUntil(this.destruido).subscribe((data) => {
       console.log('Situacao da resposta atualizada com sucesso');
       console.table(data);
+      this.leMensagens();
     }, error => {
       this.erro = error;
       console.log('Não foi possivel atualizar situacao do email')

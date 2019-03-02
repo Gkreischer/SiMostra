@@ -50,11 +50,11 @@ export class ImpressaoService {
         { text: this.dadoEmpresa.nomeFantasia, style: 'nomedaEmpresa' },
         { text: this.dadoEmpresa.telefone, style: 'informacoesEmpresa' },
         { text: this.dadoEmpresa.endereco, style: 'informacoesEmpresa' },
+        { text: this.dadoEmpresa.cidade, style: 'informacoesEmpresa' },
         { text: this.dadoEmpresa.site, style: 'informacoesEmpresa', margin: [0, 0, 0, 50] },
         // A categoria deve ter exatamente o mesmo nome das propriedades do objeto. Elas serão as colunas
         { table: this.table(infoTabela, ['nome', 'marca', 'categoria', 'preco']), style: '' }
-
-      ],
+        ],
       styles: {
         nomedaEmpresa: {
           fontSize: 22,

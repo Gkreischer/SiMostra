@@ -6,5 +6,6 @@ export interface DadosEmpresa {
     endereco: string;
     bairro: string;
     cep: string;
+    cidade: string;
     id: string;
 }

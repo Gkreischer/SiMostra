@@ -4,5 +4,6 @@ export interface dadosContato {
     email: string;
     mensagem: string;
     situacao: boolean;
+    createdAt: any;
     id: string;
 }
