@@ -12,9 +12,11 @@ import { PagInicialComponent } from './pag-inicial/pag-inicial.component';
 import { PagInicialLojaComponent } from './loja/pag-inicial-loja/pag-inicial-loja.component';
 import { ConfiguracoesComponent } from './loja/painel/configuracoes/configuracoes.component';
 import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamento/montagemdeorcamento.component';
+import { OrcamentosComponent } from './loja/painel/orcamentos/orcamentos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'orcamentos', component: OrcamentosComponent },
   { path: 'catalogo', component: PagInicialLojaComponent },
   { path: 'cadastropeca', component: CdpecaComponent },
   { path: 'cadastropeca/:id', component: CdpecaComponent },

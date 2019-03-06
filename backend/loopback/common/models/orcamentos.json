@@ -1,5 +1,5 @@
 {
-  "name": "configuracao",
+  "name": "orcamentos",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -9,32 +9,27 @@
     "TimeStamp": true
   },
   "properties": {
-    "nomeFantasia": {
+    "nome": {
       "type": "string",
       "required": true
     },
-    "cnpj": {
-      "type": "string",
-      "required": true
-    },
-    "site": {
-      "type": "string",
+    "cpfcnpj": {
+      "type": "number",
       "required": true
     },
     "telefone": {
-      "type": "string",
+      "type":"number",
       "required": true
     },
-    "endereco": {
-      "type": "string",
-      "required": true
+    "preco": {
+      "type": "number",
+      "required": true,
+      "default": 0
     },
-    "bairro": {
-      "type": "string",
-      "required": true
-    },
-    "cep": {
-      "type": "string",
+    "pecasForm": {
+      "type": [
+        "object"
+      ],
       "required": true
     }
   },

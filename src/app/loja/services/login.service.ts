@@ -18,7 +18,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(form){
-    console.log(form);  
     return this.http.post<Login>(this.URL_DEFAULT + '/login', form).pipe(
       tap(
         (data) => {return this.setaSessao(data.id, data.ttl)},

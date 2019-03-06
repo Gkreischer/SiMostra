@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from './../../services/crud.service';
 import { Peca } from './../../compartilhados/peca';
-import { Observable, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { Categoria } from './../../compartilhados/categoria';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -17,23 +17,26 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
   constructor(private crud: CrudService, private fb: FormBuilder, public impressao: ImpressaoService) {
     window.document.body.style.backgroundColor = "#F45D01";
-    this.leCategorias();
   }
 
   erro;
   msg;
-  categorias: Observable<Categoria[]> = null;
-  pecas: Observable<Peca[]> = null;
+  sucesso: string;
+  categorias: Categoria[] = null;
+  pecas: Peca[] = null;
 
   formPecasOrcamento: FormGroup = null;
-  pecasDoForm = [];
+  orcamento: Orcamento[] = [];
+  valorTotalOrcamento: number = 0;
   exibeOrcamento: boolean = false;
   pecaSelecionada: Peca = null;
   P: number = 1;
 
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
+
   ngOnInit() {
     this.montaForm();
+    this.leCategorias();
   }
 
   leCategorias() {
@@ -46,7 +49,11 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
   montaForm() {
     this.formPecasOrcamento = this.fb.group({
-      pecasForm: this.fb.array([])
+      nome: ['', Validators.required],
+      telefone: ['', Validators.required],
+      cpfcnpj: ['', Validators.required],
+      pecasForm: this.fb.array([]),
+      precoTotal: ['']
     });
   }
 
@@ -79,7 +86,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
       const peca = this.fb.group({
         dadosDaPeca: [data],
-        quantidade: ['']
+        quantidade: ['', Validators.required]
       });
 
       console.table(peca.value);
@@ -99,6 +106,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
     });
   }
 
+
   consultaPorCategoria(event) {
 
     let target = event.target || event.srcElement || event.currentTarget;
@@ -117,21 +125,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
   resetaConsulta() {
     this.pecas = null;
-    this.pecasDoForm = null;
-  }
-
-
-
-  executaAdicionarPeca(id: string) {
-    this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
-      this.exibeOrcamento = true;
-      this.pecasDoForm.push(data);
-      console.table(this.pecasDoForm);
-    }, error => {
-      this.erro = error;
-      console.log(`Não foi possivel inserir a peca no orcamento. Motivo: ${this.erro}`);
-    });
-
+    this.orcamento = null;
   }
 
   deletaPecaListaOrcamento(event, i) {
@@ -157,11 +151,43 @@ export class MontagemdeorcamentoComponent implements OnInit {
     }
   }
 
-  geraPDF() {
+  salvaOrcamento() {
+    this.valorTotalOrcamento = 0;
 
-    this.pecasDoForm = this.formPecasOrcamento.value;
-    console.table(this.pecasDoForm);
-    this.impressao.criaTabelaDocPDF(this.pecasDoForm);
+    this.orcamento = this.formPecasOrcamento.value;
+
+    this.calculaValorTotalOrcamento();
+
+    this.formPecasOrcamento.value.precoTotal = this.valorTotalOrcamento;
+
+    console.log(this.formPecasOrcamento.value);
+
+    this.crud.criaRegistro('/orcamentos', this.orcamento).takeUntil(this.destruido).subscribe((data) => {
+      this.sucesso = 'Orçamento registrado com sucesso. Vá a loja e informe seus dados para prosseguir com a compra';
+      console.log(data);
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  calculaValorTotalOrcamento() {
+    let quantidadePecasOrcamento = this.formPecasOrcamento.value.pecasForm.length;
+
+    console.log(quantidadePecasOrcamento);
+    
+    for(let i = 0 ; i < quantidadePecasOrcamento ; i++) {
+
+      console.log(this.formPecasOrcamento.value.pecasForm[i]);
+
+      this.valorTotalOrcamento = this.valorTotalOrcamento + (this.formPecasOrcamento.value.pecasForm[i].dadosDaPeca.preco * this.formPecasOrcamento.value.pecasForm[i].quantidade);
+
+    }
+  }
+
+  ngOnDestory() {
+    this.destruido.next(true);
+    this.destruido.complete();
   }
 
 }

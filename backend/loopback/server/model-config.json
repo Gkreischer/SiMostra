@@ -59,5 +59,9 @@
   "configEmail": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "orcamentos": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

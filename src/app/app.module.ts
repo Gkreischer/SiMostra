@@ -41,6 +41,7 @@ import { PagInicialComponent } from './pag-inicial/pag-inicial.component';
 import { PagInicialLojaComponent } from './loja/pag-inicial-loja/pag-inicial-loja.component';
 import { ConfiguracoesComponent } from './loja/painel/configuracoes/configuracoes.component';
 import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamento/montagemdeorcamento.component';
+import { OrcamentosComponent } from './loja/painel/orcamentos/orcamentos.component';
 
 registerLocaleData(localePt);
 
@@ -75,7 +76,8 @@ registerLocaleData(localePt);
     PagInicialComponent,
     PagInicialLojaComponent,
     ConfiguracoesComponent,
-    MontagemdeorcamentoComponent
+    MontagemdeorcamentoComponent,
+    OrcamentosComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

@@ -1,0 +1,125 @@
+<ng-progress></ng-progress>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card my-3 ">
+        <div class="card-header">
+          Lista de orçamentos dos clientes
+        </div>
+        <div class="card-body">
+          <div *ngIf="orcamentos" class="table-responsive">
+            <table class="table table-bordered table-striped table-hover table-sm">
+              <thead class="thead-dark">
+                <th scope=col>Data</th>
+                <th scope=col>Nome</th>
+                <th scope=col>Telefone</th>
+                <th scope=col>Ações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let orcamento of orcamentos | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td scope="row">{{orcamento.createdAt | date:'short'}}</td>
+                  <td><b>{{orcamento.nome}}</b></td>
+                  <td>{{orcamento.telefone}}</td>
+                  <td class="text-center align-middle">
+                    <button type="button" id={{orcamento.id}} (click)="abreModalFinalizacaoOrcamento($event, conteudo)"
+                      class="btn btn-warning btn-sm button_resposta" [disabled]="orcamento.situacao"
+                      [ngClass]=" orcamento.situacao ? 'btn-light' : 'btn-warning'">{{mensagemBotaoResposta}}</button>
+                    <button type="button" id={{orcamento.id}} (click)="deletaOrcamento($event)"
+                      class="btn btn-danger btn-sm">Deletar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="!orcamentos" class="alert alert-warning text-center" role="alert">
+            {{msg}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="orcamentos" class="row">
+    <div class="col-12 d-flex justify-content-center" style="padding-left: 0px!important;">
+      <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar"
+        nextLabel="Avançar"></pagination-controls>
+    </div>
+  </div>
+</div>
+<app-nav-catalogo></app-nav-catalogo>
+
+<!-- Modal -->
+<ng-template #conteudo let-modal class="my-5">
+  <div class="modal-header">
+    <h4 class="modal-title">Finalizando Orçamento</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid px-0 mb-3">
+      <div class="row">
+        <div class="col-12">
+          <p class="lead">Dados do cliente</p>
+          <p><b>Nome: </b>{{infoClienteModal.nome}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>CPF: </b>{{infoClienteModal.cpfcnpj}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Telefone: </b>{{infoClienteModal.telefone}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="endereco">Endereço</label>
+            <input class="form-control" type="text" id="endereco">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="bairro">Bairro</label>
+            <input class="form-control" type="text" id="bairro">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="bairro">CEP</label>
+            <input class="form-control" type="text" id="bairro">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="cidade">Cidade</label>
+            <input class="form-control" type="text" id="cidade">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid px-0">
+      <div *ngIf="msg" [hidden]="erro" class="row">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            {{msg}}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="erro" [hidden]="msg" class="row">
+        <div class="col-12">
+          <div class="alert alert-danger" role="alert">
+            Desculpe-nos, algo errado aconteceu...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>

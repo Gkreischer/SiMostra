@@ -1,6 +1,39 @@
 <ng-progress></ng-progress>
 <div class="container-fluid mb-5">
   <div class="row">
+    <div class="col-12 col-md-12 col-lg-12 my-1">
+      <div class="card">
+        <div class="card-header">Suas informações</div>
+        <div class="card-body">
+          <form [formGroup]="formPecasOrcamento">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input class="form-control" type="text" id="nome" formControlName="nome">
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input class="form-control" type="tel" id="telefone" formControlName="telefone">
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-group">
+                    <label for="cpfcnpj">CPF/CNPJ</label>
+                    <input class="form-control" type="number" id="cpfcnpj" formControlName="cpfcnpj">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-12 col-md-3 col-lg-2 my-3">
       <div class="list-group">
         <button class="list-group-item list-group-item-dark" type="button"><b>CATEGORIAS</b></button>
@@ -14,7 +47,8 @@
         <div class="card-header text-white bg-info">Pecas pesquisadas</div>
         <div class="card-body">
           <div class="card-deck">
-            <div *ngFor="let peca of pecas | paginate: { itemsPerPage: 3, currentPage: p }" class="card bg-light mb-3" style="max-width: 18rem;">
+            <div *ngFor="let peca of pecas | paginate: { itemsPerPage: 3, currentPage: p }" class="card bg-light mb-3"
+              style="max-width: 18rem;">
               <div class="card-header">{{peca.categoria}}
                 <span class="float-right">
                   <button class="btn btn-info btn-sm" type="button" id={{peca.id}}
@@ -30,7 +64,8 @@
           </div>
           <div *ngIf="pegaPecasOrcamento" class="row">
             <div class="col-12 d-flex justify-content-center" style="padding-left: 0px!important;">
-              <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar" nextLabel="Avançar"></pagination-controls>
+              <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar"
+                nextLabel="Avançar"></pagination-controls>
             </div>
           </div>
           <div class="row">
@@ -53,10 +88,12 @@
                 <div class="container-fluid mx-0">
                   <div class="row">
                     <div class="col-2">
-                      <button class="btn btn-danger" id={{pegaPecasOrcamento.controls[i].value.dadosDaPeca.id}} (click)="deletaPecaListaOrcamento($event, i)">X</button>
+                      <button class="btn btn-danger" id={{pegaPecasOrcamento.controls[i].value.dadosDaPeca.id}}
+                        (click)="deletaPecaListaOrcamento($event, i)">X</button>
                     </div>
                     <div class="col-7">
-                      <p><b>Nome: </b>{{pegaPecasOrcamento.controls[i].value.dadosDaPeca.nome}} - <b>R${{pegaPecasOrcamento.controls[i].value.dadosDaPeca.preco}}</b></p>
+                      <p><b>Nome: </b>{{pegaPecasOrcamento.controls[i].value.dadosDaPeca.nome}} -
+                        <b>R${{pegaPecasOrcamento.controls[i].value.dadosDaPeca.preco}}</b></p>
                     </div>
                     <div class="col-3">
                       <div class="form-group row">
@@ -67,14 +104,26 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-12 text-right">
+                      <b>Total: </b>
+                    </div>
+                  </div>
                 </div>
 
               </div>
             </div>
           </form>
-
-          <button class="btn btn-primary float-right" type="button" (click)="geraPDF()">Salvar Orçamento</button>
+          <button class="btn btn-primary float-right" type="button" (click)="salvaOrcamento()"
+            [disabled]="!formPecasOrcamento.valid || pegaPecasOrcamento.length == 0">Salvar Orçamento</button>
         </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="sucesso" class="row text-center justify-content-center">
+    <div class="col-12">
+      <div class="alert alert-success" role="alert">
+        {{sucesso}}
       </div>
     </div>
   </div>
