@@ -25,14 +25,15 @@ export class OrcamentosComponent implements OnInit {
   msg: string = null;
   p: number = 1;
   orcamentoFinalizado: Orcamento;
-
+  exibePecasOrcamento: boolean = false;
   formOrcamentoFinalizado: FormGroup = null;
   to: string = null;
 
   configEmail: ConfigEmail = null;
+  campoParcelamento: boolean = false;
 
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
-  
+
 
   ngOnInit() {
     window.document.body.style.backgroundColor = '#474647';
@@ -42,27 +43,34 @@ export class OrcamentosComponent implements OnInit {
   }
 
   leOrcamentos() {
-    
+
     this.crud.leRegistro('/orcamentos').takeUntil(this.destruido).subscribe((data) => {
       if (data.length === 0) {
         this.msg = 'Você ainda não tem orçamentos cadastrados';
       } else {
         this.orcamentos = data;
         console.log(this.orcamentos);
-        return this.orcamentos.sort((a,b) => {
+        return this.orcamentos.sort((a, b) => {
           return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         });
-        
+
       }
     }, error => {
       this.erro = error;
     });
   }
 
-  montaFormOrcamento(){
+  montaFormOrcamento() {
     this.formOrcamentoFinalizado = this.fb.group({
       endereco: ['', Validators.required],
-      data_de_entrega: ['', Validators.required]
+      bairro: ['', Validators.required],
+      cidade: ['', Validators.required],
+      cep: ['', Validators.required],
+      formaPagamento: ['', Validators.required],
+      valorPago: ['', Validators.required],
+      dataEntrega: ['', Validators.required],
+      parcelado: [false, Validators.required],
+      numeroParcelas: ''
     });
 
   }
@@ -78,14 +86,14 @@ export class OrcamentosComponent implements OnInit {
       this.erro = error;
     });
   }
-  
 
-  finalizaOrcamentoCliente(){
+
+  finalizaOrcamentoCliente() {
 
     this.orcamentoFinalizado = this.formOrcamentoFinalizado.value;
 
-    console.log(this.formOrcamentoFinalizado)
-    
+    console.log(this.orcamentoFinalizado);
+
   }
 
 
@@ -102,7 +110,7 @@ export class OrcamentosComponent implements OnInit {
     this.crud.leRegistroEspecifico('/orcamentos', id).takeUntil(this.destruido).subscribe((data) => {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
-      this.modalService.open(conteudo, { centered: true });
+      this.modalService.open(conteudo, { centered: true, size: 'lg' });
     }, error => {
       this.erro = error;
     });
@@ -126,7 +134,19 @@ export class OrcamentosComponent implements OnInit {
     });
   }
 
-  ngOnDestory(){
+  exibeCampoParcelas() {
+    if (this.campoParcelamento) {
+      this.formOrcamentoFinalizado.controls['parcelado'].setValue(false);
+      this.campoParcelamento = false;
+    } else {
+      if (!this.campoParcelamento) {
+        this.formOrcamentoFinalizado.controls['parcelado'].setValue(true);
+        this.campoParcelamento = true;
+      }
+    }
+  }
+
+  ngOnDestory() {
     this.destruido.next(true);
     this.destruido.complete();
   }

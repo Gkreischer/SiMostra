@@ -6,4 +6,5 @@ export interface Peca {
     detalhes: string;
     visivel: boolean;
     id: string;
+    updatedAt: string;
 }

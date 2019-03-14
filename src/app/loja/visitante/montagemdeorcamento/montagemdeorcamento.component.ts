@@ -53,7 +53,8 @@ export class MontagemdeorcamentoComponent implements OnInit {
       telefone: ['', Validators.required],
       cpfcnpj: ['', Validators.required],
       pecasForm: this.fb.array([]),
-      precoTotal: ['']
+      precoTotal: [''],
+      situacao: ['a pagar', Validators.required]
     });
   }
 

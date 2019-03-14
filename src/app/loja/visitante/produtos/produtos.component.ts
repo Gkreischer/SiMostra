@@ -16,7 +16,7 @@ export class ProdutosComponent implements OnInit {
     this.lePecas();
   }
 
-  pecas: Observable<Peca[]> = null;
+  pecas: Peca[] = null;
   erro;
   msg: string;
   categorias: any = [];
@@ -31,10 +31,12 @@ export class ProdutosComponent implements OnInit {
       if (data.length == 0) {
         this.msg = 'Você não tem peças cadastradas';
       } else {
+        this.categorias = this.removeDuplicatas(data, 'categoria');
         this.pecas = data;
         console.table(this.pecas);
-
-        this.categorias = this.removeDuplicatas(data, 'categoria');
+        return this.pecas.sort((a,b) => {
+          return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+        });
       }
     }, error => {
       this.erro = error;

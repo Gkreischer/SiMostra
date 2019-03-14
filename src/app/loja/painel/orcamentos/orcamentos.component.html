@@ -14,6 +14,7 @@
                 <th scope=col>Nome</th>
                 <th scope=col>Telefone</th>
                 <th scope=col>Ações</th>
+                <th scope=col>Situação</th>
               </thead>
               <tbody>
                 <tr *ngFor="let orcamento of orcamentos | paginate: { itemsPerPage: 10, currentPage: p }">
@@ -22,11 +23,12 @@
                   <td>{{orcamento.telefone}}</td>
                   <td class="text-center align-middle">
                     <button type="button" id={{orcamento.id}} (click)="abreModalFinalizacaoOrcamento($event, conteudo)"
-                      class="btn btn-warning btn-sm button_resposta" [disabled]="orcamento.situacao"
-                      [ngClass]=" orcamento.situacao ? 'btn-light' : 'btn-warning'">{{mensagemBotaoResposta}}</button>
+                      class="btn btn-warning btn-sm button_resposta"
+                      [ngClass]=" orcamento.situacao == ('a pagar' || '') ? 'btn-warning' : 'btn-light'">{{mensagemBotaoResposta}}</button>
                     <button type="button" id={{orcamento.id}} (click)="deletaOrcamento($event)"
                       class="btn btn-danger btn-sm">Deletar</button>
                   </td>
+                  <td>{{orcamento.situacao}}</td>
                 </tr>
               </tbody>
             </table>
@@ -57,52 +59,155 @@
   </div>
   <div class="modal-body">
     <div class="container-fluid px-0 mb-3">
-      <div class="row">
-        <div class="col-12">
-          <p class="lead">Dados do cliente</p>
-          <p><b>Nome: </b>{{infoClienteModal.nome}}</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <p><b>CPF: </b>{{infoClienteModal.cpfcnpj}}</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <p><b>Telefone: </b>{{infoClienteModal.telefone}}</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="form-group">
-            <label for="endereco">Endereço</label>
-            <input class="form-control" type="text" id="endereco">
+      <form [formGroup]="formOrcamentoFinalizado" (ngSubmit)="finalizaOrcamentoCliente()">
+        <div class="row">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <p class="lead">Dados do cliente</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <p><b>Nome: </b>{{infoClienteModal.nome}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <p><b>CPF: </b>{{infoClienteModal.cpfcnpj}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <p><b>Telefone: </b>{{infoClienteModal.telefone}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="endereco">Endereço</label>
+                  <input class="form-control" type="text" id="endereco" formControlName="endereco">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="bairro">Bairro</label>
+                  <input class="form-control" type="text" id="bairro" formControlName="bairro">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="cidade">Cidade</label>
+                  <input class="form-control" type="text" id="cidade" formControlName="cidade">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="bairro">CEP</label>
+                  <input class="form-control" type="text" id="bairro" formControlName="cep">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Forma de pagamento:</label>
+                  <select class="form-control" formControlName="formaPagamento">
+                    <optgroup label="Cartão">
+                      <option value="visao">Visa</option>
+                      <option value="mastercard">MasterCard</option>
+                      <option value="visao">Cielo</option>
+                      <option value="americanexpress">American Express</option>
+                    </optgroup>
+                    <optgroup label="Dinheiro">
+                      <option value="dinheiro">Dinheiro</option>
+                    </optgroup>
+                    <optgroup label="Depósito Bancário">
+                      <option value="itau">Itaú</option>
+                      <option value="bb">Banco do Brasil</option>
+                      <option value="bradesco">Bradesco</option>
+                      <option value="santander">Santander</option>
+                      <option value="caixaeconomica">Caixa Econômica</option>
+                      <option value="outro">Outro...</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="valorPago">Valor Pago</label>
+                  <input class="form-control" type="number" id="valorPago" formControlName="valorPago">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="dataEntrega">Data de Entrega</label>
+                  <input class="form-control" type="date" id="dataEntrega" formControlName="dataEntrega">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="parcelamento" (click)="exibeCampoParcelas()"
+                      formControlName="parcelado">
+                    <label class="form-check-label" for="parcelamento">Parcelado?</label>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="campoParcelamento" class="col-6">
+                <div class="form-group">
+                  <label for="numeroParcelas">Núm. de Parcelas</label>
+                  <input class="form-control" type="number" id="numeroParcelas" formControlName="numeroParcelas">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <button class="btn btn-sucess" type="submit">Finalizar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12 text-center">
+                <p class="lead">Peças</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-sm table-hoverable table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let peca of infoClienteModal.pecasForm">
+                      <td>
+                        {{peca.dadosDaPeca.nome}}
+                      </td>
+                      <td>
+                        {{peca.dadosDaPeca.preco}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="form-group">
-            <label for="bairro">Bairro</label>
-            <input class="form-control" type="text" id="bairro">
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="bairro">CEP</label>
-            <input class="form-control" type="text" id="bairro">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="form-group">
-            <label for="cidade">Cidade</label>
-            <input class="form-control" type="text" id="cidade">
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
     <div class="container-fluid px-0">
       <div *ngIf="msg" [hidden]="erro" class="row">
