@@ -15,20 +15,21 @@ export class CdpecaComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private crud: CrudService, private router: ActivatedRoute) {
-      window.document.body.style.backgroundColor = '#97CC04';
+    window.document.body.style.backgroundColor = '#97CC04';
   }
 
   formCadastroPeca: FormGroup = null;
   dadosPeca: PecaParaCadastro;
 
   formCategoria: FormGroup = null;
-  categorias = [];
+  categorias: Categoria[] = [];
+  categoriasOrdemAlfabetica = [];
 
   sucesso: boolean = false;
   erro;
   msg: string = null;
   id: string = null;
-  
+
   ngOnInit() {
     this.montaForm();
     this.leCategorias();
@@ -46,15 +47,15 @@ export class CdpecaComponent implements OnInit {
     });
 
     this.formCategoria = this.fb.group({
-      categoria: ['',Validators.required]
+      categoria: ['', Validators.required]
     });
 
   }
 
-  pegaIdEAtualizaForm(){
+  pegaIdEAtualizaForm() {
     this.router.params.subscribe((params) => {
       this.id = params.id;
-      if(this.id){
+      if (this.id) {
         console.log(`Id recebido ${this.id}`);
         this.crud.leRegistroEspecifico('/produtos', this.id).subscribe((data) => {
           console.table(`Peca da id recebida ${data}`);
@@ -72,8 +73,8 @@ export class CdpecaComponent implements OnInit {
   enviaForm() {
     this.dadosPeca = this.formCadastroPeca.value;
     console.table(this.dadosPeca);
-    
-    if(this.id){
+
+    if (this.id) {
       this.crud.atualizaRegistro('/produtos', this.id, this.dadosPeca).subscribe((data) => {
         this.msg = 'Peca atualizada com sucesso';
         this.sucesso = true;
@@ -97,6 +98,13 @@ export class CdpecaComponent implements OnInit {
   leCategorias() {
     this.crud.leRegistro('/categoria').subscribe((categorias) => {
       this.categorias = categorias;
+      
+      for(let i = 0 ; i < this.categorias.length ; i++) {
+        if(this.categorias[i].categoria){
+          this.categoriasOrdemAlfabetica.push(this.categorias[i].categoria);
+        }
+      }
+      return this.categoriasOrdemAlfabetica.sort();
     }, error => {
       this.erro = error;
     });
@@ -105,7 +113,7 @@ export class CdpecaComponent implements OnInit {
   cadastraCategoria() {
     this.crud.criaRegistro('/categoria', this.formCategoria.value).subscribe((data) => {
       console.log('Categoria adicionada globalmente');
-      this.categorias.push(this.formCategoria.value);
+      this.categoriasOrdemAlfabetica.push(this.formCategoria.controls['categoria'].value);
       this.modalService.dismissAll();
     }, error => {
       this.erro = error;

@@ -111,27 +111,36 @@ export class OrcamentosComponent implements OnInit {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
       this.modalService.open(conteudo, { centered: true, size: 'lg' });
+      console.log(this.infoClienteModal);
     }, error => {
       this.erro = error;
     });
 
   }
 
-  deletaMensagem(event) {
+  deletaOrcamento(event) {
     let target = event.target || event.srcElement || event.currentTarget;
     let id = target.attributes.id.value;
 
     console.log(id);
-    this.crud.deletaRegistro('/orcamentos', id).takeUntil(this.destruido).subscribe((data) => {
-      console.log('Orçamento deletado com sucesso.');
-      for (let i = 0; i < this.orcamentos.length; i++) {
-        if (this.orcamentos[i].id === id) {
-          this.orcamentos.splice(i, 1);
+
+    let alerta = confirm('Deseja deletar o orçamento?');
+
+    if (alerta) {
+      this.crud.deletaRegistro('/orcamentos', id).takeUntil(this.destruido).subscribe((data) => {
+        console.log('Orçamento deletado com sucesso.');
+        for (let i = 0; i < this.orcamentos.length; i++) {
+          if (this.orcamentos[i].id === id) {
+            this.orcamentos.splice(i, 1);
+          }
         }
-      }
-    }, error => {
-      console.log('ERRO: Não foi possível deletar o orçamento', error);
-    });
+      }, error => {
+        console.log('ERRO: Não foi possível deletar o orçamento', error);
+      });
+    } else {
+      console.log('Opção de deletar cancelada.');
+      alert('Operação de deletar cancelada');
+    }
   }
 
   exibeCampoParcelas() {
@@ -149,6 +158,13 @@ export class OrcamentosComponent implements OnInit {
   ngOnDestory() {
     this.destruido.next(true);
     this.destruido.complete();
+  }
+
+  atualizaSituacaoOrcamento(event) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(id);
   }
 
 }

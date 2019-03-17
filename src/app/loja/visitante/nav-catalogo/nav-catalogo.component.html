@@ -1,5 +1,5 @@
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"><i class="fas fa-arrow-left"></i> {{tituloLoja}}</a>
+  <a class="navbar-brand" href="/home">{{tituloLoja}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed">
     <span class="navbar-toggler-icon"></span>
@@ -30,9 +30,9 @@
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
-      <button *ngIf="!eAdministrador" class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit" (click)="abreModalPainelAdm(conteudo)">Login</button>
-      <button *ngIf="eAdministrador" class="btn btn-outline-warning btn-sm my-2 mr-md-2 my-sm-0" type="button" routerLink="/configuracoes"><i class="fas fa-cogs"></i> Configurações</button>
-      <button *ngIf="eAdministrador" class="btn btn-outline-danger btn-sm my-2 my-sm-0" type="button" (click)="deslogar()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+      <button *ngIf="!eAdministrador" class="btn btn-outline-success btn-sm my-2" type="submit" (click)="abreModalPainelAdm(conteudo)">Login</button>
+      <button *ngIf="eAdministrador" class="btn btn-outline-warning btn-sm my-2 button_configuracao" type="button" routerLink="/configuracoes"><i class="fas fa-cogs"></i> Configurações</button>
+      <button *ngIf="eAdministrador" class="btn btn-outline-danger btn-sm my-2" type="button" (click)="deslogar()"><i class="fas fa-sign-out-alt"></i> Sair</button>
     </div>
   </div>
 </nav>

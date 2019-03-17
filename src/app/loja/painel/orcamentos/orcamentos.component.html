@@ -23,12 +23,24 @@
                   <td>{{orcamento.telefone}}</td>
                   <td class="text-center align-middle">
                     <button type="button" id={{orcamento.id}} (click)="abreModalFinalizacaoOrcamento($event, conteudo)"
-                      class="btn btn-warning btn-sm button_resposta"
-                      [ngClass]=" orcamento.situacao == ('a pagar' || '') ? 'btn-warning' : 'btn-light'">{{mensagemBotaoResposta}}</button>
+                      class="btn btn-warning btn-sm button_orcamento"
+                      [ngClass]=" orcamento.situacao == ('A PAGAR' || '') ? 'btn-warning' : 'btn-light'">{{mensagemBotaoResposta}}</button>
                     <button type="button" id={{orcamento.id}} (click)="deletaOrcamento($event)"
-                      class="btn btn-danger btn-sm">Deletar</button>
+                      class="btn btn-danger btn-sm button_orcamento">Deletar</button>
                   </td>
-                  <td>{{orcamento.situacao}}</td>
+                  <td>
+                    <form>
+                      <select class="form-control" id={{orcamento.id}} (change)="atualizaSituacaoOrcamento($event)">
+                        <optgroup label="Situação Atual">
+                          <option value="{{orcamento.situacao}}">{{orcamento.situacao}}</option>
+                        </optgroup>
+                        <optgroup label="Disponível">
+                            <option value="EM PRODUÇÃO">EM PRODUÇÃO</option>
+                            <option value="ENTREGUE">ENTREGUE</option>
+                        </optgroup>
+                      </select>
+                    </form>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -188,12 +200,16 @@
                 <table class="table table-sm table-hoverable table-bordered">
                   <thead>
                     <tr>
+                      <th scope="col">Qtd</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Valor</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let peca of infoClienteModal.pecasForm">
+                      <td>
+                        {{peca.quantidade}}
+                      </td>
                       <td>
                         {{peca.dadosDaPeca.nome}}
                       </td>
@@ -203,6 +219,11 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+            <div class="row float-right">
+              <div class="col-12">
+                <b>Valor total: </b>{{infoClienteModal.precoTotal}}
               </div>
             </div>
           </div>

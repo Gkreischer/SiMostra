@@ -42,6 +42,7 @@ export class NavCatalogoComponent implements OnInit {
   msg: string = null;
   erro = null;
   tituloLoja: string = null;
+  url: string = '/home';
 
   montaForm() {
     this.formLogin = this.fb.group({
@@ -68,7 +69,7 @@ export class NavCatalogoComponent implements OnInit {
   }
 
   abreModalPainelAdm(conteudo) {
-    this.modalService.open(conteudo, { centered: true});
+    this.modalService.open(conteudo, { centered: true });
   }
 
   deslogar() {
@@ -101,8 +102,7 @@ export class NavCatalogoComponent implements OnInit {
   }
 
   exibeDadosLoja() {
-    
+
     this.tituloLoja = localStorage.getItem('nomeLoja');
   }
-
 }

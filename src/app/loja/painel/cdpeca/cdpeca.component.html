@@ -27,7 +27,7 @@
                   <div class="input-group">
                     <select *ngIf="categorias" class="form-control" formControlName="categoria" id="inputGroupSelect04" required>
                       <option value="" selected>-- Selecione --</option>
-                      <option [value]="categoria.categoria" *ngFor="let categoria of categorias">{{categoria.categoria}}</option>
+                      <option [value]="categoria" *ngFor="let categoria of categoriasOrdemAlfabetica">{{categoria}}</option>
                     </select>
                     <div class="input-group-append">
                       <button class="btn btn-primary" (click)="exibeModalCadastroCategoria(cadastroCategoriaModal)"

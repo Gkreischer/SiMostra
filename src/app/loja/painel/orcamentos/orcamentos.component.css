@@ -1,0 +1,11 @@
+@media screen and (min-width: 768px) {
+    .button_orcamento:first-child {
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .button_orcamento:last-child {
+        margin-top: 10px;
+    }
+}

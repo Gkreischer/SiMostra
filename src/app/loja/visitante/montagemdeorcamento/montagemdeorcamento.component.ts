@@ -24,7 +24,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
   sucesso: string;
   categorias: Categoria[] = null;
   pecas: Peca[] = null;
-
+  categoriasOrdemAlfabetica = [];
   formPecasOrcamento: FormGroup = null;
   orcamento: Orcamento[] = [];
   valorTotalOrcamento: number = 0;
@@ -42,6 +42,12 @@ export class MontagemdeorcamentoComponent implements OnInit {
   leCategorias() {
     this.crud.leRegistro('/categoria').takeUntil(this.destruido).subscribe((data) => {
       this.categorias = data;
+      for(let i = 0 ; i < this.categorias.length ; i++) {
+        if(this.categorias[i].categoria){
+          this.categoriasOrdemAlfabetica.push(this.categorias[i].categoria);
+        }
+      }
+      return this.categoriasOrdemAlfabetica.sort();
     }, error => {
       this.erro = error;
     });
@@ -54,7 +60,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
       cpfcnpj: ['', Validators.required],
       pecasForm: this.fb.array([]),
       precoTotal: [''],
-      situacao: ['a pagar', Validators.required]
+      situacao: ['A PAGAR', Validators.required]
     });
   }
 
@@ -159,7 +165,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     this.calculaValorTotalOrcamento();
 
-    this.formPecasOrcamento.value.precoTotal = this.valorTotalOrcamento;
+    this.formPecasOrcamento.value.precoTotal = this.valorTotalOrcamento.toFixed(2);
 
     console.log(this.formPecasOrcamento.value);
 

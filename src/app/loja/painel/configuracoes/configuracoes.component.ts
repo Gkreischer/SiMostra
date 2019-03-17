@@ -148,4 +148,8 @@ export class ConfiguracoesComponent implements OnInit {
       });
     }
   }
+
+  abreModalEdicaoCategorias(modalCategorias) {
+    this.modalService.open(modalCategorias, {centered : true} );
+  }
 }
