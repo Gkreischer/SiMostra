@@ -4,7 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DadosEmpresa } from '../../compartilhados/dadosEmpresa';
 import { ConfigEmail } from './../../compartilhados/configEmail';
-
+import { Categoria } from './../../compartilhados/categoria';
+import { ReplaySubject } from 'rxjs';
 @Component({
   selector: 'app-configuracoes',
   templateUrl: './configuracoes.component.html',
@@ -22,17 +23,29 @@ export class ConfiguracoesComponent implements OnInit {
   erro: string;
   idDadosLoja: string = null;
   msgConfigDadosLoja: string = null;
-
+  categorias: Categoria[] = null;
   formConfigEmail: FormGroup = null;
   configEmail: ConfigEmail = null;
   idDadosEmail: string = null;
   msgConfigEmail: string = null;
+
+  destruido: ReplaySubject<boolean> = new ReplaySubject(1);
+
   ngOnInit() {
     this.montaFormConfig();
+    this.leCategorias();
     this.verificaInfoDadosLoja();
     this.verificaInfoDadosEmail();
   }
 
+  leCategorias() {
+    this.crud.leRegistro('/categoria').takeUntil(this.destruido).subscribe((data) => {
+      this.categorias = data;
+      console.log(this.categorias);
+    }, error => {
+      this.erro = error;
+    });
+  }
 
   montaFormConfig() {
     this.formConfiguracaoDadosLoja = this.fb.group({
@@ -150,6 +163,38 @@ export class ConfiguracoesComponent implements OnInit {
   }
 
   abreModalEdicaoCategorias(modalCategorias) {
-    this.modalService.open(modalCategorias, {centered : true} );
+    this.modalService.open(modalCategorias, { centered: true });
+  }
+
+  ngOnDestory() {
+    this.destruido.next(true);
+    this.destruido.complete();
+  }
+
+  deletaCategoria(event) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(`${id}`);
+
+    let op = confirm('Deseja realmente deletar a categoria?');
+
+    if(op){
+      this.crud.deletaRegistro('/categoria', id).takeUntil(this.destruido).subscribe((data) => {
+  
+        for (let i = 0; i < this.categorias.length; i++) {
+          if (this.categorias[i].id) {
+            this.categorias.splice(i, 1);
+          }
+        }
+        this.leCategorias();
+      }, error => {
+        this.erro = error;
+        console.log(this.erro);
+      });
+    } else {
+      console.log('Operação cancelada');
+      return false;
+    }
   }
 }

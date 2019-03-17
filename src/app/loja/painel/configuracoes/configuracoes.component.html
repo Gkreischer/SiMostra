@@ -182,16 +182,31 @@
 
 <ng-template #modalCategorias let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
+    <h4 class="modal-title">Categorias</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p>One fine body&hellip;</p>
+    <table class="table table-small table-bordered table-hoverable">
+      <thead>
+        <tr>
+          <td scope="col">Ação</td>
+          <td scope="col">Nome</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let categoria of categorias">
+          <td class="text-center">
+            <button (click)="deletaCategoria($event)" id={{categoria.id}} class="btn btn-danger">X</button>
+          </td>
+          <td>{{categoria.categoria}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
   </div>
 </ng-template>
 <app-nav-catalogo></app-nav-catalogo>

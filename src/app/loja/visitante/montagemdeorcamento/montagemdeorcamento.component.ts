@@ -30,7 +30,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
   valorTotalOrcamento: number = 0;
   exibeOrcamento: boolean = false;
   pecaSelecionada: Peca = null;
-  P: number = 1;
+  p: number = 1;
 
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
 
