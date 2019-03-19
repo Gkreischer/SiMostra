@@ -31,7 +31,6 @@ export class MontagemdeorcamentoComponent implements OnInit {
   exibeOrcamento: boolean = false;
   pecaSelecionada: Peca = null;
   p: number = 1;
-
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
 
   ngOnInit() {
@@ -59,7 +58,6 @@ export class MontagemdeorcamentoComponent implements OnInit {
       telefone: ['', Validators.required],
       cpfcnpj: ['', Validators.required],
       pecasForm: this.fb.array([]),
-      precoTotal: [''],
       situacao: ['A PAGAR', Validators.required]
     });
   }

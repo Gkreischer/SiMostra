@@ -21,16 +21,28 @@
       "type":"number",
       "required": true
     },
-    "preco": {
+    "precoTotal": {
       "type": "number",
       "required": true,
       "default": 0
+    },
+    "numeroParcelas": {
+      "type": "number",
+      "default": 0
+    },
+    "observacao": {
+      "type": "string"
     },
     "pecasForm": {
       "type": [
         "object"
       ],
       "required": true
+    },
+    "situacao": {
+      "type": "string",
+      "required": "true",
+      "default": "A PAGAR"
     }
   },
   "validations": [],

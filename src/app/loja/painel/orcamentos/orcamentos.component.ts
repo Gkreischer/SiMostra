@@ -28,7 +28,7 @@ export class OrcamentosComponent implements OnInit {
   exibePecasOrcamento: boolean = false;
   formOrcamentoFinalizado: FormGroup = null;
   to: string = null;
-
+  id: string = null;
   configEmail: ConfigEmail = null;
   campoParcelamento: boolean = false;
 
@@ -38,8 +38,6 @@ export class OrcamentosComponent implements OnInit {
   ngOnInit() {
     window.document.body.style.backgroundColor = '#474647';
     this.leOrcamentos();
-    this.leConfigServidorEmail();
-    this.montaFormOrcamento();
   }
 
   leOrcamentos() {
@@ -62,6 +60,9 @@ export class OrcamentosComponent implements OnInit {
 
   montaFormOrcamento() {
     this.formOrcamentoFinalizado = this.fb.group({
+      nome: this.infoClienteModal.nome,
+      cpfcnpj: this.infoClienteModal.cpfcnpj,
+      telefone: this.infoClienteModal.telefone,
       endereco: ['', Validators.required],
       bairro: ['', Validators.required],
       cidade: ['', Validators.required],
@@ -69,31 +70,29 @@ export class OrcamentosComponent implements OnInit {
       formaPagamento: ['', Validators.required],
       valorPago: ['', Validators.required],
       dataEntrega: ['', Validators.required],
-      parcelado: [false, Validators.required],
-      numeroParcelas: ''
+      parcelado: false,
+      numeroParcelas: 0,
+      observacao: '',
+      pecasOrcamento: this.infoClienteModal.pecasForm,
+      valorTotal: parseFloat(this.infoClienteModal.precoTotal)
     });
 
   }
 
-  leConfigServidorEmail() {
-    this.crud.leRegistro('/configEmails').takeUntil(this.destruido).subscribe((data) => {
-      this.configEmail = data[0];
-      console.table(this.configEmail);
-      this.montaFormOrcamento();
-    }, error => {
-      console.log('Erro ao ler configuracoes de email');
-      alert('Você cadastrou suas informações de email em configurações?');
-      this.erro = error;
-    });
-  }
+  atualizaOrcamento() {
 
-
-  finalizaOrcamentoCliente() {
+    let idCliente = this.id;
 
     this.orcamentoFinalizado = this.formOrcamentoFinalizado.value;
 
     console.log(this.orcamentoFinalizado);
 
+    this.crud.atualizaRegistro('/orcamentos', idCliente, this.orcamentoFinalizado).takeUntil(this.destruido).subscribe((data) => {
+      console.log('Orcamento atualizado com sucesso');
+    }, error => {
+      this.erro = error;
+      console.log('Nao foi possivel atualizar orcamento');
+    });
   }
 
 
@@ -110,8 +109,10 @@ export class OrcamentosComponent implements OnInit {
     this.crud.leRegistroEspecifico('/orcamentos', id).takeUntil(this.destruido).subscribe((data) => {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
+      this.id = this.infoClienteModal.id;
       this.modalService.open(conteudo, { centered: true, size: 'lg' });
       console.log(this.infoClienteModal);
+      this.montaFormOrcamento();
     }, error => {
       this.erro = error;
     });
@@ -160,11 +161,5 @@ export class OrcamentosComponent implements OnInit {
     this.destruido.complete();
   }
 
-  atualizaSituacaoOrcamento(event) {
-    let target = event.target || event.srcElement || event.currentTarget;
-    let id = target.attributes.id.value;
-
-    console.log(id);
-  }
 
 }
