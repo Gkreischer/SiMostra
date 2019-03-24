@@ -63,5 +63,13 @@
   "orcamentos": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "montagemOrcamentos": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "funcionarios": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

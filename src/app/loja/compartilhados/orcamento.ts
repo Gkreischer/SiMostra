@@ -11,4 +11,6 @@ export interface Orcamento {
     precoTotal: string;
     situacao: string;
     numeroParcelas: number;
+    nomeFuncionario: string;
+    parcelado: boolean;
 }

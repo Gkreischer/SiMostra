@@ -24,7 +24,7 @@ export class ListagemdepecasComponent implements OnInit {
   pecaConsultada:Peca = null;
   msg;
   erro;
-
+  p: number = 1;
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
 
 

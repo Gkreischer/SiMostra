@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DadosEmpresa } from '../../compartilhados/dadosEmpresa';
 import { ConfigEmail } from './../../compartilhados/configEmail';
 import { Categoria } from './../../compartilhados/categoria';
+import { Funcionario } from './../../compartilhados/funcionario';
 import { ReplaySubject } from 'rxjs';
 @Component({
   selector: 'app-configuracoes',
@@ -19,6 +20,7 @@ export class ConfiguracoesComponent implements OnInit {
   }
 
   formConfiguracaoDadosLoja: FormGroup = null;
+  formAdicionaFuncionario: FormGroup = null;
   configuracaoDadosLoja: DadosEmpresa = null;
   erro: string;
   idDadosLoja: string = null;
@@ -28,12 +30,12 @@ export class ConfiguracoesComponent implements OnInit {
   configEmail: ConfigEmail = null;
   idDadosEmail: string = null;
   msgConfigEmail: string = null;
-
+  funcionarios: Funcionario[] = null;
+  msgModalFuncionarios: string = null;
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
 
   ngOnInit() {
     this.montaFormConfig();
-    this.leCategorias();
     this.verificaInfoDadosLoja();
     this.verificaInfoDadosEmail();
   }
@@ -46,6 +48,7 @@ export class ConfiguracoesComponent implements OnInit {
       this.erro = error;
     });
   }
+
 
   montaFormConfig() {
     this.formConfiguracaoDadosLoja = this.fb.group({
@@ -65,6 +68,12 @@ export class ConfiguracoesComponent implements OnInit {
       conta: ['', Validators.required],
       senha: ['', Validators.required],
       tls: ['', Validators.required]
+    });
+
+    this.formAdicionaFuncionario = this.fb.group({
+      nome: ['', Validators.required],
+      sobrenome: ['', Validators.required],
+      cargo: ['', Validators.required]
     });
   }
 
@@ -163,7 +172,58 @@ export class ConfiguracoesComponent implements OnInit {
   }
 
   abreModalEdicaoCategorias(modalCategorias) {
-    this.modalService.open(modalCategorias, { centered: true });
+    this.crud.leRegistro('/categoria').takeUntil(this.destruido).subscribe((data) => {
+      this.categorias = data;
+      console.log(this.categorias);
+      this.modalService.open(modalCategorias, { centered: true });
+    }, error => {
+      this.erro = error;
+    });
+  }
+
+  leFuncionarios() {
+    this.crud.leRegistro('/funcionarios').takeUntil(this.destruido).subscribe((data) => {
+      if (data.length == 0) {
+        this.msgModalFuncionarios = 'Não há funcionários cadastrados';
+      } else {
+        this.msgModalFuncionarios = null;
+        this.funcionarios = data;
+        console.table(this.funcionarios);
+      }
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  abreModalAdicionaFuncionario(modalFuncionarios) {
+    this.crud.leRegistro('/funcionarios').takeUntil(this.destruido).subscribe((data) => {
+      if (data.length == 0) {
+        this.msgModalFuncionarios = 'Não há funcionários cadastrados';
+      } else {
+        this.msgModalFuncionarios = null;
+        this.funcionarios = data;
+        console.table(this.funcionarios);
+      }
+      this.modalService.open(modalFuncionarios, { centered: true, size: 'lg' });
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  adicionaFuncionario() {
+    let funcionario: Funcionario = this.formAdicionaFuncionario.value;
+    console.log(funcionario);
+
+    this.crud.criaRegistro('/funcionarios', funcionario).takeUntil(this.destruido).subscribe((data) => {
+      console.log('Funcionario adicionado com sucesso');
+      this.funcionarios.push(funcionario);
+      this.formAdicionaFuncionario.reset();
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
   }
 
   ngOnDestory() {
@@ -179,9 +239,9 @@ export class ConfiguracoesComponent implements OnInit {
 
     let op = confirm('Deseja realmente deletar a categoria?');
 
-    if(op){
+    if (op) {
       this.crud.deletaRegistro('/categoria', id).takeUntil(this.destruido).subscribe((data) => {
-  
+
         for (let i = 0; i < this.categorias.length; i++) {
           if (this.categorias[i].id) {
             this.categorias.splice(i, 1);

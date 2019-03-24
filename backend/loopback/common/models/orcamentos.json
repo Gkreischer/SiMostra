@@ -18,22 +18,54 @@
       "required": true
     },
     "telefone": {
-      "type":"number",
+      "type": "number",
       "required": true
+    },
+    "endereco": {
+      "type": "string",
+      "required": true
+    },
+    "bairro": {
+      "type": "string",
+      "required": true
+    },
+    "cidade": {
+      "type": "string",
+      "required": true
+    },
+    "cep": {
+      "type": "number",
+      "required": true
+    },
+    "formaPagamento": {
+      "type": "string",
+      "required": true
+    },
+    "valorPago": {
+      "type": "number",
+      "required": true
+    },
+    "dataEntrega": {
+      "type": "string",
+      "required": true
+    },
+    "parcelado": {
+      "type": "boolean",
+      "default": "false"
+    },
+    "numeroParcelas": {
+      "type": "number",
+      "default": 0
     },
     "precoTotal": {
       "type": "number",
       "required": true,
       "default": 0
     },
-    "numeroParcelas": {
-      "type": "number",
-      "default": 0
-    },
     "observacao": {
       "type": "string"
     },
-    "pecasForm": {
+    "pecasOrcamento": {
       "type": [
         "object"
       ],

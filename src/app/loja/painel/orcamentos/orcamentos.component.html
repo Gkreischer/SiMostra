@@ -4,7 +4,21 @@
     <div class="col-12">
       <div class="card my-3 ">
         <div class="card-header">
-          Lista de orçamentos dos clientes
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <div class="nav-link" [ngClass]='this.abaSelecionada == "A PAGAR" ? "active" : "inactive"'
+                (click)="leOrcamentos()">A PAGAR</div>
+            </li>
+            <li class="nav-item">
+              <div class="nav-link" id="EM PRODUÇÃO"
+                [ngClass]='this.abaSelecionada == "EM PRODUÇÃO" ? "active" : "inactive"'
+                (click)="leOrcamentosSituacao($event)">EM PRODUÇÃO</div>
+            </li>
+            <li class="nav-item">
+              <div class="nav-link" id="ENTREGUE" [ngClass]='this.abaSelecionada == "ENTREGUE" ? "active" : "inactive"'
+                (click)="leOrcamentosSituacao($event)">ENTREGUE</div>
+            </li>
+          </ul>
         </div>
         <div class="card-body">
           <div *ngIf="orcamentos" class="table-responsive">
@@ -14,7 +28,6 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Telefone</th>
                 <th scope="col">Ações</th>
-                <th scope="col">Situação</th>
               </thead>
               <tbody>
                 <tr *ngFor="let orcamento of orcamentos | paginate: { itemsPerPage: 10, currentPage: p }">
@@ -22,24 +35,19 @@
                   <td><b>{{orcamento.nome}}</b></td>
                   <td>{{orcamento.telefone}}</td>
                   <td class="text-center align-middle">
-                    <button type="button" id={{orcamento.id}} (click)="abreModalFinalizacaoOrcamento($event, conteudo)"
+                    <button *ngIf='this.abaSelecionada == "A PAGAR"' type="button" id={{orcamento.id}}
+                      (click)="abreModalFinalizacaoOrcamento($event, orcamentoAPAGAR)"
                       class="btn btn-warning btn-sm button_orcamento"
                       [ngClass]=" orcamento.situacao == ('A PAGAR' || '') ? 'btn-warning' : 'btn-light'">{{mensagemBotaoResposta}}</button>
-                    <button type="button" id={{orcamento.id}} (click)="deletaOrcamento($event)"
-                      class="btn btn-danger btn-sm button_orcamento">Deletar</button>
-                  </td>
-                  <td>
-                    <form>
-                      <select class="form-control" [disabled]="orcamento.situacao == ('A PAGAR' || 'ENTREGUE')" id={{orcamento.id}} (change)="atualizaSituacaoOrcamento($event)">
-                        <optgroup label="Situação Atual">
-                          <option value="{{orcamento.situacao}}">{{orcamento.situacao}}</option>
-                        </optgroup>
-                        <optgroup label="Disponível">
-                            <option value="EM PRODUÇÃO">EM PRODUÇÃO</option>
-                            <option value="ENTREGUE">ENTREGUE</option>
-                        </optgroup>
-                      </select>
-                    </form>
+                    <button *ngIf='this.abaSelecionada == "A PAGAR"' type="button" id={{orcamento.id}}
+                      (click)="deletaOrcamento($event)" class="btn btn-danger btn-sm button_orcamento">Deletar</button>
+
+                    <button *ngIf="this.abaSelecionada == 'EM PRODUÇÃO'" id={{orcamento.id}}
+                      class="btn btn-primary btn-sm" type="button"
+                      (click)="lerDadosOrcamentoAceito($event, orcamentoEmProducao)">Ver dados</button>
+
+                    <button *ngIf="this.abaSelecionada == 'ENTREGUE'" id={{orcamento.id}} class="btn btn-primary btn-sm"
+                      type="button" (click)="leOrcamentoEntregue($event, orcamentoEntregue)">Ver dados</button>
                   </td>
                 </tr>
               </tbody>
@@ -61,8 +69,8 @@
 </div>
 <app-nav-catalogo></app-nav-catalogo>
 
-<!-- Modal -->
-<ng-template #conteudo let-modal class="my-5">
+<!-- Modal Orcamento A PAGAR -->
+<ng-template #orcamentoAPAGAR let-modal class="my-5">
   <div class="modal-header">
     <h4 class="modal-title">Finalizando Orçamento</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -192,7 +200,8 @@
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
-                  <button class="btn btn-primary" type="submit" [disabled]="!formOrcamentoFinalizado.valid">Produzir</button>
+                  <button class="btn btn-primary" type="submit"
+                    [disabled]="!formOrcamentoFinalizado.valid">Produzir</button>
                 </div>
               </div>
             </div>
@@ -237,6 +246,200 @@
           </div>
         </div>
       </form>
+    </div>
+    <div class="container-fluid px-0">
+      <div *ngIf="msg" [hidden]="erro" class="row">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            {{msg}}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="erro" [hidden]="msg" class="row">
+        <div class="col-12">
+          <div class="alert alert-danger" role="alert">
+            Desculpe-nos, algo errado aconteceu...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<!-- Modal Exibição Orcamentos em Producao -->
+<ng-template #orcamentoEmProducao let-modal class="my-5">
+  <div class="modal-header">
+    <h4 class="modal-title">Dados do Orçamento</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid px-0 mb-3">
+      <div class="row">
+        <div class="col-12">
+          <p class="lead">Dados do cliente</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Nome: </b>{{infoClienteModal.nome}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>CPF: </b>{{infoClienteModal.cpfcnpj}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Telefone: </b>{{infoClienteModal.telefone}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-sm table-hoverable table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Nome da Peca</th>
+                  <th scope="col">Qtd</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let peca of infoClienteModal.pecasOrcamento">
+                  <td>
+                    {{peca.dadosDaPeca.nome}}
+                  </td>
+                  <td>
+                    {{peca.quantidade}}
+                  </td>
+                </tr>
+                <tr>
+                  {{infoClienteModal.observacao}}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="formFinalizaPedido" (ngSubmit)="entregaOrcamento()">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label>Responsável</label>
+              <select class="form-control" formControlName="nomeFuncionario">
+                <option [value]="funcionario.nome" *ngFor="let funcionario of funcionarios">
+                  {{funcionario.nome}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <button class="btn btn-primary mt-1">Finalizar e Entregar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="container-fluid px-0">
+      <div *ngIf="msg" [hidden]="erro" class="row">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            {{msg}}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="erro" [hidden]="msg" class="row">
+        <div class="col-12">
+          <div class="alert alert-danger" role="alert">
+            Desculpe-nos, algo errado aconteceu...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #orcamentoEntregue let-modal class="my-5">
+  <div class="modal-header">
+    <h4 class="modal-title">Dados do Orçamento</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid px-0 mb-3">
+      <div class="row">
+        <div class="col-12">
+          <p class="lead">Dados do cliente</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Nome: </b>{{dadosOrcamentoEntregue.nome}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>CPF: </b>{{dadosOrcamentoEntregue.cpfcnpj}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Endereço: </b>{{dadosOrcamentoEntregue.endereco}} - {{dadosOrcamentoEntregue.bairro}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Telefone: </b>{{dadosOrcamentoEntregue.telefone}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-sm table-hoverable table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Nome da Peca</th>
+                  <th scope="col">Qtd</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let peca of dadosOrcamentoEntregue.pecasOrcamento">
+                  <td>
+                    {{peca.dadosDaPeca.nome}}
+                  </td>
+                  <td>
+                    {{peca.quantidade}}
+                  </td>
+                </tr>
+                <tr>
+                  {{orcamentoEntregue.observacao}}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Forma de pagamento: </b>{{dadosOrcamentoEntregue.formaPagamento}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p><b>Parcelado?: </b>{{transformaBooleanParaStringEmCampoParcelado}}</p>
+        </div>
+        <div class="col-6">
+          <p><b>Num. de parcelas: </b>{{dadosOrcamentoEntregue.numeroParcelas}}</p>
+        </div>
+      </div>
     </div>
     <div class="container-fluid px-0">
       <div *ngIf="msg" [hidden]="erro" class="row">

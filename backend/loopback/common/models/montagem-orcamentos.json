@@ -1,0 +1,40 @@
+{
+  "name": "montagemOrcamentos",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true
+  },
+  "properties": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "telefone": {
+      "type": "string",
+      "required": true
+    },
+    "cpfcnpj": {
+      "type": "number",
+      "required": true
+    },
+    "pecasForm": {
+      "type": [
+        "object"
+      ],
+      "required": true
+    },
+    "situacao": {
+      "type": "string",
+      "required": true,
+      "default": "A PAGAR"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

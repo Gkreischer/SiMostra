@@ -3,9 +3,7 @@
   <div class="row">
     <div id="configDadosLoja" class="col-12 col-md-3">
       <div class="card">
-        <div class="card-header">
-          Configurações
-        </div>
+        <h5 class="card-header">Informações da empresa</h5>
         <div class="card-body">
           <form [formGroup]="formConfiguracaoDadosLoja" (ngSubmit)="enviaFormConfigDadosLoja()">
             <div class="container-fluid mx-0">
@@ -66,12 +64,13 @@
               <div class="row justify-content-center">
                 <div class="col-md-10 col-12">
                   <label for="cidade">Cidade</label>
-                  <input type="text" class="form-control" id="cidade" formControlName="cidade"> 
+                  <input type="text" class="form-control" id="cidade" formControlName="cidade">
                 </div>
               </div>
               <div class="row">
                 <div class="col-12 text-center">
-                  <button class="btn btn-primary my-3" type="submit" [disabled]="!formConfiguracaoDadosLoja.valid">Salvar</button>
+                  <button class="btn btn-primary my-3" type="submit"
+                    [disabled]="!formConfiguracaoDadosLoja.valid">Salvar</button>
                 </div>
               </div>
               <div *ngIf="msgConfigDadosLoja" [hidden]="erro" class="row">
@@ -95,7 +94,7 @@
     </div>
     <div id="configEmail" class="col-12 col-md-3">
       <div class="card">
-        <div class="card-header">Configuração de Email</div>
+        <h5 class="card-header">Configuração de Email</h5>
         <div class="card-body">
           <form [formGroup]="formConfigEmail" (ngSubmit)="enviaFormConfigDadosEmail()">
             <div class="container-fluid">
@@ -140,7 +139,8 @@
               <div class="row">
                 <div class="col-12 ">
                   <div class="form-group">
-                    <button class="btn btn-primary text-center mb-3" [disabled]="!formConfigEmail.valid" type="submit">Salvar</button>
+                    <button class="btn btn-primary text-center mb-3" [disabled]="!formConfigEmail.valid"
+                      type="submit">Salvar</button>
                   </div>
                 </div>
               </div>
@@ -163,14 +163,17 @@
         </div>
       </div>
       <div class="card mt-1">
-        <div class="card-header">
+        <h5 class="card-header">
           Ações
-        </div>
+        </h5>
         <div class="card-body">
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">
-                <button class="btn btn-primary" type="button" (click)="abreModalEdicaoCategorias(modalCategorias)">Categorias</button>
+                <button class="btn btn-primary mr-2" type="button"
+                  (click)="abreModalEdicaoCategorias(modalCategorias)">Categorias</button>
+                <button class="btn btn-primary" type="button"
+                  (click)="abreModalAdicionaFuncionario(modalFuncionarios)">Adicionar Usuário</button>
               </div>
             </div>
           </div>
@@ -188,22 +191,102 @@
     </button>
   </div>
   <div class="modal-body">
-    <table class="table table-small table-bordered table-hoverable">
-      <thead>
-        <tr>
-          <td scope="col">Ação</td>
-          <td scope="col">Nome</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let categoria of categorias">
-          <td class="text-center">
-            <button (click)="deletaCategoria($event)" id={{categoria.id}} class="btn btn-danger">X</button>
-          </td>
-          <td>{{categoria.categoria}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hoverable">
+              <thead>
+                <tr>
+                  <td scope="col">Ação</td>
+                  <td scope="col">Nome</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let categoria of categorias">
+                  <td class="text-center">
+                    <button (click)="deletaCategoria($event)" id={{categoria.id}}
+                      class="btn btn-danger btn-sm">X</button>
+                  </td>
+                  <td>{{categoria.categoria}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalFuncionarios let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Funcionários</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <p>Funcionários adicionados:</p>
+          <div *ngIf="!msgModalFuncionarios" class="table-responsive">
+            <table class="table table-hoverable table-sm table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Sobrenome</th>
+                  <th scope="col">Cargo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let funcionario of funcionarios">
+                  <td>{{funcionario.nome}}</td>
+                  <td>{{funcionario.sobrenome}}</td>
+                  <td>{{funcionario.cargo}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="this.msgModalFuncionarios" class="alert alert-warning">
+            {{this.msgModalFuncionarios}}
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="formAdicionaFuncionario" (ngSubmit)="adicionaFuncionario()">
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <label for="nomeFuncionario">Nome</label>
+              <input class="form-control" type="text" id="nomeFuncionario" formControlName="nome">
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="sobrenomeFuncionario">Sobrenome</label>
+              <input class="form-control" type="text" id="sobrenomeFuncionario" formControlName="sobrenome">
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="cargoFuncionario">Cargo</label>
+              <input class="form-control" type="text" id="cargoFuncionario" formControlName="cargo">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit" [disabled]="!this.formAdicionaFuncionario.valid">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>

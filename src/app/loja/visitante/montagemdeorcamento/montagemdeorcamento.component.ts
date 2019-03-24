@@ -167,7 +167,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
     console.log(this.formPecasOrcamento.value);
 
-    this.crud.criaRegistro('/orcamentos', this.orcamento).takeUntil(this.destruido).subscribe((data) => {
+    this.crud.criaRegistro('/montagemOrcamentos', this.orcamento).takeUntil(this.destruido).subscribe((data) => {
       this.sucesso = 'Orçamento registrado com sucesso. Vá a loja e informe seus dados para prosseguir com a compra';
       console.log(data);
     }, error => {
