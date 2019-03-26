@@ -43,7 +43,7 @@ export class NavCatalogoComponent implements OnInit {
   erro = null;
   tituloLoja: string = null;
   url: string = '/home';
-
+  isCollapsed;
   montaForm() {
     this.formLogin = this.fb.group({
       username: ['', Validators.required],
@@ -81,7 +81,7 @@ export class NavCatalogoComponent implements OnInit {
 
     this.tituloLoja = localStorage.getItem('nomeLoja');
 
-    if (this.tituloLoja === null) {
+    if (this.tituloLoja.length == 0) {
       this.crud.leRegistro('/configuracaos').subscribe((data) => {
         if (data.length != 0) {
 

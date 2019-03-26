@@ -11,7 +11,7 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
-  URL_DEFAULT:string = 'http://localhost:3000/api';
+  URL_DEFAULT:string = 'http://192.168.0.104:3000/api';
 
   leRegistro(rota: string):Observable<any>{
     return this.http.get(this.URL_DEFAULT + rota).pipe(
