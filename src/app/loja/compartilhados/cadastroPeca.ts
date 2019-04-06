@@ -3,6 +3,6 @@ export interface PecaParaCadastro {
     marca: string;
     categoria: string;
     linkImagem: string;
-    preco: string;
+    preco: number;
     detalhes: string;
 }

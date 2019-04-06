@@ -1,0 +1,77 @@
+<ng-progress></ng-progress>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          Pesquisar
+        </div>
+        <div class="card-body">
+          <div class="container-fluid">
+            <form ngNativeValidate [formGroup]="formPesquisaNomeOuCpf">
+              <div class="row justify-content-center">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="nomeOuCpf">Nome/CPF</label>
+                    <input class="form-control" type="text" placeholder="Digite nome ou cpf do cliente"
+                      formControlName="nomeOuCpf" required minlength="4" maxlength="64"
+                      (ngxInputSearch)="enviaForm($event)">
+                  </div>
+                  <div class="alert alert-danger mt-1"
+                    *ngIf="f.nomeOuCpf.invalid && (f.nomeOuCpf.dirty || f.nomeOuCpf.touched)">
+
+                    <small class="text-muted" *ngIf="f.nomeOuCpf.errors.required">
+                      Digite um nome ou cpf válidos
+                    </small>
+                    <small class="text-muted" *ngIf="f.nomeOuCpf.errors.minlength">
+                      Mínimo de 4 letras ou números
+                    </small>
+                    <small class="text-muted" *ngIf="f.nomeOuCpf.errors.maxlength">
+                      Digite um nome ou cpf válidos
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="clientes" class="row justify-content-center ">
+                <div class="col-12">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hoverable table-sm table-striped">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Data</th>
+                          <th scope="col">Nome</th>
+                          <th scope="col">CPF/CNPJ</th>
+                          <th scope="col">Situação</th>
+                          <th scope="col">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cliente of clientes">
+                          <td>{{cliente.createdAt | date: 'short'}}</td>
+                          <td>{{cliente.nome}}</td>
+                          <td>{{cliente.cpfcnpj}}</td>
+                          <td>{{cliente.situacao}}</td>
+                          <td>
+                            <button class="btn btn-warning">Ver dados</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="msg" [hidden]="clientes" class="row">
+                <div class="col-12">
+                  <div class="alert alert-danger">
+                    {{msg}}
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-nav-catalogo></app-nav-catalogo>

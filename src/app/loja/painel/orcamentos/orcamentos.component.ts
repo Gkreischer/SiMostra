@@ -81,7 +81,10 @@ export class OrcamentosComponent implements OnInit {
       if (id === 'ENTREGUE') {
         this.abaSelecionada = 'ENTREGUE';
       } else {
-        this.abaSelecionada = 'A PAGAR';
+        if(id === 'A PAGAR') {
+          this.abaSelecionada = 'PESQUISAR';
+          this.orcamentos = [];
+        }
       }
     }
 
@@ -271,6 +274,7 @@ export class OrcamentosComponent implements OnInit {
       }
     }
   }
+
 
   ngOnDestory() {
     this.destruido.next(true);

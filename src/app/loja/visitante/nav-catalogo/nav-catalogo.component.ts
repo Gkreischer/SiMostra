@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -44,14 +44,19 @@ export class NavCatalogoComponent implements OnInit {
   tituloLoja: string = null;
   url: string = '/home';
   isCollapsed;
+
   montaForm() {
     this.formLogin = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.email, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 
-  enviaForm(usuario: string, senha: string) {
+  get f(){
+    return this.formLogin.controls;
+  }
+
+  enviaForm() {
     this.dadosUsuario = this.formLogin.value;
 
     this.loginService.login(this.dadosUsuario).subscribe((data) => {
@@ -68,8 +73,8 @@ export class NavCatalogoComponent implements OnInit {
     });
   }
 
-  abreModalPainelAdm(conteudo) {
-    this.modalService.open(conteudo, { centered: true });
+  abreModalPainelAdm(modalLogin) {
+    this.modalService.open(modalLogin, { centered: true });
   }
 
   deslogar() {

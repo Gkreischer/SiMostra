@@ -54,12 +54,16 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
   montaForm() {
     this.formPecasOrcamento = this.fb.group({
-      nome: ['', Validators.required],
+      nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(64)]],
       telefone: ['', Validators.required],
       cpfcnpj: ['', Validators.required],
       pecasForm: this.fb.array([]),
       situacao: ['A PAGAR', Validators.required]
     });
+  }
+
+  get f(){
+    return this.formPecasOrcamento.controls;
   }
 
   get pegaPecasOrcamento() {
@@ -159,13 +163,15 @@ export class MontagemdeorcamentoComponent implements OnInit {
   salvaOrcamento() {
     this.valorTotalOrcamento = 0;
 
-    this.orcamento = this.formPecasOrcamento.value;
-
     this.calculaValorTotalOrcamento();
+
+    this.formPecasOrcamento.controls['nome'].setValue(this.formPecasOrcamento.controls['nome'].value.toUpperCase());
 
     this.formPecasOrcamento.value.precoTotal = this.valorTotalOrcamento.toFixed(2);
 
     console.log(this.formPecasOrcamento.value);
+
+    this.orcamento = this.formPecasOrcamento.value;
 
     this.crud.criaRegistro('/montagemOrcamentos', this.orcamento).takeUntil(this.destruido).subscribe((data) => {
       this.sucesso = 'Orçamento registrado com sucesso. Vá a loja e informe seus dados para prosseguir com a compra';

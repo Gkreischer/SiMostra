@@ -12,8 +12,8 @@ import { AppRoutingModule }     from './app-routing.module';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
 import { NgxPaginationModule } from 'ngx-pagination';
-
-import { AppComponent }         from './app.component';
+import { InputSearchModule } from 'ngx-input-search';
+import { AppComponent }  from './app.component';
 
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -42,6 +42,7 @@ import { PagInicialLojaComponent } from './loja/pag-inicial-loja/pag-inicial-loj
 import { ConfiguracoesComponent } from './loja/painel/configuracoes/configuracoes.component';
 import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamento/montagemdeorcamento.component';
 import { OrcamentosComponent } from './loja/painel/orcamentos/orcamentos.component';
+import { PesquisaOrcamentosComponent } from './loja/painel/pesquisa-orcamentos/pesquisa-orcamentos.component';
 
 registerLocaleData(localePt);
 
@@ -55,7 +56,8 @@ registerLocaleData(localePt);
     NgProgressHttpClientModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    InputSearchModule
   ],
   declarations: [
     AppComponent,
@@ -77,7 +79,8 @@ registerLocaleData(localePt);
     PagInicialLojaComponent,
     ConfiguracoesComponent,
     MontagemdeorcamentoComponent,
-    OrcamentosComponent
+    OrcamentosComponent,
+    PesquisaOrcamentosComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

@@ -15,12 +15,20 @@ img.card-img-top {
         justify-content: center;
     }
 
+    #linhaCatalogo .card-deck .card {
+        width: 12rem!important;
+    }
+
 }
 
 @media screen and (min-width: 992px){
 
     #linhaCatalogo {
         padding-left: 7%;
+    }
+
+    #linhaCatalogo .card-deck .card {
+        width: 11rem!important;
     }
 
 }

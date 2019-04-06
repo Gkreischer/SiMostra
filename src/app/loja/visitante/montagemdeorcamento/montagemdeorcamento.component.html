@@ -5,25 +5,34 @@
       <div class="card">
         <h5 class="card-header">Suas informações</h5>
         <div class="card-body">
-          <form [formGroup]="formPecasOrcamento">
+          <form ngNativeValidate [formGroup]="formPecasOrcamento">
             <div class="container">
               <div class="row">
                 <div class="col-12 col-md-6">
                   <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input class="form-control" type="text" id="nome" formControlName="nome">
+                    <input class="form-control" type="text" id="nome" formControlName="nome" minlength="4" maxlength="64" required >
+                  </div>
+                  <div *ngIf="f.nome.invalid && (f.nome.dirty || f.nome.touched)"
+                    class="alert alert-danger mt-1">
+                    <div *ngIf="f.nome.errors.required">
+                      <small class="text-muted">Por favor, insira um nome</small>
+                    </div>
+                    <div *ngIf="f.nome.errors.minlength">
+                      <small class="text-muted">Deve conter no mínimo 4 letras</small>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="form-group">
                     <label for="telefone">Telefone</label>
-                    <input class="form-control" type="tel" id="telefone" formControlName="telefone">
+                    <input class="form-control" type="tel" id="telefone" formControlName="telefone" required>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="form-group">
                     <label for="cpfcnpj">CPF/CNPJ</label>
-                    <input class="form-control" type="number" id="cpfcnpj" formControlName="cpfcnpj">
+                    <input class="form-control" type="number" id="cpfcnpj" formControlName="cpfcnpj" required>
                   </div>
                 </div>
               </div>
@@ -42,8 +51,8 @@
     <div class="col-12 col-md-3 col-lg-2 my-3">
       <div class="list-group">
         <button class="list-group-item list-group-item-dark" type="button"><b>CATEGORIAS</b></button>
-        <button type="button" *ngFor="let categoria of categoriasOrdemAlfabetica" id={{categoria}} class="list-group-item"
-          (click)="consultaPorCategoria($event)">{{categoria}}</button>
+        <button type="button" *ngFor="let categoria of categoriasOrdemAlfabetica" id={{categoria}}
+          class="list-group-item" (click)="consultaPorCategoria($event)">{{categoria}}</button>
         <button type="button" class="list-group-item" (click)="resetaConsulta()">Limpar Lista</button>
       </div>
     </div>

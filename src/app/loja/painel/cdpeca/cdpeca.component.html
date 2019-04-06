@@ -2,12 +2,12 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <div class="card">
+      <div class="card mt-2">
         <div class="card-header">
           Cadastre a peça
         </div>
         <div class="card-body">
-          <form [formGroup]="formCadastroPeca" (ngSubmit)="enviaForm()">
+          <form ngNativeValidate [formGroup]="formCadastroPeca" (ngSubmit)="enviaForm()">
             <div class="row">
               <div class="col-12 col-md-4">
                 <div class="form-group">
@@ -49,7 +49,7 @@
               <div class="col-12 col-md-3">
                 <div class="form-group">
                   <label for="preco">Preço de Venda</label>
-                  <input class="form-control" type="text" id="preco" formControlName="preco" required>
+                  <input class="form-control" type="number" id="preco" formControlName="preco" required>
                 </div>
               </div>
               <div class="col-12 col-md-9">

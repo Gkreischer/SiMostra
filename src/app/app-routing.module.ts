@@ -13,6 +13,7 @@ import { PagInicialLojaComponent } from './loja/pag-inicial-loja/pag-inicial-loj
 import { ConfiguracoesComponent } from './loja/painel/configuracoes/configuracoes.component';
 import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamento/montagemdeorcamento.component';
 import { OrcamentosComponent } from './loja/painel/orcamentos/orcamentos.component';
+import { PesquisaOrcamentosComponent } from './loja/painel/pesquisa-orcamentos/pesquisa-orcamentos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'listamensagens', component: ListamensagensComponent },
   { path: 'configuracoes', component: ConfiguracoesComponent },
   { path: 'montagemdeorcamento', component: MontagemdeorcamentoComponent },
+  { path: 'pesquisaOrcamentos', component: PesquisaOrcamentosComponent},
   { path: 'home', component: PagInicialComponent },
   { path: '**', component: NotFoundComponent },
 ];

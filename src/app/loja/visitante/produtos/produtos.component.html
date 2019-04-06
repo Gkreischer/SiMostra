@@ -14,9 +14,9 @@
         <button type="button" class="list-group-item" (click)="resetaPesquisa()">Todos os produtos</button>
       </div>
     </div>
-    <div id="linhaCatalogo" class="col-12 col-md-12 col-lg-10 d-flex ">
+    <div id="linhaCatalogo" class="col-12 col-md-12 col-lg-10 d-flex">
       <div class="card-deck">
-        <div class="card mx-3" *ngFor="let peca of pecas | paginate: { itemsPerPage: 5, currentPage: p }" style="width: 11rem;">
+        <div class="card mx-3" *ngFor="let peca of pecas | paginate: { itemsPerPage: 5, currentPage: p }">
           <div class="card-header text-center lead">{{peca.categoria}}</div>
           <img class="card-img-top mt-2" src="{{peca.linkImagem}}" alt="{{peca.detalhes}}">
           <div class="card-body pb-0">

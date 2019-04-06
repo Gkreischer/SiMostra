@@ -12,7 +12,7 @@ import { Login } from './../compartilhados/login';
 })
 export class LoginService {
 
-  URL_DEFAULT:string = 'http://192.168.0.104:3000/api/Customers';
+  URL_DEFAULT:string = 'http://localhost:3000/api/Customers';
   token = null;
 
   constructor(private http: HttpClient) { }

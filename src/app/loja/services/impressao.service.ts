@@ -15,7 +15,7 @@ export class ImpressaoService {
   private readonly pdfFonts: any;
   pdfMake: any;
 
-  API_URL: string = 'http://192.168.0.104:3000/api';
+  API_URL: string = 'http://localhost:3000/api';
   dadoEmpresa: DadosEmpresa;
 
   constructor(private http: HttpClient, private router: Router) {

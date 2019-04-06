@@ -11,7 +11,7 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
-  URL_DEFAULT:string = 'http://192.168.0.104:3000/api';
+  URL_DEFAULT:string = 'http://localhost:3000/api';
 
   leRegistro(rota: string):Observable<any>{
     return this.http.get(this.URL_DEFAULT + rota).pipe(
@@ -28,14 +28,14 @@ export class CrudService {
   }
 
   leRegistroComFiltroAND(rota: string, propriedade1: string, valor1: any, propriedade2: string, valor2: any):Observable<any>{
-    return this.http.get(this.URL_DEFAULT + rota + `?filter[where][and][0][${propriedade1}]=${valor1}&filter[where][and][0][${propriedade2}]=${valor2}`).pipe(
+    return this.http.get(this.URL_DEFAULT + rota + `?filter[where][and][0][${propriedade1}]=${valor1}&filter[where][and][1][${propriedade2}]=${valor2}`).pipe(
       tap((data) => {return data}),
       catchError(this.handleError)
     );
   }
 
   leRegistroComFiltroOR(rota: string, propriedade1: string, valor1: any, propriedade2: string, valor2: any):Observable<any>{
-    return this.http.get(this.URL_DEFAULT + rota + `?filter[where][or][0][${propriedade1}]=${valor1}&filter[where][or][0][${propriedade2}]=${valor2}`).pipe(
+    return this.http.get(this.URL_DEFAULT + rota + `?filter[where][or][0][${propriedade1}]=${valor1}&filter[where][or][1][${propriedade2}]=${valor2}`).pipe(
       tap((data) => {return data}),
       catchError(this.handleError)
     );

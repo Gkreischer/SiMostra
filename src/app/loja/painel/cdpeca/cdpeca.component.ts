@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PecaParaCadastro } from './../../compartilhados/cadastroPeca';
 import { CrudService } from './../../services/crud.service';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { Categoria } from './../../compartilhados/categoria';
 import { ActivatedRoute } from '@angular/router';
 @Component({
@@ -30,6 +30,8 @@ export class CdpecaComponent implements OnInit {
   msg: string = null;
   id: string = null;
 
+  destruido: ReplaySubject<boolean> = new ReplaySubject(1);
+
   ngOnInit() {
     this.montaForm();
     this.leCategorias();
@@ -38,18 +40,22 @@ export class CdpecaComponent implements OnInit {
 
   montaForm() {
     this.formCadastroPeca = this.fb.group({
-      nome: ['', Validators.required],
-      marca: ['', Validators.required],
-      categoria: ['', Validators.required],
-      preco: ['', Validators.required],
-      linkImagem: ['', Validators.required],
-      detalhes: ['', Validators.required]
+      nome: ['', [Validators.required]],
+      marca: ['', [Validators.required]],
+      categoria: ['', [Validators.required]],
+      preco: ['', [Validators.required]],
+      linkImagem: ['', [Validators.required]],
+      detalhes: ['', [Validators.required]]
     });
 
     this.formCategoria = this.fb.group({
-      categoria: ['', Validators.required]
+      categoria: ['', [Validators.required]]
     });
 
+  }
+
+  get f() {
+    return this.formCadastroPeca.controls;
   }
 
   pegaIdEAtualizaForm() {
@@ -57,7 +63,7 @@ export class CdpecaComponent implements OnInit {
       this.id = params.id;
       if (this.id) {
         console.log(`Id recebido ${this.id}`);
-        this.crud.leRegistroEspecifico('/produtos', this.id).subscribe((data) => {
+        this.crud.leRegistroEspecifico('/produtos', this.id).takeUntil(this.destruido).subscribe((data) => {
           console.table(`Peca da id recebida ${data}`);
           this.formCadastroPeca.patchValue(data);
         }, error => {
@@ -71,11 +77,12 @@ export class CdpecaComponent implements OnInit {
   }
 
   enviaForm() {
+    
     this.dadosPeca = this.formCadastroPeca.value;
     console.table(this.dadosPeca);
 
     if (this.id) {
-      this.crud.atualizaRegistro('/produtos', this.id, this.dadosPeca).subscribe((data) => {
+      this.crud.atualizaRegistro('/produtos', this.id, this.dadosPeca).takeUntil(this.destruido).subscribe((data) => {
         this.msg = 'Peca atualizada com sucesso';
         this.sucesso = true;
         console.log('Peca atualizada');
@@ -96,7 +103,7 @@ export class CdpecaComponent implements OnInit {
   }
 
   leCategorias() {
-    this.crud.leRegistro('/categoria').subscribe((categorias) => {
+    this.crud.leRegistro('/categoria').takeUntil(this.destruido).subscribe((categorias) => {
       this.categorias = categorias;
       
       for(let i = 0 ; i < this.categorias.length ; i++) {
@@ -111,7 +118,7 @@ export class CdpecaComponent implements OnInit {
   }
 
   cadastraCategoria() {
-    this.crud.criaRegistro('/categoria', this.formCategoria.value).subscribe((data) => {
+    this.crud.criaRegistro('/categoria', this.formCategoria.value).takeUntil(this.destruido).subscribe((data) => {
       console.log('Categoria adicionada globalmente');
       this.categoriasOrdemAlfabetica.push(this.formCategoria.controls['categoria'].value);
       this.modalService.dismissAll();
@@ -124,6 +131,9 @@ export class CdpecaComponent implements OnInit {
     this.modalService.open(cadastroCategoriaModal, { centered: true });
   }
 
-
+  ngOnDestory(){
+    this.destruido.next(true);
+    this.destruido.complete();
+  }
 
 }

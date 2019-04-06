@@ -21,40 +21,49 @@
           </ul>
         </div>
         <div class="card-body">
-          <div *ngIf="orcamentos" class="table-responsive">
-            <table class="table table-bordered table-striped table-hover table-sm">
-              <thead class="thead-dark">
-                <th scope="col">Data</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Ações</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let orcamento of orcamentos | paginate: { itemsPerPage: 10, currentPage: p }">
-                  <td scope="row">{{orcamento.createdAt | date:'short'}}</td>
-                  <td><b>{{orcamento.nome}}</b></td>
-                  <td>{{orcamento.telefone}}</td>
-                  <td class="text-center align-middle">
-                    <button *ngIf='this.abaSelecionada == "A PAGAR"' type="button" id={{orcamento.id}}
-                      (click)="abreModalFinalizacaoOrcamento($event, orcamentoAPAGAR)"
-                      class="btn btn-warning btn-sm button_orcamento"
-                      [ngClass]=" orcamento.situacao == ('A PAGAR' || '') ? 'btn-warning' : 'btn-light'">{{mensagemBotaoResposta}}</button>
-                    <button *ngIf='this.abaSelecionada == "A PAGAR"' type="button" id={{orcamento.id}}
-                      (click)="deletaOrcamento($event)" class="btn btn-danger btn-sm button_orcamento">Deletar</button>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div *ngIf="orcamentos" class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover table-sm">
+                    <thead class="thead-dark">
+                      <th scope="col">Data</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Telefone</th>
+                      <th scope="col">Ações</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let orcamento of orcamentos | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <td scope="row">{{orcamento.createdAt | date:'short'}}</td>
+                        <td><b>{{orcamento.nome}}</b></td>
+                        <td>{{orcamento.telefone}}</td>
+                        <td class="text-center align-middle">
+                          <button *ngIf='this.abaSelecionada == "A PAGAR"' type="button" id={{orcamento.id}}
+                            (click)="abreModalFinalizacaoOrcamento($event, orcamentoAPAGAR)"
+                            class="btn btn-warning btn-sm button_orcamento"
+                            [ngClass]=" orcamento.situacao == ('A PAGAR' || '') ? 'btn-warning' : 'btn-light'">{{mensagemBotaoResposta}}</button>
 
-                    <button *ngIf="this.abaSelecionada == 'EM PRODUÇÃO'" id={{orcamento.id}}
-                      class="btn btn-primary btn-sm" type="button"
-                      (click)="lerDadosOrcamentoAceito($event, orcamentoEmProducao)">Ver dados</button>
+                          <button *ngIf='this.abaSelecionada == "A PAGAR"' type="button" id={{orcamento.id}}
+                            (click)="deletaOrcamento($event)"
+                            class="btn btn-danger btn-sm button_orcamento">Deletar</button>
 
-                    <button *ngIf="this.abaSelecionada == 'ENTREGUE'" id={{orcamento.id}} class="btn btn-primary btn-sm"
-                      type="button" (click)="leOrcamentoEntregue($event, orcamentoEntregue)">Ver dados</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div *ngIf="!orcamentos" class="alert alert-warning text-center" role="alert">
-            {{msg}}
+                          <button *ngIf="this.abaSelecionada == 'EM PRODUÇÃO'" id={{orcamento.id}}
+                            class="btn btn-primary btn-sm" type="button"
+                            (click)="lerDadosOrcamentoAceito($event, orcamentoEmProducao)">Ver dados</button>
+
+                          <button *ngIf="this.abaSelecionada == 'ENTREGUE'" id={{orcamento.id}}
+                            class="btn btn-primary btn-sm" type="button"
+                            (click)="leOrcamentoEntregue($event, orcamentoEntregue)">Ver dados</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div *ngIf="!orcamentos" class="alert alert-warning text-center" role="alert">
+                  {{msg}}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
