@@ -5,6 +5,7 @@ import { CrudService } from './../../services/crud.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-pesquisa-orcamentos',
@@ -17,10 +18,12 @@ export class PesquisaOrcamentosComponent implements OnInit {
   nomeOuCpf: Orcamento;
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
   erro;
+  dadosOrcamentoEntregue: Orcamento = null;
+  transformaBooleanParaStringEmCampoParcelado: string = null;
   clientes: Orcamento[];
   msg: string;
 
-  constructor(private fb: FormBuilder, private crud: CrudService) {
+  constructor(private fb: FormBuilder, private crud: CrudService, private modalService: NgbModal) {
     window.document.body.style.backgroundColor = '#474647';
     this.montaForm();
   }
@@ -46,44 +49,60 @@ export class PesquisaOrcamentosComponent implements OnInit {
   }
 
   executaConsulta(palavraPesquisada: string) {
-    this.clientes = null;
-    
-    this.crud.leRegistro('/montagemOrcamentos').takeUntil(this.destruido).subscribe((data) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data.length > 0) {
-          if(data[i].nome == palavraPesquisada || data[i].cpfcnpj == palavraPesquisada){
-            this.clientes = data;
-          } else {
-            this.clientes = null;
-            this.msg = 'Nome ou CPF do cliente não achado.'
-          }
-        } else {
-          console.log(`Nome ou CPF não encontrados`);
-          this.msg = 'Nome ou CPF do cliente não achado.'
-        }
-      }
-    }, error => {
-      this.erro = error;
-      console.log(this.erro);
-    });
+    this.clientes = [];
 
-    this.crud.leRegistroComFiltroOR('/orcamentos', 'nome', palavraPesquisada, 'cpfcnpj', palavraPesquisada).takeUntil(this.destruido).subscribe((data) => {
-      if (data.length > 0) {
-        for (let i = 0; i < data.length; i++) {
-          this.clientes.push(data[i]);
-        } 
-      } else {
-        console.log(`Nome ou CPF não encontrados`);
-        this.msg = 'Nome ou CPF do cliente não achado.'
-      }
-    }, error => {
-      this.erro = error;
-      console.log(this.erro);
-    });
+    this.leOrcamentosParaMontagemPorCpfOuNome(palavraPesquisada);
 
   }
-  
-  ngOnDestory() {
+
+  leOrcamentosParaMontagemPorCpfOuNome(palavraPesquisada: string) {
+    this.crud.leRegistroComFiltroOR('/montagemOrcamentos', 'nome', palavraPesquisada, 'cpfcnpj', palavraPesquisada).takeUntil(this.destruido).subscribe((data) => {
+      this.clientes = data;
+      this.leOrcamentosAPagarOuEntreguesPorCpfOuNome(palavraPesquisada);
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  leOrcamentosAPagarOuEntreguesPorCpfOuNome(palavraPesquisada: string) {
+    this.crud.leRegistroComFiltroOR('/orcamentos', 'nome', palavraPesquisada, 'cpfcnpj', palavraPesquisada).takeUntil(this.destruido).subscribe((data) => {
+      for (let i = 0; i < data.length; i++) {
+        this.clientes.push(data[i]);
+        this.clientes.sort((a, b) => {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        })
+      }
+      console.log(this.clientes);
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  abreModalInfoOrcamento(event, modalOrcamentoEntregue) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(id);
+
+    this.crud.leRegistroEspecifico('/orcamentos', id).takeUntil(this.destruido).subscribe((data) => {
+      this.dadosOrcamentoEntregue = data;
+      let parcelado = this.dadosOrcamentoEntregue.parcelado ? 'Sim' : 'Não';
+      this.transformaBooleanParaStringEmCampoParcelado = parcelado;
+      console.table(this.dadosOrcamentoEntregue);
+      this.modalService.open(modalOrcamentoEntregue, { centered: true });
+    }, error => {
+      this.erro = error;
+      console.log(this.erro);
+    });
+  }
+
+  fechaModal() {
+    this.modalService.dismissAll();
+  }
+
+  ngOnDestroy() {
     this.destruido.next(true);
     this.destruido.complete();
   }

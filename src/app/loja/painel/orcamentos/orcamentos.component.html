@@ -375,6 +375,7 @@
 
 </ng-template>
 
+<!-- Modal Orcamentos ENTREGUES-->
 <ng-template #orcamentoEntregue let-modal class="my-5">
   <div class="modal-header">
     <h4 class="modal-title">Dados do Orçamento</h4>
@@ -411,6 +412,11 @@
       </div>
       <div class="row">
         <div class="col-12">
+          <p class="lead">Peças Adquiridas</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
           <div class="table-responsive">
             <table class="table table-sm table-hoverable table-bordered">
               <thead>
@@ -438,6 +444,11 @@
       </div>
       <div class="row">
         <div class="col-12">
+          <p class="lead">Pagamento</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
           <p><b>Forma de pagamento: </b>{{dadosOrcamentoEntregue.formaPagamento}}</p>
         </div>
       </div>
@@ -449,6 +460,19 @@
           <p><b>Num. de parcelas: </b>{{dadosOrcamentoEntregue.numeroParcelas}}</p>
         </div>
       </div>
+      <div class="row">
+        <div class="col-6">
+          <p><b>Valor Pago: </b>{{dadosOrcamentoEntregue.valorTotal}}</p>
+        </div>
+        <div class="col-6">
+          <p><b>Data de entrega: </b>{{dadosOrcamentoEntregue.updatedAt | date: 'short'}}</p>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-12">
+            <p><b>Observação: </b>{{dadosOrcamentoEntregue.observacao}}</p>
+          </div>
+        </div>
     </div>
     <div class="container-fluid px-0">
       <div *ngIf="msg" [hidden]="erro" class="row">

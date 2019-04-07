@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as pdfmake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -66,9 +64,6 @@ export class ImpressaoService {
       }
     };
 
-    pdfmake.vfs = pdfFonts.pdfMake.vfs;
-
-    return pdfmake.createPdf(dadosDocumento).open();
   }
 
 

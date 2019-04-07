@@ -276,7 +276,7 @@ export class OrcamentosComponent implements OnInit {
   }
 
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.destruido.next(true);
     this.destruido.complete();
   }

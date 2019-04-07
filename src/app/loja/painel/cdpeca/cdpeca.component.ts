@@ -131,7 +131,7 @@ export class CdpecaComponent implements OnInit {
     this.modalService.open(cadastroCategoriaModal, { centered: true });
   }
 
-  ngOnDestory(){
+  ngOnDestroy(){
     this.destruido.next(true);
     this.destruido.complete();
   }

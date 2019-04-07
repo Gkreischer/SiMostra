@@ -11,10 +11,10 @@
                 <div class="col-12 col-md-6">
                   <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input class="form-control" type="text" id="nome" formControlName="nome" minlength="4" maxlength="64" required >
+                    <input class="form-control" type="text" id="nome" formControlName="nome" minlength="4"
+                      maxlength="64" required>
                   </div>
-                  <div *ngIf="f.nome.invalid && (f.nome.dirty || f.nome.touched)"
-                    class="alert alert-danger mt-1">
+                  <div *ngIf="f.nome.invalid && (f.nome.dirty || f.nome.touched)" class="alert alert-danger mt-1">
                     <div *ngIf="f.nome.errors.required">
                       <small class="text-muted">Por favor, insira um nome</small>
                     </div>
@@ -96,7 +96,7 @@
           Pecas adicionadas
         </div>
         <div class="card-body">
-          <form [formGroup]="formPecasOrcamento">
+          <form [formGroup]="formPecasOrcamento" (ngSubmit)="salvaOrcamento()">
             <div formArrayName="pecasForm">
               <div *ngFor="let peca of pegaPecasOrcamento.controls; let i=index" [formGroupName]="i">
                 <div class="container-fluid mx-0">
@@ -121,9 +121,10 @@
                 </div>
               </div>
             </div>
+            <button class="btn btn-primary float-right" type="submit"
+              [disabled]="!formPecasOrcamento.valid || pegaPecasOrcamento.length == 0"
+              printSectionId="secao_para_imprimir" ngxPrint>Salvar Orçamento</button>
           </form>
-          <button class="btn btn-primary float-right" type="button" (click)="salvaOrcamento()"
-            [disabled]="!formPecasOrcamento.valid || pegaPecasOrcamento.length == 0">Salvar Orçamento</button>
         </div>
       </div>
     </div>
@@ -135,5 +136,6 @@
       </div>
     </div>
   </div>
+
 </div>
 <app-nav-catalogo></app-nav-catalogo>

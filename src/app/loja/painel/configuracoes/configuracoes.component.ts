@@ -226,7 +226,7 @@ export class ConfiguracoesComponent implements OnInit {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.destruido.next(true);
     this.destruido.complete();
   }

@@ -159,7 +159,7 @@ export class ListamensagensComponent implements OnInit {
     });
   }
 
-  ngOnDestory(){
+  ngOnDestroy(){
     this.destruido.next(true);
     this.destruido.complete();
   }

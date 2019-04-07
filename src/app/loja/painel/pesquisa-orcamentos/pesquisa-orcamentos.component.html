@@ -8,9 +8,10 @@
         </div>
         <div class="card-body">
           <div class="container-fluid">
-            <form ngNativeValidate [formGroup]="formPesquisaNomeOuCpf">
-              <div class="row justify-content-center">
-                <div class="col-6">
+
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <form ngNativeValidate [formGroup]="formPesquisaNomeOuCpf">
                   <div class="form-group">
                     <label for="nomeOuCpf">Nome/CPF</label>
                     <input class="form-control" type="text" placeholder="Digite nome ou cpf do cliente"
@@ -30,44 +31,50 @@
                       Digite um nome ou cpf válidos
                     </small>
                   </div>
+                </form>
+              </div>
+            </div>
+            <div *ngIf="clientes" class="row justify-content-center ">
+              <div class="col-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hoverable table-sm table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF/CNPJ</th>
+                        <th scope="col">Situação</th>
+                        <th scope="col">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let cliente of clientes">
+                        <td>{{cliente.createdAt | date: 'short'}}</td>
+                        <td>{{cliente.nome}}</td>
+                        <td>{{cliente.cpfcnpj}}</td>
+                        <td>{{cliente.situacao}}</td>
+                        <td>
+                          <button *ngIf="cliente.situacao == 'A PAGAR'"
+                            [ngClass]="cliente.situacao == 'A PAGAR' ? 'btn-danger' : 'btn-light'" class="btn btn-sm"
+                            routerLink="/orcamentos">PRODUZIR</button>
+                          <button *ngIf="cliente.situacao == 'ENTREGUE'"
+                            [ngClass]="cliente.situacao == 'ENTREGUE' ? 'btn-primary' : 'btn-light'" class="btn btn-sm"
+                            id={{cliente.id}} (click)="abreModalInfoOrcamento($event, modalOrcamentoEntregue)">INFORMAÇÕES</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div *ngIf="clientes" class="row justify-content-center ">
-                <div class="col-12">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hoverable table-sm table-striped">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th scope="col">Data</th>
-                          <th scope="col">Nome</th>
-                          <th scope="col">CPF/CNPJ</th>
-                          <th scope="col">Situação</th>
-                          <th scope="col">Ações</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let cliente of clientes">
-                          <td>{{cliente.createdAt | date: 'short'}}</td>
-                          <td>{{cliente.nome}}</td>
-                          <td>{{cliente.cpfcnpj}}</td>
-                          <td>{{cliente.situacao}}</td>
-                          <td>
-                            <button class="btn btn-warning">Ver dados</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+            </div>
+            <div *ngIf="msg" [hidden]="clientes" class="row">
+              <div class="col-12">
+                <div class="alert alert-danger">
+                  {{msg}}
                 </div>
               </div>
-              <div *ngIf="msg" [hidden]="clientes" class="row">
-                <div class="col-12">
-                  <div class="alert alert-danger">
-                    {{msg}}
-                  </div>
-                </div>
-              </div>
-            </form>
+            </div>
+
           </div>
         </div>
       </div>
@@ -75,3 +82,109 @@
   </div>
 </div>
 <app-nav-catalogo></app-nav-catalogo>
+<ng-template #modalOrcamentoEntregue let-modal class="my-5">
+  <div class="modal-header">
+    <h4 class="modal-title">Dados do Orçamento</h4>
+    <button type="button" class="close" aria-label="Close" (click)="fechaModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid px-0 mb-3">
+      <div class="row">
+        <div class="col-12">
+          <p class="lead">Dados do cliente</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Nome: </b>{{dadosOrcamentoEntregue.nome}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>CPF: </b>{{dadosOrcamentoEntregue.cpfcnpj}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Endereço: </b>{{dadosOrcamentoEntregue.endereco}} - {{dadosOrcamentoEntregue.bairro}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Telefone: </b>{{dadosOrcamentoEntregue.telefone}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p class="lead">Peças Adquiridas</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-sm table-hoverable table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Nome da Peca</th>
+                  <th scope="col">Qtd</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let peca of dadosOrcamentoEntregue.pecasOrcamento">
+                  <td>
+                    {{peca.dadosDaPeca.nome}}
+                  </td>
+                  <td>
+                    {{peca.quantidade}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p class="lead">Pagamento</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Forma de pagamento: </b>{{dadosOrcamentoEntregue.formaPagamento}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p><b>Parcelado?: </b>{{transformaBooleanParaStringEmCampoParcelado}}</p>
+        </div>
+        <div class="col-6">
+          <p><b>Num. de parcelas: </b>{{dadosOrcamentoEntregue.numeroParcelas}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p><b>Valor Pago: </b>{{dadosOrcamentoEntregue.valorTotal}}</p>
+        </div>
+        <div class="col-6">
+          <p><b>Data de entrega: </b>{{dadosOrcamentoEntregue.updatedAt | date: 'short'}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p><b>Observação: </b>{{dadosOrcamentoEntregue.observacao}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid px-0">
+      <div *ngIf="erro" [hidden]="msg" class="row">
+        <div class="col-12">
+          <div class="alert alert-danger" role="alert">
+            Desculpe-nos, algo errado aconteceu...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
