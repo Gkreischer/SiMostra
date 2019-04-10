@@ -6,10 +6,10 @@ import { CrudService } from './../services/crud.service';
 import { DadosEmpresa } from '../compartilhados/dadosEmpresa';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import * as jsPDF from 'jspdf'
-import 'jspdf-autotable';
 import { ReplaySubject } from 'rxjs';
 import { Orcamento } from '../compartilhados/orcamento';
+
+declare var jsPDF: any;
 
 @Injectable()
 export class ImpressaoService {
@@ -53,7 +53,7 @@ export class ImpressaoService {
     });
   }
 
-  destroyData(){
+  destroyData() {
     this.destruido.next(true);
     this.destruido.complete();
   }
@@ -64,8 +64,8 @@ export class ImpressaoService {
     console.log(id);
   }
 
-  criaDocumento(){
- 
+  criaDocumento() {
+
     let doc = new jsPDF();
     doc.setFontSize(35);
     doc.text(this.dadoEmpresa.nomeFantasia, 15, 25);
@@ -78,6 +78,8 @@ export class ImpressaoService {
     doc.line(15, 55, 195, 55);
     doc.setFontSize(20);
     doc.text("Aquisição de Produtos", 105, 68, null, null, 'center');
+
+    doc.autoTable({startY: 75, html: '#listaPecasOrcamento'});
 
     doc.line(15, 250, 195, 250);
     doc.setFontSize(16);

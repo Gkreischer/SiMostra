@@ -31,6 +31,10 @@ img.card-img-top {
         width: 11rem!important;
     }
 
+    .card-deck .card {
+        height: 25em;
+    }
+
 }
 
 

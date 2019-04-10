@@ -418,11 +418,12 @@
       <div class="row">
         <div class="col-12">
           <div class="table-responsive">
-            <table class="table table-sm table-hoverable table-bordered">
+            <table id="listaPecasOrcamento" class="table table-sm table-hoverable table-bordered">
               <thead>
                 <tr>
                   <th scope="col">Nome da Peca</th>
                   <th scope="col">Qtd</th>
+                  <th scope="col">Valor</th>
                 </tr>
               </thead>
               <tbody>
@@ -432,6 +433,9 @@
                   </td>
                   <td>
                     {{peca.quantidade}}
+                  </td>
+                  <td>
+                    {{peca.dadosDaPeca.preco}}
                   </td>
                 </tr>
                 <tr>
