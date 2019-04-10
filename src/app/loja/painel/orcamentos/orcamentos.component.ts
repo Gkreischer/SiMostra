@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Orcamento } from './../../compartilhados/orcamento';
 import { CrudService } from './../../services/crud.service';
+import { ImpressaoService } from './../../services/impressao.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigEmail } from './../../compartilhados/configEmail';
 import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { Funcionario } from '../../compartilhados/funcionario';
+
 
 @Component({
   selector: 'app-orcamentos',
@@ -15,7 +17,7 @@ import { Funcionario } from '../../compartilhados/funcionario';
 })
 export class OrcamentosComponent implements OnInit {
 
-  constructor(private crud: CrudService, private modalService: NgbModal, private fb: FormBuilder) {
+  constructor(private crud: CrudService, private modalService: NgbModal, private fb: FormBuilder, private impressaoService: ImpressaoService) {
   }
 
   orcamentos: Orcamento[] = null;
@@ -144,12 +146,22 @@ export class OrcamentosComponent implements OnInit {
         console.log('Orcamento deletado com sucesso de montagemOrcamentos');
         this.modalService.dismissAll();
         this.leOrcamentos();
+      }, error => {
+        console.log('Não foi possível deletar o orcamento de montagem orcamento', error);
       });
     }, error => {
       this.erro = error;
       console.log('Nao foi possivel atualizar orcamento');
     });
 
+  }
+
+  geraPDF(event){
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+    
+    this.impressaoService.recebeInfoGeraPdf(id);
+    
   }
 
   entregaOrcamento() {

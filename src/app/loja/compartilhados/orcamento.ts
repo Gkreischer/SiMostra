@@ -8,6 +8,7 @@ export interface Orcamento {
     quantidade: number;
     createdAt: string;
     id: string;
+    formaPagamento: string;
     precoTotal: string;
     situacao: string;
     numeroParcelas: number;
