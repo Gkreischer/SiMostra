@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-cdpeca',
   templateUrl: './cdpeca.component.html',
-  styleUrls: ['./cdpeca.component.css']
+  styleUrls: ['./cdpeca.component.scss']
 })
 export class CdpecaComponent implements OnInit {
 

@@ -6,7 +6,7 @@ import { CrudService } from '../loja/services/crud.service';
 @Component({
   selector: 'app-contato',
   templateUrl: './contato.component.html',
-  styleUrls: ['./contato.component.css']
+  styleUrls: ['./contato.component.scss']
 })
 export class ContatoComponent implements OnInit {
 

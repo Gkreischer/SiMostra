@@ -10,7 +10,7 @@ import 'rxjs/add/operator/takeUntil';
 @Component({
   selector: 'app-listamensagens',
   templateUrl: './listamensagens.component.html',
-  styleUrls: ['./listamensagens.component.css']
+  styleUrls: ['./listamensagens.component.scss']
 })
 export class ListamensagensComponent implements OnInit {
 

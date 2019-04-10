@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-pesquisa-orcamentos',
   templateUrl: './pesquisa-orcamentos.component.html',
-  styleUrls: ['./pesquisa-orcamentos.component.css']
+  styleUrls: ['./pesquisa-orcamentos.component.scss']
 })
 export class PesquisaOrcamentosComponent implements OnInit {
 

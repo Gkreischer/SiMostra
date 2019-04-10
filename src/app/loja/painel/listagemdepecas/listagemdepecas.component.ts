@@ -9,7 +9,7 @@ import 'rxjs/add/operator/takeUntil';
 @Component({
   selector: 'app-listagemdepecas',
   templateUrl: './listagemdepecas.component.html',
-  styleUrls: ['./listagemdepecas.component.css']
+  styleUrls: ['./listagemdepecas.component.scss']
 })
 export class ListagemdepecasComponent implements OnInit {
 

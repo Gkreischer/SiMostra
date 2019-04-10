@@ -11,7 +11,7 @@ import { Orcamento } from './../../compartilhados/orcamento';
 @Component({
   selector: 'app-montagemdeorcamento',
   templateUrl: './montagemdeorcamento.component.html',
-  styleUrls: ['./montagemdeorcamento.component.css']
+  styleUrls: ['./montagemdeorcamento.component.scss']
 })
 export class MontagemdeorcamentoComponent implements OnInit {
 

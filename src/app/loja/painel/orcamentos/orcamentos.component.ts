@@ -13,7 +13,7 @@ import { Funcionario } from '../../compartilhados/funcionario';
 @Component({
   selector: 'app-orcamentos',
   templateUrl: './orcamentos.component.html',
-  styleUrls: ['./orcamentos.component.css']
+  styleUrls: ['./orcamentos.component.scss']
 })
 export class OrcamentosComponent implements OnInit {
 
@@ -193,7 +193,7 @@ export class OrcamentosComponent implements OnInit {
       this.infoClienteModal = data;
       console.table(this.infoClienteModal);
       this.id = this.infoClienteModal.id;
-      this.modalService.open(orcamentoAPAGAR, { centered: true, size: 'lg' });
+      this.modalService.open(orcamentoAPAGAR, { centered: true, size: 'lg', backdrop: 'static' });
       console.log(this.infoClienteModal);
       this.montaFormColocaOrcamentoEmProducao();
       this.formOrcamentoFinalizado.controls['pecasOrcamento'].setValue([...this.infoClienteModal.pecasForm]);

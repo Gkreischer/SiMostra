@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-pag-inicial-loja',
   templateUrl: './pag-inicial-loja.component.html',
-  styleUrls: ['./pag-inicial-loja.component.css']
+  styleUrls: ['./pag-inicial-loja.component.scss']
 })
 export class PagInicialLojaComponent implements OnInit {
 

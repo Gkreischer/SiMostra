@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { Orcamento } from '../compartilhados/orcamento';
-
+import { linkUrl } from '../compartilhados/logoLink';
 declare var jsPDF: any;
 
 @Injectable()
@@ -20,7 +20,7 @@ export class ImpressaoService {
   dadoEmpresa: DadosEmpresa;
   dadosCliente: Orcamento;
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
-
+  
   constructor(private http: HttpClient, private router: Router, private crud: CrudService) {
     this.atribuiInfoEmpresaDocPDF();
   }
@@ -66,6 +66,8 @@ export class ImpressaoService {
 
   criaDocumento() {
 
+    console.log(linkUrl);
+    
     let doc = new jsPDF();
     doc.setFontSize(35);
     doc.text(this.dadoEmpresa.nomeFantasia, 15, 25);
@@ -73,12 +75,15 @@ export class ImpressaoService {
     doc.text(this.dadoEmpresa.endereco, 15, 34);
     doc.text(`${this.dadoEmpresa.bairro}-${this.dadoEmpresa.cidade}`, 15, 41);
     doc.text(this.dadoEmpresa.site, 15, 48);
-    //doc.addImage('', 'JPG', 140, 7, 55, 40);
+    doc.addImage(linkUrl, 'JPEG', 140, 7, 55, 40);
 
     doc.line(15, 55, 195, 55);
     doc.setFontSize(20);
     doc.text("Aquisição de Produtos", 105, 68, null, null, 'center');
-
+    doc.setFontSize(16)
+    doc.text("Valor Total:", 148, 245);
+    doc.setFontSize(14);
+    doc.text(this.dadosCliente.valorTotal.toString(), 177, 245);
     doc.autoTable({startY: 75, html: '#listaPecasOrcamento'});
 
     doc.line(15, 250, 195, 250);

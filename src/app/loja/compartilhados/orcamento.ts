@@ -14,4 +14,7 @@ export interface Orcamento {
     numeroParcelas: number;
     nomeFuncionario: string;
     parcelado: boolean;
+    observacao: string;
+    valorPago: string;
+    valorTotal: string;
 }

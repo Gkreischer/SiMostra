@@ -12,7 +12,7 @@ import { CrudService } from '../../services/crud.service';
 @Component({
   selector: 'app-nav-catalogo',
   templateUrl: './nav-catalogo.component.html',
-  styleUrls: ['./nav-catalogo.component.css'],
+  styleUrls: ['./nav-catalogo.component.scss'],
   providers: [NgbDropdownConfig]
 })
 export class NavCatalogoComponent implements OnInit {
