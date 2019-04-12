@@ -66,8 +66,6 @@ export class ImpressaoService {
 
   criaDocumento() {
 
-    console.log(linkUrl);
-    
     let doc = new jsPDF();
     doc.setFontSize(35);
     doc.text(this.dadoEmpresa.nomeFantasia, 15, 25);
@@ -80,38 +78,46 @@ export class ImpressaoService {
     doc.line(15, 55, 195, 55);
     doc.setFontSize(20);
     doc.text("Aquisição de Produtos", 105, 68, null, null, 'center');
-    doc.setFontSize(16)
-    doc.text("Valor Total:", 148, 245);
+    doc.setFontSize(14)
+    doc.text("Data:", 15, 245);
+    doc.setFontSize(12);
+    doc.text(this.dadosCliente.updatedAt.substr(0, 10), 30, 245);
     doc.setFontSize(14);
-    doc.text(this.dadosCliente.valorTotal.toString(), 177, 245);
+    doc.text("Valor Total:", 145, 245);
+    doc.setFontSize(12);
+    doc.text(this.dadosCliente.valorTotal.toString(), 173, 245);
+
     doc.autoTable({startY: 75, html: '#listaPecasOrcamento'});
 
     doc.line(15, 250, 195, 250);
-    doc.setFontSize(16);
-    doc.text('Cliente:', 15, 260);
+    doc.setFontSize(14);
+    doc.text('Cliente:', 15, 256);
     doc.setFontSize(12);
-    doc.text(this.dadosCliente.nome, 35, 260);
-    doc.setFontSize(16);
-    doc.text('Telefone:', 15, 268);
+    doc.text(this.dadosCliente.nome, 33, 256);
+    doc.setFontSize(14);
+    doc.text('Telefone:', 15, 263);
     doc.setFontSize(12);
-    doc.text(this.dadosCliente.telefone.toString(), 39, 268);
-    doc.setFontSize(16);
-    doc.text('Forma de pagamento:', 120, 260);
+    doc.text(this.dadosCliente.telefone.toString(), 39, 263);
+    doc.setFontSize(14);
+    doc.text('Forma de pagamento:', 120, 256);
     doc.setFontSize(12);
-    doc.text(this.dadosCliente.formaPagamento, 177, 260);
-    doc.setFontSize(16);
-    doc.text('Data:', 120, 268);
+    doc.text(this.dadosCliente.formaPagamento, 172, 256);
+    doc.setFontSize(14);
+    doc.text('N. de Parcelas:', 120, 263);
     doc.setFontSize(12);
-
-    doc.text(this.dadosCliente.createdAt.substr(0, 10), 135, 268);
-
+    doc.text(this.dadosCliente.numeroParcelas.toString(), 155, 263);
+    doc.setFontSize(14);
+    doc.text('Valor Pago:', 120, 270);
+    doc.setFontSize(12)
+    doc.text(this.dadosCliente.valorPago.toString(), 146, 270);
+    
+    doc.setFontSize(12);
     doc.line(15, 285, 90, 285);
     doc.text("Cliente", 40, 291);
-
     doc.line(120, 285, 195, 285);
     doc.text("Sigatec", 148, 291);
-
-    doc.save('PDF');
+    
+    doc.save(`PDF`);
   }
 
   criaTabelaDocPDF(informacoes) {

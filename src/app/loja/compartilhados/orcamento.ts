@@ -17,4 +17,5 @@ export interface Orcamento {
     observacao: string;
     valorPago: string;
     valorTotal: string;
+    updatedAt: string;
 }

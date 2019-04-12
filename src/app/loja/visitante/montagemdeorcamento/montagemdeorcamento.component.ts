@@ -39,16 +39,22 @@ export class MontagemdeorcamentoComponent implements OnInit {
   }
 
   leCategorias() {
-    this.crud.leRegistro('/categoria').takeUntil(this.destruido).subscribe((data) => {
-      this.categorias = data;
-      for(let i = 0 ; i < this.categorias.length ; i++) {
-        if(this.categorias[i].categoria){
+    this.crud.leRegistroComFiltro('/produtos', 'visivel', true).takeUntil(this.destruido).subscribe((data) => {
+      this.categorias = this.removeDuplicatas(data, 'categoria');
+      for (let i = 0; i < this.categorias.length; i++) {
+        if (this.categorias[i].categoria) {
           this.categoriasOrdemAlfabetica.push(this.categorias[i].categoria);
         }
       }
       return this.categoriasOrdemAlfabetica.sort();
     }, error => {
       this.erro = error;
+    });
+  }
+
+  removeDuplicatas(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
     });
   }
 
@@ -62,7 +68,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
     });
   }
 
-  get f(){
+  get f() {
     return this.formPecasOrcamento.controls;
   }
 
@@ -89,30 +95,30 @@ export class MontagemdeorcamentoComponent implements OnInit {
 
   adicionaPecaListaOrcamento(id: string) {
 
-    console.log(`Ids recebido: ${id}`);
+    if (this.pegaPecasOrcamento.length === 20) {
+      alert('É permitido somente 20 produtos por orçamento.');
+    } else {
+      console.log(`Ids recebido: ${id}`);
 
-    this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
+      this.crud.leRegistroEspecifico('/produtos', id).takeUntil(this.destruido).subscribe((data) => {
 
-      const peca = this.fb.group({
-        dadosDaPeca: [data],
-        quantidade: ['', Validators.required]
+        const peca = this.fb.group({
+          dadosDaPeca: [data],
+          quantidade: ['', Validators.required]
+        });
+
+        console.table(peca.value);
+
+        this.exibeOrcamento = true;
+
+        this.pegaPecasOrcamento.push(peca);
+
+
+      }, error => {
+        this.erro = error;
+        console.log(this.erro);
       });
-
-      console.table(peca.value);
-
-      this.exibeOrcamento = true;
-
-      this.pegaPecasOrcamento.push(peca);
-
-      for (let i = 0; i < this.pegaPecasOrcamento.length; i++) {
-
-        console.table(this.pegaPecasOrcamento.controls[i].value.dadosDaPeca);
-
-      }
-    }, error => {
-      this.erro = error;
-      console.log(this.erro);
-    });
+    }
   }
 
 
@@ -153,7 +159,7 @@ export class MontagemdeorcamentoComponent implements OnInit {
       if (existePeca != -1) {
         this.pegaPecasOrcamento.removeAt(i);
         console.log(this.pegaPecasOrcamento);
-      } 
+      }
     } else {
       console.log('Cancelado a exclusao da peça');
       return false;
@@ -186,8 +192,8 @@ export class MontagemdeorcamentoComponent implements OnInit {
     let quantidadePecasOrcamento = this.formPecasOrcamento.value.pecasForm.length;
 
     console.log(quantidadePecasOrcamento);
-    
-    for(let i = 0 ; i < quantidadePecasOrcamento ; i++) {
+
+    for (let i = 0; i < quantidadePecasOrcamento; i++) {
 
       console.log(this.formPecasOrcamento.value.pecasForm[i]);
 

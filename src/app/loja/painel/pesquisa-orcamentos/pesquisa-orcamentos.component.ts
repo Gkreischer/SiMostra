@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImpressaoService } from './../../services/impressao.service';
 
 @Component({
   selector: 'app-pesquisa-orcamentos',
@@ -23,7 +24,7 @@ export class PesquisaOrcamentosComponent implements OnInit {
   clientes: Orcamento[];
   msg: string;
 
-  constructor(private fb: FormBuilder, private crud: CrudService, private modalService: NgbModal) {
+  constructor(private fb: FormBuilder, private crud: CrudService, private modalService: NgbModal, private impressaoService: ImpressaoService) {
     window.document.body.style.backgroundColor = '#474647';
     this.montaForm();
   }
@@ -78,6 +79,14 @@ export class PesquisaOrcamentosComponent implements OnInit {
       this.erro = error;
       console.log(this.erro);
     });
+  }
+
+  geraPDF(event){
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+    
+    this.impressaoService.recebeInfoGeraPdf(id);
+    
   }
 
   abreModalInfoOrcamento(event, modalOrcamentoEntregue) {
