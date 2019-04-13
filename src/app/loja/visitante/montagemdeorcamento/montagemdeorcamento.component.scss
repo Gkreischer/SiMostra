@@ -1,4 +1,4 @@
-@media screen and (max-width: 767px){
+@media screen and (max-width: 991px){
     .container_dados_cliente {
         margin-top: 1em;
     }
@@ -6,9 +6,17 @@
     .card_pecas_pesquisadas {
         margin-bottom: 5em;
     }
+    
+    #coluna__nome-table--controlelargura{
+        width: 50%;
+    }
+
+    #card_painel-geral{
+        margin-bottom: 50px;
+    }
 }
 
-@media screen and (min-width: 768px){
+@media screen and (min-width: 992px){
     .container_dados_cliente {
         margin-top: 1em;
         margin-bottom: 4%;
@@ -16,5 +24,9 @@
 
     .card_pecas_pesquisadas {
         margin-top: 1em;
+    }
+
+    #coluna__nome-table--controlelargura{
+        width: 85%;
     }
 }

@@ -1,119 +1,175 @@
 <ng-progress></ng-progress>
 <div class="container-fluid container_dados_cliente">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-10 col-lg-8">
-      <div class="card">
-        <h5 class="card-header">Suas informações</h5>
-        <div class="card-body">
-          <form ngNativeValidate [formGroup]="formPecasOrcamento">
-            <div class="container">
-              <div class="row">
-                <div class="col-12 col-md-6">
-                  <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input class="form-control" type="text" id="nome" formControlName="nome" minlength="4"
-                      maxlength="64" required>
-                  </div>
-                  <div *ngIf="f.nome.invalid && (f.nome.dirty || f.nome.touched)" class="alert alert-danger mt-1">
-                    <div *ngIf="f.nome.errors.required">
-                      <small class="text-muted">Por favor, insira um nome</small>
-                    </div>
-                    <div *ngIf="f.nome.errors.minlength">
-                      <small class="text-muted">Deve conter no mínimo 4 letras</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="form-group">
-                    <label for="telefone">Telefone</label>
-                    <input class="form-control" type="tel" id="telefone" formControlName="telefone" required>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="form-group">
-                    <label for="cpfcnpj">CPF/CNPJ</label>
-                    <input class="form-control" type="number" id="cpfcnpj" formControlName="cpfcnpj" required>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 text-center">
-                  <p class="small text-danger">Insira os seus dados acima</p>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 col-md-3 col-lg-2 my-3">
-      <div class="list-group">
-        <button class="list-group-item list-group-item-dark" type="button"><b>CATEGORIAS</b></button>
-        <button type="button" *ngFor="let categoria of categoriasOrdemAlfabetica" id={{categoria}}
-          class="list-group-item" (click)="consultaPorCategoria($event)">{{categoria}}</button>
-        <button type="button" class="list-group-item" (click)="resetaConsulta()">Limpar Lista</button>
-      </div>
-    </div>
-    <div *ngIf="pecas" class="col-12 col-md-9 col-lg-5">
-      <div class="card card_pecas_pesquisadas">
-        <div class="card-header text-white bg-info">Pecas pesquisadas</div>
-        <div class="card-body">
-          <div class="card-deck">
-            <div *ngFor="let peca of pecas | paginate: { itemsPerPage: 3, currentPage: p }" class="card bg-light mb-3"
-              style="max-width: 18rem;">
-              <div class="card-header">{{peca.categoria}}
-                <span class="float-right">
-                  <button class="btn btn-info btn-sm" type="button" id={{peca.id}}
-                    (click)="pegaIdPecaCheckboxEAdicionaPecaNaLista($event)">+</button>
-                </span>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">{{peca.nome}}</h5>
-                <h6 class="card-title"><strong>{{peca.marca}}</strong></h6>
-                <p class="card-text float-right"><b>Valor: </b>{{peca.preco}}</p>
-              </div>
+    <div class="col-12 col-md-12">
+      <div class="card" id="card_painel-geral">
+        <div class="row no-gutters">
+          <div class="col-12 col-md-3 border-right">
+            <div class="list-group list-group-flush">
+              <button class="list-group-item list-group-item-dark" type="button"><b>CATEGORIAS</b></button>
+              <button type="button" *ngFor="let categoria of categoriasOrdemAlfabetica" id={{categoria}}
+                class="list-group-item" (click)="consultaPorCategoria($event)">{{categoria}}</button>
+              <button type="button" class="list-group-item" (click)="resetaConsulta()">Limpar Lista</button>
             </div>
           </div>
-          <div *ngIf="pegaPecasOrcamento" class="row">
-            <div class="col-12 d-flex justify-content-center" style="padding-left: 0px!important;">
-              <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar"
-                nextLabel="Avançar"></pagination-controls>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 text-center">
-              <p class="small">Quantidades e valores serão confirmados na loja</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="exibeOrcamento" class="col-12 col-md-12 col-lg-5">
-      <div class="card my-3">
-        <div class="card-header text-white bg-info">
-          Pecas adicionadas
-        </div>
-        <div class="card-body">
-          <form [formGroup]="formPecasOrcamento" (ngSubmit)="salvaOrcamento()">
-            <div formArrayName="pecasForm">
-              <div *ngFor="let peca of pegaPecasOrcamento.controls; let i=index" [formGroupName]="i">
-                <div class="container-fluid mx-0">
+          <div class="col-12 col-md-9">
+            <h5 class="card-header">Montagem de Orçamento</h5>
+            <div class="card-body">
+
+              <div class="container">
+                <div class="row">
+                  <div class="col-12 col-md-12">
+                    <p class="lead">Suas informações</p>
+                  </div>
+                </div>
+                <form ngNativeValidate [formGroup]="formPecasOrcamento">
                   <div class="row">
-                    <div class="col-2">
-                      <button class="btn btn-danger" id={{pegaPecasOrcamento.controls[i].value.dadosDaPeca.id}}
-                        (click)="deletaPecaListaOrcamento($event, i)">X</button>
+                    <div class="col-12 col-md-6">
+                      <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input class="form-control" type="text" id="nome" formControlName="nome" minlength="4"
+                          maxlength="64" required>
+                      </div>
+                      <div *ngIf="f.nome.invalid && (f.nome.dirty || f.nome.touched)" class="alert alert-danger mt-1">
+                        <div *ngIf="f.nome.errors.required">
+                          <small class="text-muted">Por favor, insira um nome</small>
+                        </div>
+                        <div *ngIf="f.nome.errors.minlength">
+                          <small class="text-muted">Deve conter no mínimo 4 letras</small>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-7">
-                      <p><b>Nome: </b>{{pegaPecasOrcamento.controls[i].value.dadosDaPeca.nome}} -
-                        <b>R${{pegaPecasOrcamento.controls[i].value.dadosDaPeca.preco}}</b></p>
+                    <div class="col-12 col-md-3">
+                      <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input class="form-control" type="tel" id="telefone" formControlName="telefone" required minlength="10" maxlength="11">
+                      </div>
+                      <div *ngIf="f.telefone.invalid && (f.telefone.dirty || f.telefone.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="f.telefone.errors.required">
+                          <small class="text-muted">Por favor, insira um número de telefone ou celular</small>
+                        </div>
+                        <div *ngIf="f.telefone.errors.minlength">
+                          <small class="text-muted">Por favor, use DDD + número do telefone</small>
+                        </div>
+                        <div *ngIf="f.telefone.errors.pattern">
+                          <small class="text-muted">Use somente números.</small>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-3">
-                      <div class="form-group row">
-                        <label class="col-md-6 col-12 mt-1">Qtd</label>
-                        <div class="col-md-12">
-                          <input class="form-control" formControlName="quantidade" type="number">
+                    <div class="col-12 col-md-3">
+                      <div class="form-group">
+                        <label for="cpfcnpj">CPF/CNPJ</label>
+                        <input class="form-control" type="text" id="cpfcnpj" formControlName="cpfcnpj" required
+                          minlength="11" maxlength="11"
+                          pattern="^[0-9]*$">
+                      </div>
+                      <div *ngIf="f.cpfcnpj.invalid && (f.cpfcnpj.dirty || f.cpfcnpj.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="f.cpfcnpj.errors.required">
+                          <small class="text-muted">Por favor, insira um CPF/CNPJ</small>
+                        </div>
+                        <div *ngIf="f.cpfcnpj.errors.minlength">
+                          <small class="text-muted">Por favor, insira 11 números.</small>
+                        </div>
+                        <div *ngIf="f.cpfcnpj.errors.pattern">
+                          <small class="text-muted">Não use . ou -</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <p class="small text-danger">Insira os seus dados acima</p>
+                  </div>
+                </div>
+                <div *ngIf="pecas">
+                  <div *ngIf="pecas" class="row">
+                    <div class="col-12 col-md-12">
+                      <p class="lead">Peças achadas</p>
+                    </div>
+                  </div>
+                  <div *ngIf="pecas" class="row no-gutters">
+                    <div class="col-12 col-md-12 mx-auto d-flex justify-content-center">
+                      <div class="card-deck">
+                        <div *ngFor="let peca of pecas | paginate: { itemsPerPage: 3, currentPage: p }"
+                          class="card bg-light mb-3" style="max-width: 18rem;">
+                          <div class="card-header">{{peca.categoria}}
+                            <span class="float-right">
+                              <button class="btn btn-info btn-sm" type="button" id={{peca.id}}
+                                (click)="pegaIdPecaCheckboxEAdicionaPecaNaLista($event)">+</button>
+                            </span>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title">{{peca.nome}}</h5>
+                            <h6 class="card-title"><strong>{{peca.marca}}</strong></h6>
+                            <p class="card-text float-right"><b>Valor: </b>{{peca.preco}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-md-12">
+                      <div *ngIf="pegaPecasOrcamento">
+                        <div class="col-12 d-flex justify-content-center" style="padding-left: 0px!important;">
+                          <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event"
+                            previousLabel="Voltar" nextLabel="Avançar"></pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container" *ngIf="exibeOrcamento">
+                    <div class="row">
+                      <div class="col-12 col-md-12">
+                        <p class="lead">Peças adicionadas</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-md-12">
+                        <form [formGroup]="formPecasOrcamento" (ngSubmit)="salvaOrcamento()">
+                          <div formArrayName="pecasForm">
+                            <table class="table table-sm table-hoverable table-bordered">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col text-center">Deletar</th>
+                                  <th scope="col" id="coluna__nome-table--controlelargura">Nome</th>
+                                  <th scope="col">Qtd</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr class="text-center" *ngFor="let peca of pegaPecasOrcamento.controls; let i=index"
+                                  [formGroupName]="i">
+                                  <td>
+                                    <button class="btn btn-danger"
+                                      id={{pegaPecasOrcamento.controls[i].value.dadosDaPeca.id}}
+                                      (click)="deletaPecaListaOrcamento($event, i)">X
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <p><b>Nome: </b>{{pegaPecasOrcamento.controls[i].value.dadosDaPeca.nome}} -
+                                      <b>R${{pegaPecasOrcamento.controls[i].value.dadosDaPeca.preco}}</b></p>
+                                  </td>
+                                  <td>
+                                    <input class="form-control" formControlName="quantidade" type="number">
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div>
+                            </div>
+                          </div>
+                        </form>
+                        <button class="btn btn-primary float-right" type="submit"
+                          [disabled]="!formPecasOrcamento.valid || pegaPecasOrcamento.length == 0"
+                          printSectionId="secao_para_imprimir" ngxPrint>Salvar Orçamento</button>
+                      </div>
+                      <div *ngIf="sucesso" class="row text-center justify-content-center">
+                        <div class="col-12">
+                          <div class="alert alert-success my-3" role="alert">
+                            {{sucesso}}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -121,21 +177,11 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary float-right" type="submit"
-              [disabled]="!formPecasOrcamento.valid || pegaPecasOrcamento.length == 0"
-              printSectionId="secao_para_imprimir" ngxPrint>Salvar Orçamento</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="sucesso" class="row text-center justify-content-center">
-    <div class="col-12">
-      <div class="alert alert-success my-3" role="alert">
-        {{sucesso}}
-      </div>
-    </div>
-  </div>
-
 </div>
+
 <app-nav-catalogo></app-nav-catalogo>

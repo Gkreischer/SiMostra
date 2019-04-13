@@ -61,8 +61,12 @@ export class MontagemdeorcamentoComponent implements OnInit {
   montaForm() {
     this.formPecasOrcamento = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(64)]],
-      telefone: ['', Validators.required],
-      cpfcnpj: ['', Validators.required],
+      telefone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(11), Validators.pattern(
+        '^[0-9]*$'
+      )]],
+      cpfcnpj: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(
+        '^[0-9]*$'
+      )]],
       pecasForm: this.fb.array([]),
       situacao: ['A PAGAR', Validators.required]
     });
