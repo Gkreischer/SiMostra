@@ -3,13 +3,21 @@
 }
 
 @media screen and (max-width: 991px){
-    button {
-        margin-bottom: 3px;
+    section {
+        margin-top: 1em!important;
+        margin-bottom: 3em!important;
     }
-}
 
-@media screen and (min-width: 992px){
-    button {
-        margin-left: 10px;
+    h3.text-light {
+      text-align: center;
     }
-}
+  }
+  
+  @media screen and (min-width: 992px){
+    section {
+        margin-top: 1em!important;
+        margin-bottom: 4em!important;
+    }
+    
+  }
+  

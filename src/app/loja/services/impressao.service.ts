@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { Orcamento } from '../compartilhados/orcamento';
 import { linkUrl } from '../compartilhados/logoLink';
+import { BaseUrl } from '../compartilhados/baseurl';
 declare var jsPDF: any;
 
 @Injectable()
@@ -16,7 +17,7 @@ export class ImpressaoService {
 
   private readonly pdfFonts: any;
 
-  API_URL: string = 'http://localhost:3000/api';
+  API_URL: string = BaseUrl;
   dadoEmpresa: DadosEmpresa;
   dadosCliente: Orcamento;
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);

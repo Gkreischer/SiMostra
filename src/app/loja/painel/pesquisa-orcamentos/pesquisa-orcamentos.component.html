@@ -1,16 +1,18 @@
 <ng-progress></ng-progress>
-<div class="container">
+<section class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-light">Pesquisar Orçamentos</h3>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
       <div class="card">
-        <div class="card-header">
-          Pesquisar
-        </div>
         <div class="card-body">
           <div class="container-fluid">
 
             <div class="row justify-content-center">
-              <div class="col-6">
+              <div class="col-12 col-md-6">
                 <form ngNativeValidate [formGroup]="formPesquisaNomeOuCpf">
                   <div class="form-group">
                     <label for="nomeOuCpf">Nome/CPF</label>
@@ -59,7 +61,8 @@
                             routerLink="/orcamentos">PRODUZIR</button>
                           <button *ngIf="cliente.situacao == 'ENTREGUE'"
                             [ngClass]="cliente.situacao == 'ENTREGUE' ? 'btn-primary' : 'btn-light'" class="btn btn-sm"
-                            id={{cliente.id}} (click)="abreModalInfoOrcamento($event, modalOrcamentoEntregue)">INFORMAÇÕES</button>
+                            id={{cliente.id}}
+                            (click)="abreModalInfoOrcamento($event, modalOrcamentoEntregue)">INFORMAÇÕES</button>
                         </td>
                       </tr>
                     </tbody>
@@ -80,7 +83,7 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 <app-nav-catalogo></app-nav-catalogo>
 <!-- Modal Orcamentos ENTREGUES-->
 <ng-template #modalOrcamentoEntregue let-modal class="my-5">
@@ -187,7 +190,8 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group">
-            <button class="btn btn-primary btn-sm" id="{{dadosOrcamentoEntregue.id}}" (click)="geraPDF($event)">Imprimir</button>
+            <button class="btn btn-primary btn-sm" id="{{dadosOrcamentoEntregue.id}}"
+              (click)="geraPDF($event)">Imprimir</button>
           </div>
         </div>
       </div>

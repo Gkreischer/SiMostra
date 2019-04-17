@@ -1,10 +1,17 @@
-@media screen and (max-width: 991px){
-    body{
-        padding-top: 0px!important;
-    }
+@media screen and (max-width: 991px) {
+  section {
+    margin-top: 1em !important;
+    margin-bottom: 3em !important;
+  }
 
-    .card {
-        margin-top: 10%!important;
-        margin-bottom: 10%!important;
-    }
+  h3.text-light {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  section {
+    margin-top: 1em !important;
+    margin-bottom: 4em !important;
+  }
 }

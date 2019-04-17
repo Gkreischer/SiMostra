@@ -9,3 +9,21 @@
 .btn-primary {
     background-color: #007bff;
 }
+
+@media screen and (max-width: 991px){
+    section {
+        margin-top: 1em!important;
+        margin-bottom: 3em!important;
+    }
+
+    h3.text-light {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 992px){
+    section {
+        margin-top: 1em!important;
+        margin-bottom: 4em!important;
+    }
+}

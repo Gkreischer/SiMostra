@@ -143,7 +143,10 @@ export class ListamensagensComponent implements OnInit {
   }
 
   deletaMensagem(event) {
-    let target = event.target || event.srcElement || event.currentTarget;
+    let confirma = confirm('Tem certeza que deseja deletar a mensagem?');
+
+    if(confirma) {
+      let target = event.target || event.srcElement || event.currentTarget;
     let id = target.attributes.id.value;
 
     console.log(id);
@@ -157,6 +160,10 @@ export class ListamensagensComponent implements OnInit {
     }, error => {
       console.log('ERRO: Não foi possível deletar a mensagem');
     });
+    } else {
+      alert('Operação cancelada');
+      return false;
+    }
   }
 
   ngOnDestroy(){

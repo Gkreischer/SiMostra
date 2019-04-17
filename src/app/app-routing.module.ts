@@ -1,5 +1,5 @@
 import { NgModule }             from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate  } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -15,17 +15,18 @@ import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamen
 import { OrcamentosComponent } from './loja/painel/orcamentos/orcamentos.component';
 import { PesquisaOrcamentosComponent } from './loja/painel/pesquisa-orcamentos/pesquisa-orcamentos.component';
 
+import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'orcamentos', component: OrcamentosComponent },
+  { path: 'orcamentos', component: OrcamentosComponent, canActivate: [AuthGuard] },
   { path: 'catalogo', component: PagInicialLojaComponent },
-  { path: 'cadastropeca', component: CdpecaComponent },
-  { path: 'cadastropeca/:id', component: CdpecaComponent },
-  { path: 'listagemdepecas', component: ListagemdepecasComponent },
-  { path: 'listamensagens', component: ListamensagensComponent },
-  { path: 'configuracoes', component: ConfiguracoesComponent },
+  { path: 'cadastropeca', component: CdpecaComponent, canActivate: [AuthGuard]  },
+  { path: 'cadastropeca/:id', component: CdpecaComponent, canActivate: [AuthGuard]  },
+  { path: 'listagemdepecas', component: ListagemdepecasComponent, canActivate: [AuthGuard]  },
+  { path: 'listamensagens', component: ListamensagensComponent, canActivate: [AuthGuard]  },
+  { path: 'configuracoes', component: ConfiguracoesComponent, canActivate: [AuthGuard]  },
   { path: 'montagemdeorcamento', component: MontagemdeorcamentoComponent },
-  { path: 'pesquisaOrcamentos', component: PesquisaOrcamentosComponent},
+  { path: 'pesquisaOrcamentos', component: PesquisaOrcamentosComponent, canActivate: [AuthGuard] },
   { path: 'home', component: PagInicialComponent },
   { path: '**', component: NotFoundComponent },
 ];

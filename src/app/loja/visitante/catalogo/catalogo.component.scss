@@ -1,6 +1,17 @@
-@media screen and (max-width: 991px){
-
-    .adiciona_margin--up {
-        margin-top: 5%;
+@media screen and (max-width: 991px) {
+    div.container {
+      margin-top: 1em !important;
+      margin-bottom: 3em !important;
     }
-}
+  
+    h3.text-light {
+      text-align: center;
+    }
+  }
+  
+  @media screen and (min-width: 992px) {
+    div.container {
+      margin-top: 5em !important; 
+    }
+  }
+  

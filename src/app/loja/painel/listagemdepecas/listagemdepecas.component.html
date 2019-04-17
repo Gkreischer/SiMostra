@@ -1,8 +1,12 @@
-<div class="container">
+<section class="container">
   <div class="row">
     <div class="col-12">
-      <div class="card mt-2">
-        <div class="card-header">Lista de Produtos</div>
+      <h3 class="text-light">Listagem de Produtos</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
         <div class="card-body">
           <div *ngIf="msg" class="row">
             <div class="col-12">
@@ -28,14 +32,17 @@
                       <td>
                         <div class="form-group form-check">
                           <form [formGroup]="formVisibilidade" (ngSubmit)="enviaForm()">
-                            <input id="{{peca.id}}" (click)="alteraVisibilidade($event)" value="{{peca.visivel}}" type="checkbox" class="form-check-input"
-                              [checked]="peca.visivel" formControlName="visivel">
+                            <input id="{{peca.id}}" (click)="alteraVisibilidade($event)" value="{{peca.visivel}}"
+                              type="checkbox" class="form-check-input" [checked]="peca.visivel"
+                              formControlName="visivel">
                           </form>
                         </div>
                       </td>
                       <td class="justify-content-center">
-                        <button id="{{peca.id}}" (click)="editaPeca($event)" class="btn btn-sm btn-warning">Editar</button>
-                        <button id="{{peca.id}}" (click)="deletaPeca($event)" class="btn btn-sm btn-danger ">Excluir</button>
+                        <button id="{{peca.id}}" (click)="editaPeca($event)"
+                          class="btn btn-sm btn-warning mr-md-1">Editar</button>
+                        <button id="{{peca.id}}" (click)="deletaPeca($event)"
+                          class="btn btn-sm btn-danger mt-2 mt-md-0">Excluir</button>
                       </td>
                     </tr>
                   </tbody>
@@ -47,5 +54,5 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 <app-nav-catalogo></app-nav-catalogo>

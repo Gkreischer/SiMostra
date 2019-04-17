@@ -17,24 +17,6 @@ import { CrudService } from '../../services/crud.service';
 })
 export class NavCatalogoComponent implements OnInit {
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder,
-    private router: Router, config: NgbDropdownConfig, private loginService: LoginService, private crud: CrudService) {
-    config.placement = 'top-left';
-    let token = this.loginService.estaLogado();
-
-    if (token) {
-      console.log('Token armazenado localmente');
-      this.eAdministrador = true;
-    } else {
-      console.log('Usuario nao logado.')
-    }
-  }
-
-  ngOnInit() {
-    this.montaForm();
-    this.exibeDadosLoja();
-  }
-
   formLogin: FormGroup;
   dadosUsuario: Login;
   eAdministrador: boolean = false;
@@ -44,6 +26,25 @@ export class NavCatalogoComponent implements OnInit {
   tituloLoja: string = null;
   url: string = '/home';
   isCollapsed;
+
+  constructor(private modalService: NgbModal, private fb: FormBuilder,
+    private router: Router, config: NgbDropdownConfig, private loginService: LoginService, private crud: CrudService) {
+    config.placement = 'top-left';
+    this.verificaSeEstaLogado();
+  }
+
+  ngOnInit() {
+    this.montaForm();
+    this.exibeDadosLoja();
+  }
+
+  verificaSeEstaLogado() {
+    if(sessionStorage.getItem('id_token')){
+      this.eAdministrador = true;
+    } else {
+      this.eAdministrador = false;
+    }
+  }
 
   montaForm() {
     this.formLogin = this.fb.group({

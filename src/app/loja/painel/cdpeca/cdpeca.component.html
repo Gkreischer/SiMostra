@@ -1,11 +1,13 @@
 <ng-progress></ng-progress>
-<div class="container">
+<section class="container">
   <div class="row">
     <div class="col-12">
-      <div class="card mt-2">
-        <div class="card-header">
-          Cadastre a peça
-        </div>
+      <h3 class="text-light">Cadastro de produtos</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
         <div class="card-body">
           <form ngNativeValidate [formGroup]="formCadastroPeca" (ngSubmit)="enviaForm()">
             <div class="row">
@@ -92,7 +94,7 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 <ng-template #cadastroCategoriaModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Cadastrar categoria</h4>
@@ -109,7 +111,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" (click)="cadastraCategoria()" class="btn btn-primary">Cadastrar</button>
+    <button type="submit" (click)="cadastraCategoria()" class="btn btn-primary" [disabled]="!formCategoria.valid">Cadastrar</button>
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
   </div>
 </ng-template>

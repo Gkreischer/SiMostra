@@ -1,32 +1,17 @@
-@media screen and (max-width: 991px){
-    .container_dados_cliente {
-        margin-top: 1em;
-    }
+@media screen and (max-width: 991px) {
+  section {
+    margin-top: 1em !important;
+    margin-bottom: 3em !important;
+  }
 
-    .card_pecas_pesquisadas {
-        margin-bottom: 5em;
-    }
-    
-    #coluna__nome-table--controlelargura{
-        width: 50%;
-    }
-
-    #card_painel-geral{
-        margin-bottom: 50px;
-    }
+  h3.text-light {
+    text-align: center;
+  }
 }
 
-@media screen and (min-width: 992px){
-    .container_dados_cliente {
-        margin-top: 1em;
-        margin-bottom: 4%;
-    }
-
-    .card_pecas_pesquisadas {
-        margin-top: 1em;
-    }
-
-    #coluna__nome-table--controlelargura{
-        width: 85%;
-    }
+@media screen and (min-width: 992px) {
+  section {
+    margin-top: 1em !important;
+    margin-bottom: 4em !important;
+  }
 }

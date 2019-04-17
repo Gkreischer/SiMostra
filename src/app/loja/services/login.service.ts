@@ -4,6 +4,7 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { BaseUrl } from './../compartilhados/baseurl';
 
 import { Login } from './../compartilhados/login';
 
@@ -12,7 +13,7 @@ import { Login } from './../compartilhados/login';
 })
 export class LoginService {
 
-  URL_DEFAULT:string = 'http://localhost:3000/api/Customers';
+  URL_DEFAULT:string = `${BaseUrl}/Customers`;
   token = null;
 
   constructor(private http: HttpClient) { }
@@ -43,12 +44,18 @@ export class LoginService {
     return console.log('Usuario deslogado');
   }
 
-  public estaLogado() {
-    return sessionStorage.getItem('id_token');
+  public verificaSeEstaLogado() {
+    const token = sessionStorage.getItem('id_token');
+
+    if(token){
+      return true;
+    } else {
+      return this.naoEstaLogado();
+    }
   }
 
   naoEstaLogado() {
-    return !this.estaLogado();
+    return false;
   }
 
   leExpiracao(){

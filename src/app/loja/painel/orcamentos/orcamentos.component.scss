@@ -1,11 +1,29 @@
-@media screen and (min-width: 768px) {
-    .button_orcamento:first-child {
-        margin-right: 15px;
-    }
+@media screen and (max-width: 991px) {
+  section {
+    margin-top: 1em !important;
+    margin-bottom: 3em !important;
+  }
+
+  h3.text-light {
+    text-align: center;
+  }
+
+  .button_orcamento:last-child {
+    margin-top: 10px;
+  }
+
+  #barra__navegacao--abas .nav-item {
+    font-size: 12px;
+  }
 }
 
-@media screen and (max-width: 767px){
-    .button_orcamento:last-child {
-        margin-top: 10px;
-    }
+@media screen and (min-width: 992px) {
+  section {
+    margin-top: 1em !important;
+    margin-bottom: 4em !important;
+  }
+
+  .button_orcamento:first-child {
+    margin-right: 15px;
+  }
 }

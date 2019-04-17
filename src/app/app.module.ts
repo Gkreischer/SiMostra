@@ -1,19 +1,19 @@
-import { NgModule, LOCALE_ID }       from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import localePt from '@angular/common/locales/pt';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './interceptors/auth.module';
-import { AppRoutingModule }     from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InputSearchModule } from 'ngx-input-search';
-import { AppComponent }  from './app.component';
+import { AppComponent } from './app.component';
 
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -21,7 +21,6 @@ import { isPlatformBrowser } from '@angular/common';
 import { CrudService } from './loja/services/crud.service';
 import { ImpressaoService } from './loja/services/impressao.service';
 import { LoginService } from './loja/services/login.service';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -44,7 +43,12 @@ import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamen
 import { OrcamentosComponent } from './loja/painel/orcamentos/orcamentos.component';
 import { PesquisaOrcamentosComponent } from './loja/painel/pesquisa-orcamentos/pesquisa-orcamentos.component';
 
+export function tokenGetter() {
+  return sessionStorage.getItem('id_token');
+}
+
 registerLocaleData(localePt);
+
 
 @NgModule({
   imports: [
@@ -83,17 +87,17 @@ registerLocaleData(localePt);
     PesquisaOrcamentosComponent
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt'},
+    { provide: LOCALE_ID, useValue: 'pt' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-     },
-     CrudService,
-     LoginService,
-     ImpressaoService
+    },
+    CrudService,
+    LoginService,
+    ImpressaoService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { BaseUrl } from '../compartilhados/baseurl';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
-  URL_DEFAULT:string = 'http://localhost:3000/api';
+  URL_DEFAULT:string = BaseUrl;
+
+  URL_DEFAULT_EMAIL = BaseUrl.substr(0,25);
 
   leRegistro(rota: string):Observable<any>{
     return this.http.get(this.URL_DEFAULT + rota).pipe(
@@ -71,7 +74,7 @@ export class CrudService {
 
   enviaEmail(rota: string, form):Observable<any>{
     // Necessario o response type pois o retorno não é em JSON
-    return this.http.post(`http://localhost:3000/enviaEmail`,form, {responseType: 'text'}).pipe(
+    return this.http.post(`${this.URL_DEFAULT_EMAIL}/enviaEmail`,form, {responseType: 'text'}).pipe(
       tap(data => { return data}),
       catchError(this.handleError)
     );

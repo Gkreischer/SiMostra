@@ -4,7 +4,7 @@ import { Peca } from './../../compartilhados/peca';
 import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { Categoria } from './../../compartilhados/categoria';
-import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ImpressaoService } from './../../services/impressao.service';
 import { Orcamento } from './../../compartilhados/orcamento';
 

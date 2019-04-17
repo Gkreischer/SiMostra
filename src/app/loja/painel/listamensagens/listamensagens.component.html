@@ -1,11 +1,13 @@
 <ng-progress></ng-progress>
-<div class="container-fluid">
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-light">Lista de Mensagens</h3>
+    </div>
+  </div>
   <div class="row justify-content-center">
     <div class="col-12">
-      <div class="card my-3 ">
-        <div class="card-header">
-          Lista de mensagens dos clientes
-        </div>
+      <div class="card">
         <div class="card-body">
           <div *ngIf="mensagens" class="table-responsive">
             <table class="table table-bordered table-striped table-hover table-sm">
@@ -25,8 +27,11 @@
                   <td>{{mensagem.email}}</td>
                   <td>{{mensagem.mensagem}}</td>
                   <td class="text-center align-middle">
-                    <button type="button" id={{mensagem.id}} (click)="abreModalRespostaEmail($event, conteudo)" class="btn btn-warning btn-sm button_resposta" [disabled]="mensagem.situacao" [ngClass]=" mensagem.situacao ? 'btn-light' : 'btn-warning'">{{mensagemBotaoResposta}}</button>
-                    <button type="button" id={{mensagem.id}} (click)="deletaMensagem($event)" class="btn btn-danger btn-sm">Deletar</button>
+                    <button type="button" id={{mensagem.id}} (click)="abreModalRespostaEmail($event, conteudo)"
+                      class="btn btn-warning btn-sm button_resposta" [disabled]="mensagem.situacao"
+                      [ngClass]=" mensagem.situacao ? 'btn-light' : 'btn-warning'">{{mensagemBotaoResposta}}</button>
+                    <button type="button" id={{mensagem.id}} (click)="deletaMensagem($event)"
+                      class="btn btn-danger btn-sm">Deletar</button>
                   </td>
                 </tr>
               </tbody>
@@ -41,10 +46,11 @@
   </div>
   <div *ngIf="mensagens" class="row">
     <div class="col-12 d-flex justify-content-center" style="padding-left: 0px!important;">
-      <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar" nextLabel="Avançar"></pagination-controls>
+      <pagination-controls responsive="true" autoHide="true" (pageChange)="p = $event" previousLabel="Voltar"
+        nextLabel="Avançar"></pagination-controls>
     </div>
   </div>
-</div>
+</section>
 <app-nav-catalogo></app-nav-catalogo>
 
 <!-- Modal -->
