@@ -81,8 +81,8 @@
           <div class="col-12 col-md-3 no-gutters border-right border-left">
             <div class="list-group list-group-flush">
               <button class="list-group-item list-group-item" type="button"><b>Escolha abaixo:</b></button>
-              <button type="button" *ngFor="let categoria of categoriasOrdemAlfabetica" id={{categoria}}
-                class="list-group-item" (click)="consultaPorCategoria($event)">{{categoria}}</button>
+              <button type="button" *ngFor="let categoria of categoriasOrdemAlfabetica; let i = index;" id="{{categoria}}"
+                class="list-group-item" (click)="consultaPorCategoria($event, i)" [class.active]="botaoClicado === i">{{categoria}}</button>
               <button type="button" class="list-group-item" (click)="resetaConsulta()">Limpar Lista</button>
             </div>
           </div>
@@ -180,6 +180,13 @@
         <div class="col-12">
           <div class="alert alert-success my-3" role="alert">
             {{sucesso}}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="erro" class="row text-center justify-content-center">
+        <div class="col-12">
+          <div class="alert alert-danger my-3" role="alert">
+            Desculpe-nos, algo errado aconteceu...Entre em contato.
           </div>
         </div>
       </div>

@@ -32,6 +32,8 @@ export class MontagemdeorcamentoComponent implements OnInit {
   pecaSelecionada: Peca = null;
   p: number = 1;
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
+  botaoClicado: number;
+
 
   ngOnInit() {
     this.montaForm();
@@ -126,10 +128,12 @@ export class MontagemdeorcamentoComponent implements OnInit {
   }
 
 
-  consultaPorCategoria(event) {
+  consultaPorCategoria(event, index: number) {
 
     let target = event.target || event.srcElement || event.currentTarget;
     let categoriaSelecionada = target.attributes.id.value;
+    this.botaoClicado = index;
+
 
     console.log(categoriaSelecionada);
 

@@ -1,5 +1,5 @@
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/home">{{tituloLoja}}</a>
+  <a class="navbar-brand" href="/home"><i class="fa fa-home"></i> {{tituloLoja}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
     (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed">
@@ -9,17 +9,17 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="!isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <button class="btn btn-primary" routerLink="/catalogo" routerLinkActive="active"><i
-            class="fas fa-book-open"></i> Catálogo</button>
+        <button class="btn btn-primary" routerLink="/catalogo" routerLinkActive="active"><i class="fa fa-book-open"></i>
+          Catálogo</button>
       </li>
       <li class="nav-item">
         <button class="btn btn-primary" routerLink="/montagemdeorcamento" routerLinkActive="active"><i
-            class="fas fa-tools"></i> Monte seu Orçamento</button>
+            class="fa fa-tools"></i> Monte seu Orçamento</button>
       </li>
       <li *ngIf="eAdministrador" class="nav-item">
         <div ngbDropdown>
           <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle> <i
-              class="fas fa-th-large mr-1"></i>Peças</button>
+              class="fa fa-th-large mr-1"></i>Peças</button>
           <div ngbDropdownMenu aria-labelledby="dropdownConfig">
             <button class="dropdown-item" routerLink="/cadastropeca" routerLinkActive="active">Cadastrar</button>
             <button class="dropdown-item" routerLink="/listagemdepecas" routerLinkActive="active">Lista</button>
@@ -28,12 +28,12 @@
       </li>
       <li *ngIf="eAdministrador" class="nav-item">
         <button class="btn btn-primary" routerLink="/listamensagens" routerLinkActive="active"><i
-            class="fas fa-envelope"></i> Mensagens</button>
+            class="fa fa-envelope"></i> Mensagens</button>
       </li>
       <li *ngIf="eAdministrador" class="nav-item">
         <div ngbDropdown>
-          <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle> <i
-              class="fas fa-copy"></i> Orçamentos</button>
+          <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle> <i class="fa fa-copy"></i>
+            Orçamentos</button>
           <div ngbDropdownMenu aria-labelledby="dropdownConfig">
             <button class="dropdown-item" routerLink="/orcamentos" routerLinkActive="active">Listar</button>
             <button class="dropdown-item" routerLink="/pesquisaOrcamentos" routerLinkActive="active">Pesquisar</button>
@@ -45,9 +45,9 @@
       <button *ngIf="!eAdministrador" class="btn btn-outline-success btn-sm my-2" type="submit"
         (click)="abreModalPainelAdm(modalLogin)">Login</button>
       <button *ngIf="eAdministrador" class="btn btn-outline-warning btn-sm my-2 button_configuracao" type="button"
-        routerLink="/configuracoes"><i class="fas fa-cogs"></i> Configurações</button>
+        routerLink="/configuracoes"><i class="fa fa-cogs"></i> Configurações</button>
       <button *ngIf="eAdministrador" class="btn btn-outline-danger btn-sm my-2" type="button" (click)="deslogar()"><i
-          class="fas fa-sign-out-alt"></i> Sair</button>
+          class="fa fa-sign-out-alt"></i> Sair</button>
     </div>
   </div>
 </nav>

@@ -14,14 +14,16 @@ export class ProdutosComponent implements OnInit {
 
   ngOnInit() {
     this.lePecas();
+    this.leCategorias();
   }
 
   pecas: Peca[] = null;
   erro;
   msg: string;
   categorias: any = [];
-
+  botaoClicado: number
   p: number = 1;
+  categoriasOrdemAlfabetica = [];
 
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
 
@@ -43,16 +45,32 @@ export class ProdutosComponent implements OnInit {
     });
   }
 
+  leCategorias() {
+    this.crud.leRegistroComFiltro('/produtos', 'visivel', true).takeUntil(this.destruido).subscribe((data) => {
+      this.categorias = this.removeDuplicatas(data, 'categoria');
+      for (let i = 0; i < this.categorias.length; i++) {
+        if (this.categorias[i].categoria) {
+          this.categoriasOrdemAlfabetica.push(this.categorias[i].categoria);
+        }
+      }
+      return this.categoriasOrdemAlfabetica.sort();
+    }, error => {
+      this.erro = error;
+    });
+  }
+
   removeDuplicatas(myArr, prop) {
     return myArr.filter((obj, pos, arr) => {
       return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
     });
   }
 
-  alteraProdutosPelaCategoria(event) {
+  alteraProdutosPelaCategoria(event, index: number) {
 
     let target = event.target || event.srcElement || event.currentTarget;
     let categoriaSelecionada = target.attributes.id.value;
+
+    this.botaoClicado = index;
 
     console.log(categoriaSelecionada);
 

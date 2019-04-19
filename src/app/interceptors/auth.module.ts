@@ -24,7 +24,6 @@ export class AuthInterceptor implements HttpInterceptor {
             return next.handle(cloned);
         }
         else {
-            console.log('Usuario nao autenticado');
             return next.handle(req);
         }
     }
