@@ -62,6 +62,10 @@
       "required": true,
       "default": 0
     },
+    "garantia": {
+      "type": "number",
+      "required": "true"
+    },
     "observacao": {
       "type": "string"
     },

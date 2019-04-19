@@ -79,11 +79,14 @@ export class ImpressaoService {
     doc.line(15, 55, 195, 55);
     doc.setFontSize(20);
     doc.text("Aquisição de Produtos", 105, 68, null, null, 'center');
-    doc.setFontSize(14)
-    doc.text("Data:", 15, 245);
+    doc.setFontSize(12)
+    doc.text("Data de entrega:", 15, 240);
     doc.setFontSize(12);
-    doc.text(this.dadosCliente.updatedAt.substr(0, 10), 30, 245);
-    doc.setFontSize(14);
+    doc.text(this.dadosCliente.updatedAt.substr(0, 10), 48, 240);
+    doc.text("Garantia:", 15, 245);
+    doc.text(this.dadosCliente.garantia.toString(), 33, 245);
+    doc.text("dias", 39, 245);
+    doc.setFontSize(12);
     doc.text("Valor Total:", 145, 245);
     doc.setFontSize(12);
     doc.text(this.dadosCliente.valorTotal.toString(), 173, 245);

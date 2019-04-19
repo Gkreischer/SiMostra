@@ -30,9 +30,10 @@ export class ConfiguracoesComponent implements OnInit {
   configEmail: ConfigEmail = null;
   idDadosEmail: string = null;
   msgConfigEmail: string = null;
-  funcionarios: Funcionario[] = null;
+  funcionarios: Funcionario[] = [];
   msgModalFuncionarios: string = null;
   destruido: ReplaySubject<boolean> = new ReplaySubject(1);
+  botaoClicado: number;
 
   ngOnInit() {
     this.montaFormConfig();
@@ -218,12 +219,38 @@ export class ConfiguracoesComponent implements OnInit {
 
     this.crud.criaRegistro('/funcionarios', funcionario).takeUntil(this.destruido).subscribe((data) => {
       console.log('Funcionario adicionado com sucesso');
+      this.leFuncionarios();
       this.funcionarios.push(funcionario);
       this.formAdicionaFuncionario.reset();
     }, error => {
       this.erro = error;
       console.log(this.erro);
     });
+  }
+
+  deletaFuncionario(event, index){
+    let target = event.target || event.srcElement || event.currentTarget;
+    let id = target.attributes.id.value;
+
+    console.log(`${id}`);
+
+    console.log(index);
+
+    let confirma = confirm('Deseja realmente deletar o funcionario?');
+
+    if(confirma){
+      this.crud.deletaRegistro('/funcionarios', id).takeUntil(this.destruido).subscribe((data) => {
+        alert('Usuario removido com sucesso');
+        this.funcionarios.splice(index, 1);
+      }, error => {
+        this.erro = error;
+        console.log(this.erro);
+      });
+    } else {
+      alert('Operacao cancelada pelo usuario.');
+      return false;
+    }
+
   }
 
   ngOnDestroy() {

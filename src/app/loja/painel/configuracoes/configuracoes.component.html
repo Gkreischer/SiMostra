@@ -234,17 +234,19 @@
       <div class="row">
         <div class="col-12">
           <p>Funcionários adicionados:</p>
-          <div *ngIf="!msgModalFuncionarios" class="table-responsive">
+          <div *ngIf="funcionarios" class="table-responsive">
             <table class="table table-hoverable table-sm table-bordered">
               <thead>
                 <tr>
+                  <th scope="col">Deletar</th>
                   <th scope="col">Nome</th>
                   <th scope="col">Sobrenome</th>
                   <th scope="col">Cargo</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let funcionario of funcionarios">
+                <tr *ngFor="let funcionario of funcionarios; let i = index">
+                  <td><button class="btn btn-danger btn-sm" id="{{funcionario.id}}" (click)="deletaFuncionario($event, i)">X</button></td>
                   <td>{{funcionario.nome}}</td>
                   <td>{{funcionario.sobrenome}}</td>
                   <td>{{funcionario.cargo}}</td>
@@ -252,26 +254,23 @@
               </tbody>
             </table>
           </div>
-          <div *ngIf="this.msgModalFuncionarios" class="alert alert-warning">
-            {{this.msgModalFuncionarios}}
-          </div>
         </div>
       </div>
       <form [formGroup]="formAdicionaFuncionario" (ngSubmit)="adicionaFuncionario()">
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <div class="form-group">
               <label for="nomeFuncionario">Nome</label>
               <input class="form-control" type="text" id="nomeFuncionario" formControlName="nome">
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <div class="form-group">
               <label for="sobrenomeFuncionario">Sobrenome</label>
               <input class="form-control" type="text" id="sobrenomeFuncionario" formControlName="sobrenome">
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <div class="form-group">
               <label for="cargoFuncionario">Cargo</label>
               <input class="form-control" type="text" id="cargoFuncionario" formControlName="cargo">
@@ -279,9 +278,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 col-md-4">
             <div class="form-group">
-              <button class="btn btn-primary" type="submit" [disabled]="!this.formAdicionaFuncionario.valid">Adicionar</button>
+              <button class="btn btn-primary mt-1" type="submit" [disabled]="!this.formAdicionaFuncionario.valid">Adicionar</button>
             </div>
           </div>
         </div>
