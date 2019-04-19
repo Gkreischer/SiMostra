@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from './../../services/crud.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DadosEmpresa } from '../../compartilhados/dadosEmpresa';
 import { ConfigEmail } from './../../compartilhados/configEmail';

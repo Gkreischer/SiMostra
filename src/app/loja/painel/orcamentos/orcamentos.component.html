@@ -133,7 +133,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-12">
                 <div class="form-group">
                   <label for="cidade">Cidade</label>
                   <input class="form-control" type="text" id="cidade" formControlName="cidade">
@@ -200,6 +200,19 @@
                 <div class="form-group">
                   <label for="numeroParcelas">Núm. de Parcelas</label>
                   <input class="form-control" type="number" id="numeroParcelas" formControlName="numeroParcelas">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="garantia">Garantia</label>
+                  <input class="form-control" type="number" id="garantia" formControlName="garantia" placeholder="Insira quantos dias de garantia" required>
+                  <div *ngIf="f.garantia.invalid && (f.garantia.dirty || f.garantia.touched)" class="alert alert-danger mt-1" >
+                    <div *ngIf="f.garantia.errors.required">
+                      <small class="text-muted">Insira a garantia do orçamento em dias</small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

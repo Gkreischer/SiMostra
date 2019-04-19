@@ -52,6 +52,11 @@
                 <div class="form-group">
                   <label for="preco">Preço de Venda</label>
                   <input class="form-control" type="number" id="preco" formControlName="preco" required>
+                  <div *ngIf="f.preco.invalid && (f.preco.dirty || f.preco.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="f.preco.errors.required">
+                      <small class="text-muted">Insira um preço</small>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-12 col-md-9">

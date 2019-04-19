@@ -11,6 +11,7 @@ export interface Orcamento {
     formaPagamento: string;
     precoTotal: string;
     situacao: string;
+    garantia: number;
     numeroParcelas: number;
     nomeFuncionario: string;
     parcelado: boolean;

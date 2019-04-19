@@ -14,7 +14,7 @@ export class CrudService {
 
   URL_DEFAULT:string = BaseUrl;
 
-  URL_DEFAULT_EMAIL = BaseUrl.substr(0,25);
+  URL_DEFAULT_EMAIL = BaseUrl.substr(0,21);
 
   leRegistro(rota: string):Observable<any>{
     return this.http.get(this.URL_DEFAULT + rota).pipe(

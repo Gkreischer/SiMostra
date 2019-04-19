@@ -5,7 +5,6 @@ import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { Categoria } from './../../compartilhados/categoria';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { ImpressaoService } from './../../services/impressao.service';
 import { Orcamento } from './../../compartilhados/orcamento';
 
 @Component({
@@ -15,7 +14,7 @@ import { Orcamento } from './../../compartilhados/orcamento';
 })
 export class MontagemdeorcamentoComponent implements OnInit {
 
-  constructor(private crud: CrudService, private fb: FormBuilder, public impressao: ImpressaoService) {
+  constructor(private crud: CrudService, private fb: FormBuilder) {
     window.document.body.style.backgroundColor = "#F45D01";
   }
 

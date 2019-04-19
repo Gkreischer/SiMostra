@@ -120,63 +120,6 @@ export class ImpressaoService {
     
     doc.save(`PDF`);
   }
-
-  criaTabelaDocPDF(informacoes) {
-    let infoTabela = informacoes;
-
-    let dadosDocumento = {
-
-      pageSize: 'A4',
-      content: [
-        { text: this.dadoEmpresa.nomeFantasia, style: 'nomedaEmpresa' },
-        { text: this.dadoEmpresa.telefone, style: 'informacoesEmpresa' },
-        { text: this.dadoEmpresa.endereco, style: 'informacoesEmpresa' },
-        { text: this.dadoEmpresa.cidade, style: 'informacoesEmpresa' },
-        { text: this.dadoEmpresa.site, style: 'informacoesEmpresa', margin: [0, 0, 0, 50] }
-
-      ],
-      styles: {
-        nomedaEmpresa: {
-          fontSize: 22,
-          bold: true
-        },
-        informacoesEmpresa: {
-          fontSize: 14,
-        }
-      }
-    };
-
-  }
-
-
-  table(data, columns) {
-    return {
-      headerRows: 1,
-      // Para cada coluna, um tamanho
-      widths: ['*', '*', '*', '*'],
-      body: this.buildTableBody(data, columns)
-    };
-  }
-
-  buildTableBody(data, columns) {
-    var body = [];
-
-    body.push(columns);
-
-    data.forEach(function (row) {
-      var dataRow = [];
-
-      columns.forEach(function (column) {
-        dataRow.push(row[column].toString());
-      })
-
-      body.push(dataRow);
-    });
-
-    return body;
-  }
-
-
   // Tratamento de erro
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

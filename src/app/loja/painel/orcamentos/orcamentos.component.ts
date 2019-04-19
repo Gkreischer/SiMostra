@@ -3,7 +3,7 @@ import { Orcamento } from './../../compartilhados/orcamento';
 import { CrudService } from './../../services/crud.service';
 import { ImpressaoService } from './../../services/impressao.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfigEmail } from './../../compartilhados/configEmail';
 import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
@@ -83,7 +83,7 @@ export class OrcamentosComponent implements OnInit {
       if (id === 'ENTREGUE') {
         this.abaSelecionada = 'ENTREGUE';
       } else {
-        if(id === 'A PAGAR') {
+        if (id === 'A PAGAR') {
           this.abaSelecionada = 'PESQUISAR';
           this.orcamentos = [];
         }
@@ -122,8 +122,13 @@ export class OrcamentosComponent implements OnInit {
       observacao: '',
       pecasOrcamento: this.infoClienteModal.pecasForm,
       valorTotal: parseFloat(this.infoClienteModal.precoTotal),
-      situacao: 'EM PRODUÇÃO'
+      situacao: 'EM PRODUÇÃO',
+      garantia: ['']
     });
+  }
+
+  get f() {
+    return this.formOrcamentoFinalizado.controls;
   }
 
   montaFormFinalizaOrcamentoEntrega() {
@@ -135,33 +140,64 @@ export class OrcamentosComponent implements OnInit {
 
   atualizaOrcamento() {
 
-    let idCliente = this.id;
+    let valorDoOrcamento = this.formOrcamentoFinalizado.controls['valorTotal'].value;
+    let valorPagoPeloCliente = this.formOrcamentoFinalizado.controls['valorPago'].value;
 
     this.orcamentoFinalizado = this.formOrcamentoFinalizado.value;
 
-    console.log(this.orcamentoFinalizado);
-    this.crud.criaRegistro('/orcamentos', this.orcamentoFinalizado).takeUntil(this.destruido).subscribe((data) => {
-      console.log('Orcamento atualizado com sucesso');
-      this.crud.deletaRegistro('/montagemOrcamentos', this.infoClienteModal.id).takeUntil(this.destruido).subscribe((data) => {
-        console.log('Orcamento deletado com sucesso de montagemOrcamentos');
-        this.modalService.dismissAll();
-        this.leOrcamentos();
-      }, error => {
-        console.log('Não foi possível deletar o orcamento de montagem orcamento', error);
-      });
-    }, error => {
-      this.erro = error;
-      console.log('Nao foi possivel atualizar orcamento');
-    });
+    if (valorDoOrcamento > valorPagoPeloCliente) {
+      let confirma = confirm('O valor pago pelo cliente é menor que o do orçamento. Deseja realmente continuar?');
+
+      if (confirma) {
+        this.crud.criaRegistro('/orcamentos', this.orcamentoFinalizado).takeUntil(this.destruido).subscribe((data) => {
+          console.log('Orcamento atualizado com sucesso');
+          this.crud.deletaRegistro('/montagemOrcamentos', this.infoClienteModal.id).takeUntil(this.destruido).subscribe((data) => {
+            console.log('Orcamento deletado com sucesso de montagemOrcamentos');
+            this.modalService.dismissAll();
+            this.leOrcamentos();
+
+            alert('Orçamento foi colocado para produção.');
+          }, error => {
+            console.log('Não foi possível deletar o orcamento de montagem orcamento', error);
+          });
+        }, error => {
+          this.erro = error;
+          console.log('Nao foi possivel atualizar orcamento');
+        });
+      } else {
+        alert('Operação cancelada pelo usuário');
+        return false;
+      }
+    } else {
+      if (valorDoOrcamento < valorPagoPeloCliente) {
+        alert('O valor do orçamento é menor que o valor pago pelo cliente. Por favor, corrija.');
+        return false;
+      } else {
+        this.crud.criaRegistro('/orcamentos', this.orcamentoFinalizado).takeUntil(this.destruido).subscribe((data) => {
+          console.log('Orcamento atualizado com sucesso');
+          this.crud.deletaRegistro('/montagemOrcamentos', this.infoClienteModal.id).takeUntil(this.destruido).subscribe((data) => {
+            console.log('Orcamento deletado com sucesso de montagemOrcamentos');
+            this.modalService.dismissAll();
+            alert('Orçamento foi colocado para produção.');
+            this.leOrcamentos();
+          }, error => {
+            console.log('Não foi possível deletar o orcamento de montagem orcamento', error);
+          });
+        }, error => {
+          this.erro = error;
+          console.log('Nao foi possivel atualizar orcamento');
+        });
+      }
+    }
 
   }
 
-  geraPDF(event){
+  geraPDF(event) {
     let target = event.target || event.srcElement || event.currentTarget;
     let id = target.attributes.id.value;
-    
+
     this.impressaoService.recebeInfoGeraPdf(id);
-    
+
   }
 
   entregaOrcamento() {
@@ -171,6 +207,7 @@ export class OrcamentosComponent implements OnInit {
       this.modalService.dismissAll();
       console.table(data);
       console.log('Orcamento finalizado e entregue');
+      alert('Orcamento foi finalizado. Agora é só entregar!');
       this.leOrcamentos();
     }, error => {
       this.erro = error;
@@ -257,7 +294,7 @@ export class OrcamentosComponent implements OnInit {
     });
   }
 
-  leOrcamentoEntregue(event, orcamentoEntregue){
+  leOrcamentoEntregue(event, orcamentoEntregue) {
     let target = event.target || event.srcElement || event.currentTarget;
     let id = target.attributes.id.value;
 
@@ -268,7 +305,7 @@ export class OrcamentosComponent implements OnInit {
       let parcelado = this.dadosOrcamentoEntregue.parcelado ? 'Sim' : 'Não';
       this.transformaBooleanParaStringEmCampoParcelado = parcelado;
       console.table(this.dadosOrcamentoEntregue);
-      this.modalService.open(orcamentoEntregue, { centered: true});
+      this.modalService.open(orcamentoEntregue, { centered: true });
     }, error => {
       this.erro = error;
       console.log(this.erro);
@@ -286,7 +323,6 @@ export class OrcamentosComponent implements OnInit {
       }
     }
   }
-
 
   ngOnDestroy() {
     this.destruido.next(true);

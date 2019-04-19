@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { dadosContato } from './../../compartilhados/dadosContato';
 import { CrudService } from './../../services/crud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfigEmail } from './../../compartilhados/configEmail';
 import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';

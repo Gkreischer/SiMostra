@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Orcamento } from './../../compartilhados/orcamento';
-import { Cliente } from './../../compartilhados/cliente';
 import { CrudService } from './../../services/crud.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from './../../services/crud.service';
 import { Peca } from './../../compartilhados/peca';
-import { Observable, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 @Component({
   selector: 'app-produtos',

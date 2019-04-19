@@ -176,14 +176,14 @@
   </div>
   <div class="row">
     <div class="col-12 col-md-12">
-      <div *ngIf="sucesso" class="row text-center justify-content-center">
+      <div *ngIf="sucesso" [hidden]="erro" class="row text-center justify-content-center">
         <div class="col-12">
           <div class="alert alert-success my-3" role="alert">
             {{sucesso}}
           </div>
         </div>
       </div>
-      <div *ngIf="erro" class="row text-center justify-content-center">
+      <div *ngIf="erro" [hidden]="sucesso" class="row text-center justify-content-center">
         <div class="col-12">
           <div class="alert alert-danger my-3" role="alert">
             Desculpe-nos, algo errado aconteceu...Entre em contato.

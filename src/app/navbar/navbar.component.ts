@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CrudService } from './../loja/services/crud.service';
 import { ReplaySubject } from 'rxjs';
 

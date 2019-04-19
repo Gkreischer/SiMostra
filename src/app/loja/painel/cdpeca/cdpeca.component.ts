@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PecaParaCadastro } from './../../compartilhados/cadastroPeca';
 import { CrudService } from './../../services/crud.service';
-import { Observable, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { Categoria } from './../../compartilhados/categoria';
 import { ActivatedRoute } from '@angular/router';
 @Component({
@@ -95,6 +95,7 @@ export class CdpecaComponent implements OnInit {
         this.msg = 'Peca criada com sucesso';
         this.sucesso = true;
         console.log('Peca criada com sucesso');
+        this.formCadastroPeca.reset();
       }, error => {
         this.erro = error;
         console.log('Erro ao criar a peça');
