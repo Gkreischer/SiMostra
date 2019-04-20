@@ -85,7 +85,7 @@ export class ImpressaoService {
     doc.text(this.dadosCliente.updatedAt.substr(0, 10), 48, 240);
     doc.text("Garantia:", 15, 245);
     doc.text(this.dadosCliente.garantia.toString(), 33, 245);
-    doc.text("dias", 39, 245);
+    doc.text("dias", 41, 245);
     doc.setFontSize(12);
     doc.text("Valor Total:", 145, 245);
     doc.setFontSize(12);
