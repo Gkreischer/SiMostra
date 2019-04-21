@@ -107,6 +107,7 @@ export class ConfiguracoesComponent implements OnInit {
         console.log('Foram atualizadas');
         this.msgConfigDadosLoja = `Dados da loja atualizados`;
         this.formConfiguracaoDadosLoja.patchValue(this.configuracaoDadosLoja);
+        localStorage.removeItem('nomeLoja');
         localStorage.setItem('nomeLoja', this.configuracaoDadosLoja.nomeFantasia);
       }, error => {
         console.log('Não foi possível atualizar as configurações da loja');

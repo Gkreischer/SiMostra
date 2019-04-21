@@ -42,6 +42,7 @@ import { ConfiguracoesComponent } from './loja/painel/configuracoes/configuracoe
 import { MontagemdeorcamentoComponent } from './loja/visitante/montagemdeorcamento/montagemdeorcamento.component';
 import { OrcamentosComponent } from './loja/painel/orcamentos/orcamentos.component';
 import { PesquisaOrcamentosComponent } from './loja/painel/pesquisa-orcamentos/pesquisa-orcamentos.component';
+import { LocalizacaoComponent } from './localizacao/localizacao.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem('id_token');
@@ -84,7 +85,8 @@ registerLocaleData(localePt);
     ConfiguracoesComponent,
     MontagemdeorcamentoComponent,
     OrcamentosComponent,
-    PesquisaOrcamentosComponent
+    PesquisaOrcamentosComponent,
+    LocalizacaoComponent
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },

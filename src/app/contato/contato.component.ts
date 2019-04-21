@@ -36,6 +36,7 @@ export class ContatoComponent implements OnInit {
     this.dadosDoContato = this.formContato.value;
     this.crud.criaRegistro('/contatos', this.dadosDoContato).subscribe((data) => {
       this.msg = 'Entraremos em contato o mais rápido possível. Obrigado!';
+      this.formContato.reset();
     }, error => {
       this.erro = error;
     });
