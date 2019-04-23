@@ -53,11 +53,12 @@ Para usar o sistema, você precisará de:
 <b>Instalação:</b>
 
 <ol>
-	<li>Construa sua aplicação com o Node.js</li>
+	<li>Construa a aplicação com o Node.js</li>
 	<li>Instale e configure seu servidor WEB para rodar aplicações SPA</li>
 	<li>Instale e configure o MongoDB</li>
 	<li>Execute o Loopback</li>
 	<li>Rode sua aplicação no servidor WEB.</li>
+  <li><b>Importante:</b> usuário e senha padrão para administrador é <b>"admin@email.com"</b> e <b>"password"</b> - <b>Por favor, altere no backend, em script.js</b>
 </ol>
 
 <b>Contato:</b>
