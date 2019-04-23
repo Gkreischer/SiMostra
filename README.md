@@ -30,9 +30,7 @@ como firewall, web, proxy, entre outros... (somente servidores Linux)
 
 <b>Sobre o SiMostra</b>
 
-O sistema surgiu de uma necessidade de acelerar os procedimentos internos de uma loja de informática, assim como facilitar a comunicação com seus clientes. Além disso,
-pelas ferramentas utilizadas, o sistema continuará sendo desenvolvido e aprimorado para integrar outras ferramentas, como controle de ordens de serviço, módulo de análise
-de orçamentos, melhorias no componente de emails e etc.
+O sistema surgiu de uma necessidade de acelerar os procedimentos internos de uma loja de informática, assim como facilitar a comunicação com seus clientes. Além disso, pelas ferramentas utilizadas, o sistema continuará sendo desenvolvido e aprimorado para integrar outras ferramentas, como controle de ordens de serviço, módulo de análise de orçamentos, melhorias no componente de emails e etc.
 
 <b>Sobre instalação</b>
 
@@ -40,8 +38,9 @@ O sistema é de uso livre.
 Além de desenvolver, também realizo a instalação e configuração do servidor para clientes que se interessarem. Neste caso, por favor,
 peço que solicite por email para <a href="mailto:gustavokreischer@gmail.com">gustavokreischer@gmail.com</a> e terei prazer em lhe atender e garantir que seu negócio ganhe mais visibilidade.
 
-Além disso, também aceito doações para continuar a desenvolver o sistema, implementando o que foi dito anteriormente e muito mais. O objetivo é tornar o sistema
-mais completo possível para atender diversas necessidades. (também moldo o sistema para a necessidade do negócio)
+Além disso, também aceito doações para continuar a desenvolver o sistema, implementando o que foi dito anteriormente e muito mais. O objetivo é tornar o sistema mais completo possível para atender diversas necessidades. (também moldo o sistema para a necessidade do negócio. Qualquer valor é valido e quem o fizer, muito obrigado!)
+
+Link para doação: https://pag.ae/7UQDkzncG
 
 Para usar o sistema, você precisará de:
 
