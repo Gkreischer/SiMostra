@@ -70,6 +70,8 @@ Para contribuir com o projeto, dar sugestões ou solicitar a instalação da aplica
 
 <a href="mailto:gustavokreischer@gmail.com>gustavokreischer@gmail.com</a>
 
+Espero que ajude muitas pessoas.
+
 
 
 

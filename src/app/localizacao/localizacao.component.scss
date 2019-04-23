@@ -9,3 +9,16 @@ section {
         padding-bottom: 10%;
     }
 }
+
+
+@media screen and (min-width: 992px){
+    section {
+      padding-top: 8em;
+      padding-bottom: 10em;
+  
+      h1 {
+        font-size: 80px;
+        padding-bottom: 1em;
+      }
+    }
+  }

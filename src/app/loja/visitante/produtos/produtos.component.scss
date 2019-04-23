@@ -1,50 +1,48 @@
 img.card-img-top {
-    height: 158px!important;
+  height: 158px !important;
 }
 
-#linhaCatalogo{
-    margin-bottom: 4%!important;
+#linhaCatalogo {
+  margin-bottom: 4% !important;
 }
 
 @media screen and (max-width: 991px) {
-    section {
-      margin-top: 1em !important;
-      margin-bottom: 3em !important;
-    }
-  
-    h3.text-light {
-      text-align: center;
-    }
-
-    ul.ngx-pagination{
-        padding-left: 0px!important;
-    }
-
-    #linhaCatalogo {
-        justify-content: center;
-    }
-
-    #linhaCatalogo .card-deck .card {
-        width: 12rem!important;
-    }
+  section {
+    margin-top: 1em !important;
+    margin-bottom: 3em !important;
   }
-  
-  @media screen and (min-width: 992px) {
-    section {
-      margin-top: 1em !important;
-    }
 
-    #linhaCatalogo {
-        padding-left: 7%;
-    }
-
-    #linhaCatalogo .card-deck .card {
-        width: 11rem!important;
-    }
-
-    .card-deck .card {
-        height: 25em;
-    }
+  h3.text-light {
+    text-align: center;
   }
-  
 
+  ul.ngx-pagination {
+    padding-left: 0px !important;
+  }
+
+  #linhaCatalogo {
+    justify-content: center;
+  }
+
+  #linhaCatalogo .card-deck .card {
+    width: 12rem !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  section {
+    margin-top: 1em !important;
+  }
+
+  #linhaCatalogo {
+    padding-left: 7%;
+  }
+
+  #linhaCatalogo .card-deck .card {
+    width: 11rem !important;
+  }
+
+  .card-deck .card {
+    height: 75%;
+  }
+}
