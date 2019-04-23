@@ -36,7 +36,8 @@ de orçamentos, melhorias no componente de emails e etc.
 
 <b>Sobre instalação</b>
 
-O sistema está para uso livre. Porém, além de desenvolver, também realizo a instalação e configuração do servidor para clientes que se interessarem. Neste caso, por favor,
+O sistema é de uso livre. 
+Além de desenvolver, também realizo a instalação e configuração do servidor para clientes que se interessarem. Neste caso, por favor,
 peço que solicite por email para <a href="mailto:gustavokreischer@gmail.com">gustavokreischer@gmail.com</a> e terei prazer em lhe atender e garantir que seu negócio ganhe mais visibilidade.
 
 Além disso, também aceito doações para continuar a desenvolver o sistema, implementando o que foi dito anteriormente e muito mais. O objetivo é tornar o sistema
