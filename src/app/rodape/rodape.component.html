@@ -1,11 +1,8 @@
-<footer class="bg-dark">
-  <div class="container">
-    <div *ngIf="localizacaoEmpresa" class="col-12 col-md-12">
-      <p class="text-center text-white">{{localizacaoEmpresa.nomeFantasia}} - CNPJ: {{localizacaoEmpresa.cnpj}}</p>
-      <p class="text-center text-white">{{localizacaoEmpresa.endereco}} - {{localizacaoEmpresa.cidade}}</p>
-      <p class="text-center text-white">{{localizacaoEmpresa.telefone}}</p>
-
-      <p class="m-0 text-center text-white">Copyright &copy; Sua Empresa 2018</p>
-    </div>
+<footer class="container-fluid bg-dark py-5">
+  <div *ngIf="localizacaoEmpresa" class="col-12 col-md-12">
+    <p class="text-center text-white">{{localizacaoEmpresa.nomeFantasia}} - CNPJ: {{localizacaoEmpresa.cnpj}}</p>
+    <p class="text-center text-white">{{localizacaoEmpresa.endereco}} - {{localizacaoEmpresa.cidade}}</p>
+    <p class="text-center text-white">Telefone: {{localizacaoEmpresa.telefone}}</p>
+    <p class="m-0 text-center text-white">Copyright &copy; Sua Empresa 2018</p>
   </div>
 </footer>

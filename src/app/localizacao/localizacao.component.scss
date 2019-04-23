@@ -1,0 +1,11 @@
+section {
+    background-color: #FF9B42;
+    color: white;
+}
+
+@media screen and (max-width: 767px){
+    section {
+        padding-top: 10%;
+        padding-bottom: 10%;
+    }
+}
