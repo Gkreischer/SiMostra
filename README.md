@@ -32,7 +32,7 @@ como firewall, web, proxy, entre outros... (somente servidores Linux)
 
 O sistema surgiu de uma necessidade de acelerar os procedimentos internos de uma loja de informática, assim como facilitar a comunicação com seus clientes. Além disso,
 pelas ferramentas utilizadas, o sistema continuará sendo desenvolvido e aprimorado para integrar outras ferramentas, como controle de ordens de serviço, módulo de análise
-de orçamentos, melhorias no componente de emails.
+de orçamentos, melhorias no componente de emails e etc.
 
 <b>Sobre instalação</b>
 
