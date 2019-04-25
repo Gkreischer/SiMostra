@@ -1,14 +1,14 @@
 <ng-progress></ng-progress>
-<div class="container-fluid">
+<div class="container-fluid py-md-3">
   <div class="row">
-    <div id="configDadosLoja" class="col-12 col-md-3">
+    <div id="configDadosLoja" class="col-12 col-md-6 col-lg-3">
       <div class="card">
         <h5 class="card-header">Informações da empresa</h5>
         <div class="card-body">
           <form [formGroup]="formConfiguracaoDadosLoja" (ngSubmit)="enviaFormConfigDadosLoja()">
             <div class="container-fluid mx-0">
               <div class="row justify-content-center">
-                <div class="col-md-10 col-12">
+                <div class="col-12 col-md-10">
                   <div class="form-group">
                     <label for="nome">Nome Fantasia</label>
                     <input type="text" class="form-control" id="nome" formControlName="nomeFantasia">
@@ -48,13 +48,13 @@
                 </div>
               </div>
               <div class="row justify-content-center">
-                <div class="col-md-5 col-12">
+                <div class="col-12 col-md-5 col-lg-5">
                   <div class="form-group">
                     <label for="bairro">Bairro</label>
                     <input type="text" class="form-control" id="bairro" formControlName="bairro">
                   </div>
                 </div>
-                <div class="col-md-5 col-12">
+                <div class="col-12 col-md-5 col-lg-5">
                   <div class="form-group">
                     <label for="cep">CEP</label>
                     <input type="text" class="form-control" id="cep" formControlName="cep">
@@ -92,20 +92,20 @@
         </div>
       </div>
     </div>
-    <div id="configEmail" class="col-12 col-md-3">
+    <div id="configEmail" class="col-12 col-md-6 col-lg-3">
       <div class="card">
         <h5 class="card-header">Configuração de Email</h5>
         <div class="card-body">
           <form [formGroup]="formConfigEmail" (ngSubmit)="enviaFormConfigDadosEmail()">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-12 col-md-9">
+                <div class="col-12 col-md-12 col-lg-6">
                   <div class="form-group">
                     <label for="servidorEmail">Servidor Email</label>
                     <input type="text" class="form-control" id="servidorEmail" formControlName="servidor">
                   </div>
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-12 col-lg-6">
                   <div class="form-group">
                     <label for="portaEmail">Porta</label>
                     <input type="text" class="form-control" id="portaEmail" formControlName="porta">
