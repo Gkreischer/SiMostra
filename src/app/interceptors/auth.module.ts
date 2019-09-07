@@ -21,6 +21,8 @@ export class AuthInterceptor implements HttpInterceptor {
                     idToken)
             });
 
+            cloned.headers.append("Access-Control-Allow-Origin", '*');
+
             return next.handle(cloned);
         }
         else {

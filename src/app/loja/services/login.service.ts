@@ -13,7 +13,7 @@ import { Login } from './../compartilhados/login';
 export class LoginService {
 
   URL_DEFAULT:string = `${BaseUrl}/Customers`;
-  token = null;
+  token = undefined;
 
   constructor(private http: HttpClient) { }
 
