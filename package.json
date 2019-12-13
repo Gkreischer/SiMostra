@@ -46,7 +46,7 @@
     "moment": "^2.23.0",
     "ngx-input-search": "^2.2.1",
     "ngx-pagination": "^3.2.1",
-    "npm": "^6.5.0",
+    "npm": "^6.13.4",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "zone.js": "~0.8.26"
