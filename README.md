@@ -25,7 +25,7 @@ integrado ao sistema. Tudo isso de uma maneira fácil e descomplicada, com inter
 
 <b>Sobre o desenvolvedor:</b>
 
-Meu nome é Gustavo Kreischer de Almeida, sou programador full-stack com foco em aplicações MEAN (MongoDB, Express, Angular). Também realizo configurações de servidores
+Meu nome é Gustavo Kreischer de Almeida, sou programador full-stack com foco em aplicações MEAN (MongoDB, Express, Angular) e React(Reactjs, React Native). Também realizo configurações de servidores
 como firewall, web, proxy, entre outros... (somente servidores Linux)
 
 <b>Sobre o SiMostra</b>
